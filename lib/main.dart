@@ -49,32 +49,67 @@ class MyHomePage extends StatelessWidget {
         body: Container(
           color: Colors.white,
           child: Center(
-            child: Container(
-              height: 300,
-              width: 300,
-              color: Colors.lightBlue.withOpacity(.10),
-              child: Stack(
-                children: [
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      StaffLine(),
-                      StaffLine(),
-                      StaffLine(),
-                      StaffLine(),
-                      StaffLine(),
-                    ],
-                  ),
-                  Center(
-                    child: Note(
-                      value: TrebleClefNotes.C2.index,
-                    ),
-                  ),
-                ],
-              ),
+            child: NoteStaff(
+              value: TrebleClefNotes.G3.index,
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class NoteStaff extends StatelessWidget {
+  final int value;
+  const NoteStaff({
+    required this.value,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      width: 300,
+      color: Colors.lightBlue.withOpacity(.10),
+      child: Stack(
+        children: [
+          Stack(
+            children: [
+              const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StaffLine(),
+                  StaffLine(),
+                  StaffLine(),
+                  StaffLine(),
+                  StaffLine(),
+                ],
+              ),
+              Stack(
+                children: [
+                  if (value > 24)
+                    Positioned(
+                        left: 150, bottom: 290, child: FloatingStaffWidget()),
+                  if (value > 22)
+                    Positioned(
+                        left: 150, bottom: 270, child: FloatingStaffWidget()),
+                  if (value > 20)
+                    Positioned(
+                        left: 150, bottom: 250, child: FloatingStaffWidget()),
+                  if (value > 18)
+                    Positioned(
+                        left: 150, bottom: 230, child: FloatingStaffWidget()),
+                ],
+              )
+            ],
+          ),
+          Center(
+            child: Note(
+              value: value,
+            ),
+          ),
+        ],
       ),
     );
   }

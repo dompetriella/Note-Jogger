@@ -55,7 +55,7 @@ class QuarterNotePainter extends CustomPainter {
 
     final center = Offset(size.width / 2, size.height / 2);
 
-    final rect = Rect.fromLTWH(0, 0, 30, 20);
+    const rect = Rect.fromLTWH(0, 0, 30, 20);
     canvas.drawOval(rect, circlePaint);
 
     final linePaint = Paint()

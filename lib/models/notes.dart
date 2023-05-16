@@ -1,3 +1,5 @@
+List<String> noteStrings = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
 enum TrebleClefNotes {
   C0,
   D0,

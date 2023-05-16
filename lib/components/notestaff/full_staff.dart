@@ -32,7 +32,7 @@ class NoteStaff extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Column(
+                  const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       StaffLine(),
@@ -45,42 +45,42 @@ class NoteStaff extends StatelessWidget {
                   Stack(
                     children: [
                       if (value > 24)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 290,
                             child: FloatingStaffWidget()),
                       if (value > 22)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 270,
                             child: FloatingStaffWidget()),
                       if (value > 20)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 250,
                             child: FloatingStaffWidget()),
                       if (value > 18)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 230,
                             child: FloatingStaffWidget()),
                       if (value < 8)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 110,
                             child: FloatingStaffWidget()),
                       if (value < 6)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 90,
                             child: FloatingStaffWidget()),
                       if (value < 4)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 70,
                             child: FloatingStaffWidget()),
                       if (value < 2)
-                        Positioned(
+                        const Positioned(
                             left: 150,
                             bottom: 50,
                             child: FloatingStaffWidget()),

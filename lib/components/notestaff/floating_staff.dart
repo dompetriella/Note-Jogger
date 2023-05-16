@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FloatingStaffWidget extends StatelessWidget {
+  const FloatingStaffWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(

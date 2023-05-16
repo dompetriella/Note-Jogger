@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Note Jogger',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
@@ -35,6 +35,7 @@ class MyHomePage extends StatelessWidget {
             backgroundColor:
                 Theme.of(context).colorScheme.primary.withOpacity(.1),
             foregroundColor: Theme.of(context).colorScheme.primary,
+            centerTitle: true,
             title: Text(
               "Note Jogger",
               style: TextStyle(

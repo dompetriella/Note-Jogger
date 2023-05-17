@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
 
 import '../components/notestaff/full_staff.dart';
+import '../game_logic/quiz_generate.dart';
 import '../models/notes.dart';
 
 class QuizPage extends StatelessWidget {
@@ -90,10 +89,13 @@ class QuizPage extends StatelessWidget {
 
 class QuizGenerate extends ConsumerWidget {
   final Enum note;
-  const QuizGenerate({
-    required this.note,
-    super.key,
-  });
+  final int numberOfButtons;
+  final String titleText;
+  const QuizGenerate(
+      {super.key,
+      required this.note,
+      this.numberOfButtons = 5,
+      this.titleText = "Name the Note"});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -104,7 +106,7 @@ class QuizGenerate extends ConsumerWidget {
           Column(
             children: [
               Text(
-                'Name the Note',
+                titleText,
                 style: TextStyle(
                     fontSize: 24, color: Theme.of(context).colorScheme.primary),
               ),
@@ -121,7 +123,7 @@ class QuizGenerate extends ConsumerWidget {
                   child: Wrap(
                       runAlignment: WrapAlignment.center,
                       alignment: WrapAlignment.center,
-                      children: createQuizOptionButtons(note, 5)),
+                      children: createQuizOptionButtons(note, numberOfButtons)),
                 ),
               ),
             ],
@@ -144,24 +146,6 @@ class QuizGenerate extends ConsumerWidget {
       ),
     );
   }
-}
-
-List<Widget> createQuizOptionButtons(Enum note, int numberOfButtons) {
-  List<String> notes = [];
-  notes.add(note.name[0]);
-  for (var i = 0; i < numberOfButtons - 1; i++) {
-    while (true) {
-      Random random = Random();
-      int randomIndex = random.nextInt(noteStrings.length);
-      String randomNote = noteStrings[randomIndex][0];
-      if (!notes.contains(randomNote)) {
-        notes.add(randomNote);
-        break;
-      }
-    }
-  }
-  notes.shuffle();
-  return notes.map((e) => QuizOptionButton(note: e)).toList();
 }
 
 class QuizOptionButton extends ConsumerWidget {

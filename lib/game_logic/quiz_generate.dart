@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/provider.dart';
 import 'dart:math';
-
+import '../components/quiz/quiz_generate.dart';
 import '../models/notes.dart';
-import '../pages/quiz_page.dart';
 
-createNewQuizGenerateList(int numberOfQuizGenerates, List<Enum> clefNotes,
+createNewQuizGenerateList(
+    WidgetRef ref, int numberOfQuizGenerate, List<Enum> clefNotes,
     {int numberOfButtons = 5}) {
+  ref.watch(quizStagingProvider.notifier).state = [];
   List<Enum> enumNotes = [];
-  for (var i = 0; i < numberOfQuizGenerates; i++) {
+  for (var i = 0; i < numberOfQuizGenerate; i++) {
     while (true) {
       Random random = Random();
       int randomIndex = random.nextInt(clefNotes.length);
@@ -19,7 +22,12 @@ createNewQuizGenerateList(int numberOfQuizGenerates, List<Enum> clefNotes,
     }
   }
 
-  for (var enumNote in enumNotes) {}
+  for (var enumNote in enumNotes) {
+    ref.watch(quizStagingProvider.notifier).state.add(QuizGenerate(
+        note: enumNote,
+        numberOfQuizGenerate: numberOfQuizGenerate,
+        numberOfButtons: numberOfButtons));
+  }
 }
 
 List<Widget> createQuizOptionButtons(Enum note, int numberOfButtons) {

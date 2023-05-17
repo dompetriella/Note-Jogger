@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class Note extends StatelessWidget {
   final int value;
@@ -12,9 +13,11 @@ class Note extends StatelessWidget {
       children: [
         // low c in treble cleft
         // low e in bass cleft
-        Positioned(
+        AnimatedPositioned(
+            duration: 200.ms,
+            curve: Curves.easeInOut,
             left: 135,
-            bottom: 30 + ((value + 1) * 10),
+            bottom: 29 + ((value + 1) * 10),
             child: QuarterNoteWidget(
               value: value,
             )),

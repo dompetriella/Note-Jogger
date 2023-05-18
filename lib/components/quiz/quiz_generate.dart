@@ -84,29 +84,6 @@ class NextQuestionButton extends ConsumerWidget {
   }
 }
 
-class QuizOptionButton extends ConsumerWidget {
-  final String note;
-  const QuizOptionButton({
-    required this.note,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary)),
-                fixedSize: const Size(80, 40)),
-            onPressed: () => print('hello'),
-            child: Text(note)));
-  }
-}
-
 class HeartContainer extends StatelessWidget {
   const HeartContainer({
     super.key,

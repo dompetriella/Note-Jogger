@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/provider.dart';
 import 'dart:math';
 import '../components/quiz/quiz_generate.dart';
+import '../components/quiz/quiz_option_button.dart';
 import '../models/notes.dart';
 
 createNewQuizGenerateList(
@@ -45,5 +46,10 @@ List<Widget> createQuizOptionButtons(Enum note, int numberOfButtons) {
     }
   }
   notes.shuffle();
-  return notes.map((e) => QuizOptionButton(note: e)).toList();
+  return notes
+      .map((e) => QuizOptionButton(
+            givenNote: e,
+            correctNote: note.name[0],
+          ))
+      .toList();
 }

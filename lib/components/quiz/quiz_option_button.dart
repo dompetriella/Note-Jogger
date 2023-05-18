@@ -13,6 +13,10 @@ class QuizOptionButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool correct = false;
+    if (givenNote == correctNote) {
+      correct = true;
+    }
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
@@ -25,7 +29,9 @@ class QuizOptionButton extends ConsumerWidget {
             onPressed: () {
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
-                  return AnswerStagingBottomSheet();
+                  return AnswerStagingBottomSheet(
+                    correct: correct,
+                  );
                 },
               );
             },
@@ -34,7 +40,9 @@ class QuizOptionButton extends ConsumerWidget {
 }
 
 class AnswerStagingBottomSheet extends StatelessWidget {
+  final bool correct;
   const AnswerStagingBottomSheet({
+    required this.correct,
     super.key,
   });
 
@@ -42,7 +50,23 @@ class AnswerStagingBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      child: Center(child: NextQuestionButton()),
+      child: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            correct ? 'Correct!' : 'Incorrect',
+            style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
+                color: correct
+                    ? Theme.of(context).colorScheme.tertiary
+                    : Theme.of(context).colorScheme.error),
+          ),
+          NextQuestionButton(),
+        ],
+      )),
     );
   }
 }

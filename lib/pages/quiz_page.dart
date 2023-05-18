@@ -22,48 +22,31 @@ class QuizPage extends ConsumerWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Text(
-                      "Treble Clef",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 2),
-                    ),
+                  child: Text(
+                    "Treble Clef",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2),
                   ),
                 ),
                 Align(
-                  alignment: Alignment.centerLeft,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .tertiary
-                              .withOpacity(.50),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: BorderSide(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary)),
-                          fixedSize: const Size(75, 30)),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const StartPage(),
-                          ),
-                        );
-                        ref
-                            .watch(quizStagingProvider.notifier)
-                            .resetQuizGenerate(ref);
-                      },
-                      child: Text(
-                        'Quit',
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Theme.of(context).colorScheme.onTertiary),
-                      )),
-                ),
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const StartPage(),
+                            ),
+                          );
+                          ref
+                              .watch(quizStagingProvider.notifier)
+                              .resetQuizGenerate(ref);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          size: 28,
+                        ))),
               ],
             )),
         body: Container(

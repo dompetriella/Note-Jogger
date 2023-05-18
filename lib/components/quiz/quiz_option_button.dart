@@ -22,9 +22,29 @@ class QuizOptionButton extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.secondary)),
                 fixedSize: const Size(80, 40)),
             onPressed: () {
-              if (givenNote == correctNote)
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Correct')));
+              Scaffold.of(context).showBottomSheet<void>(
+                (BuildContext context) {
+                  return Container(
+                    height: 200,
+                    color: Colors.amber,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          const Text('BottomSheet'),
+                          ElevatedButton(
+                            child: const Text('Close BottomSheet'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
             },
             child: Text(givenNote)));
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/components/quiz/quiz_generate.dart';
 
 class QuizOptionButton extends ConsumerWidget {
   final String correctNote;
@@ -24,28 +25,24 @@ class QuizOptionButton extends ConsumerWidget {
             onPressed: () {
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
-                  return Container(
-                    height: 200,
-                    color: Colors.amber,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          const Text('BottomSheet'),
-                          ElevatedButton(
-                            child: const Text('Close BottomSheet'),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return AnswerStagingBottomSheet();
                 },
               );
             },
             child: Text(givenNote)));
+  }
+}
+
+class AnswerStagingBottomSheet extends StatelessWidget {
+  const AnswerStagingBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      child: Center(child: NextQuestionButton()),
+    );
   }
 }

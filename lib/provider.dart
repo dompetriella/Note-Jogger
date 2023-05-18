@@ -6,7 +6,11 @@ final lightModeProvider = StateProvider<ThemeMode>((ref) {
   return ThemeMode.light;
 });
 
-final quizGenerateIndexProvider = StateProvider<int>((ref) {
+final quizGenerateIndexStagingProvider = StateProvider<int>((ref) {
+  return 0;
+});
+
+final quizGenerateTotalProvider = StateProvider<int>((ref) {
   return 0;
 });
 
@@ -18,13 +22,15 @@ final quizStagingProvider =
 class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
   QuizStagingNotifier() : super([]);
 
-  nextQuestionAction(WidgetRef ref, int numberOfQuizGenerate) {
-    if (ref.watch(quizGenerateIndexProvider) < numberOfQuizGenerate - 1) {
-      ref.watch(quizGenerateIndexProvider.notifier).state++;
+  nextQuestionAction(WidgetRef ref) {
+    if (ref.watch(quizGenerateIndexStagingProvider) <
+        ref.watch(quizGenerateTotalProvider) - 1) {
+      ref.watch(quizGenerateIndexStagingProvider.notifier).state++;
     }
   }
 
   resetQuizGenerate(WidgetRef ref) {
-    ref.watch(quizGenerateIndexProvider.notifier).state = 0;
+    ref.watch(quizGenerateIndexStagingProvider.notifier).state = 0;
+    ref.watch(quizGenerateTotalProvider.notifier).state = 0;
   }
 }

@@ -83,7 +83,7 @@ class QuizPage extends ConsumerWidget {
               ),
               ref
                   .watch(quizStagingProvider.notifier)
-                  .state[ref.watch(quizGenerateIndexProvider)]
+                  .state[ref.watch(quizGenerateIndexStagingProvider)]
             ],
           ),
         ),

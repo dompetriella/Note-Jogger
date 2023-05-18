@@ -48,9 +48,6 @@ class QuizGenerate extends ConsumerWidget {
               ),
             ],
           ),
-          NextQuestionButton(
-            numberOfQuizGenerate: numberOfQuizGenerate,
-          )
         ],
       ),
     );
@@ -58,9 +55,7 @@ class QuizGenerate extends ConsumerWidget {
 }
 
 class NextQuestionButton extends ConsumerWidget {
-  final int numberOfQuizGenerate;
   const NextQuestionButton({
-    required this.numberOfQuizGenerate,
     super.key,
   });
 
@@ -74,11 +69,12 @@ class NextQuestionButton extends ConsumerWidget {
             borderRadius: BorderRadius.circular(5),
           ),
         ),
-        onPressed: () => ref
-            .watch(quizStagingProvider.notifier)
-            .nextQuestionAction(ref, numberOfQuizGenerate),
+        onPressed: () {
+          Navigator.pop(context);
+          ref.watch(quizStagingProvider.notifier).nextQuestionAction(ref);
+        },
         child: Text(
-          'Next Question',
+          'Continue',
           style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
         ));
   }

@@ -10,6 +10,7 @@ createNewQuizGenerateList(
     WidgetRef ref, int numberOfQuizGenerate, List<Enum> clefNotes,
     {int numberOfButtons = 5}) {
   ref.watch(quizStagingProvider.notifier).state = [];
+  ref.watch(quizGenerateTotalProvider.notifier).state = numberOfQuizGenerate;
   List<Enum> enumNotes = [];
   for (var i = 0; i < numberOfQuizGenerate; i++) {
     while (true) {

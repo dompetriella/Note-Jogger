@@ -74,6 +74,8 @@ class NextQuestionButton extends ConsumerWidget {
           ref
               .watch(quizStagingProvider.notifier)
               .nextQuestionAction(ref, context);
+
+          ref.read(stopwatchProvider.notifier).startStopwatch(ref);
         },
         child: Text(
           'Continue',

@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/game_logic/quiz_generate.dart';
 import 'package:note_jogger/models/notes.dart';
 import 'package:note_jogger/pages/quiz_page.dart';
+import 'package:note_jogger/provider.dart';
 
 class SelectModePage extends StatelessWidget {
   const SelectModePage({super.key});
@@ -149,6 +150,7 @@ class ModeButton extends ConsumerWidget {
                 builder: (context) => const QuizPage(),
               ),
             );
+            ref.read(stopwatchProvider.notifier).startStopwatch(ref);
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

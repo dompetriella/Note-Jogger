@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/game_logic/scoring.dart';
 import 'package:note_jogger/pages/start_page.dart';
 
+import '../models/quiz_answer.dart';
 import '../provider.dart';
 
 class ResultsPage extends ConsumerWidget {
@@ -199,10 +200,10 @@ class ResultsPage extends ConsumerWidget {
 }
 
 class RankCard extends StatelessWidget {
-  final bool correct;
+  final QuizAnswer answer;
   final int index;
   const RankCard({
-    required this.correct,
+    required this.answer,
     required this.index,
     super.key,
   });
@@ -215,7 +216,7 @@ class RankCard extends StatelessWidget {
           height: 40,
           width: 40,
           decoration: BoxDecoration(
-              color: correct
+              color: answer.correct
                   ? Theme.of(context).colorScheme.tertiary.withOpacity(.10)
                   : Theme.of(context).colorScheme.error.withOpacity(.10),
               borderRadius: BorderRadius.circular(10),
@@ -232,7 +233,8 @@ class RankCard extends StatelessWidget {
             style: const TextStyle(fontSize: 10),
           ),
         ),
-        if (!correct)
+        if (answer.correct) Text(answer.secondsElapsed.toString()),
+        if (!answer.correct)
           Icon(
             Icons.close_sharp,
             size: 40,

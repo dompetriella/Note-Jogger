@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:note_jogger/models/single_quiz_result.dart';
+import 'package:note_jogger/models/quiz_answer.dart';
 import 'package:note_jogger/pages/results_page.dart';
 import 'components/quiz/quiz_generate.dart';
 
@@ -16,12 +16,32 @@ final quizGenerateTotalProvider = StateProvider<int>((ref) {
   return 0;
 });
 
-final timerProvider = StateProvider<int>((ref) {
-  return 0;
+final stopwatchTimeProvider = StateProvider<Stopwatch>((ref) {
+  return Stopwatch();
 });
-final timerRunningProvider = StateProvider<bool>((ref) {
-  return false;
+
+final stopwatchProvider =
+    StateNotifierProvider<StopwatchNotifier, List<double>>((ref) {
+  return StopwatchNotifier();
 });
+
+class StopwatchNotifier extends StateNotifier<List<double>> {
+  StopwatchNotifier() : super([]);
+
+  startStopwatch(WidgetRef ref) {
+    ref.read(stopwatchTimeProvider).start();
+  }
+
+  stopStopwatch(WidgetRef ref) {
+    ref.read(stopwatchTimeProvider).stop();
+    var timeElapsed =
+        ref.read(stopwatchTimeProvider).elapsed.inSeconds.toDouble();
+    ref.read(stopwatchTimeProvider).reset();
+    var newState = state;
+    newState.add(timeElapsed);
+    state = newState;
+  }
+}
 
 final quizAnswersProvider =
     StateNotifierProvider<QuizAnswersNotifier, List<QuizAnswer>>((ref) {
@@ -37,9 +57,13 @@ class QuizAnswersNotifier extends StateNotifier<List<QuizAnswer>> {
     state = newState;
   }
 
-  finalizeAnswers() {
-    var newState = state;
-    newState = List.from(newState.reversed);
+  finalizeAnswers(WidgetRef ref) {
+    List<QuizAnswer> newState = state;
+    List<double> times = List.from(ref.read(stopwatchProvider).reversed);
+    List<QuizAnswer> answers = List.from(newState.reversed);
+    for (var i = 0; i < answers.length; i++) {
+      answers[i].copyWith(timeElasped: times[i]);
+    }
     state = newState;
   }
 }
@@ -57,7 +81,7 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
         ref.watch(quizGenerateTotalProvider) - 1) {
       ref.watch(quizGenerateIndexStagingProvider.notifier).state++;
     } else {
-      ref.watch(quizAnswersProvider.notifier).finalizeAnswers();
+      ref.watch(quizAnswersProvider.notifier).finalizeAnswers(ref);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const ResultsPage(),
@@ -70,5 +94,6 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
     ref.watch(quizGenerateIndexStagingProvider.notifier).state = 0;
     ref.watch(quizGenerateTotalProvider.notifier).state = 0;
     ref.watch(quizAnswersProvider.notifier).state = [];
+    ref.read(stopwatchProvider.notifier).state = [];
   }
 }

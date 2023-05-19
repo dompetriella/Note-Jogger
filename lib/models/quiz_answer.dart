@@ -8,7 +8,7 @@ class QuizAnswer {
       required this.secondsElapsed,
       required this.rankPercentage});
 
-  QuizAnswer copyWith({bool? correct, String? timeElasped}) {
+  QuizAnswer copyWith({bool? correct, double? timeElasped}) {
     return QuizAnswer(
         correct: correct ?? false,
         secondsElapsed: secondsElapsed ?? 0,

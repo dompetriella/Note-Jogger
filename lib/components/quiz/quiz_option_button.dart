@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/components/quiz/quiz_generate.dart';
-import 'package:note_jogger/models/single_quiz_result.dart';
+import 'package:note_jogger/models/quiz_answer.dart';
 import 'package:note_jogger/provider.dart';
 
 class QuizOptionButton extends ConsumerWidget {
@@ -25,6 +25,7 @@ class QuizOptionButton extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.secondary)),
                 fixedSize: const Size(80, 40)),
             onPressed: () {
+              ref.read(stopwatchProvider.notifier).stopStopwatch(ref);
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
                   return AnswerStagingBottomSheet(

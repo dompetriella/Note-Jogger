@@ -14,8 +14,8 @@ int calculateCorrectAnswers(WidgetRef ref) {
 List<RankCard> displayRankCards(WidgetRef ref) {
   List<RankCard> rankCards = [];
   for (var i = 0; i < ref.watch(quizAnswersProvider).length; i++) {
-    rankCards.add(
-        RankCard(correct: ref.watch(quizAnswersProvider)[i].correct, index: i));
+    rankCards
+        .add(RankCard(answer: ref.watch(quizAnswersProvider)[i], index: i));
   }
   return rankCards;
 }

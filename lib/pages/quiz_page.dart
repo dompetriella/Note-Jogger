@@ -21,7 +21,7 @@ class QuizPage extends ConsumerWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Treble Clef",
+                    "Quiz",
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w900,

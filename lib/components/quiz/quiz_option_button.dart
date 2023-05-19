@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/components/quiz/quiz_generate.dart';
+import 'package:note_jogger/models/single_quiz_result.dart';
+import 'package:note_jogger/provider.dart';
 
 class QuizOptionButton extends ConsumerWidget {
   final String correctNote;
@@ -13,10 +15,6 @@ class QuizOptionButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool correct = false;
-    if (givenNote == correctNote) {
-      correct = true;
-    }
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
@@ -30,7 +28,8 @@ class QuizOptionButton extends ConsumerWidget {
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
                   return AnswerStagingBottomSheet(
-                    correct: correct,
+                    correctNote: correctNote,
+                    givenNote: givenNote,
                   );
                 },
               );
@@ -39,15 +38,26 @@ class QuizOptionButton extends ConsumerWidget {
   }
 }
 
-class AnswerStagingBottomSheet extends StatelessWidget {
-  final bool correct;
+class AnswerStagingBottomSheet extends ConsumerWidget {
+  final String correctNote;
+  final String givenNote;
   const AnswerStagingBottomSheet({
-    required this.correct,
+    required this.correctNote,
+    required this.givenNote,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool correct = false;
+    if (correctNote == givenNote) {
+      correct = true;
+    }
+    print('added: $correct');
+    ref.watch(quizAnswersProvider.notifier).addQuizAnswerToState(
+        QuizAnswer(correct: correct, timeElasped: 'TIME'));
+    print(ref.watch(quizGenerateTotalProvider));
+
     return Container(
       height: 200,
       child: Center(
@@ -55,15 +65,23 @@ class AnswerStagingBottomSheet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            correct ? 'Correct!' : 'Incorrect',
+            correct ? '$givenNote is Correct!' : '$givenNote is Incorrect',
             style: TextStyle(
-                fontSize: 32,
+                fontSize: 28,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 2,
                 color: correct
                     ? Theme.of(context).colorScheme.tertiary
                     : Theme.of(context).colorScheme.error),
           ),
+          if (!correct)
+            Text(
+              'The correct answer is $correctNote',
+              style: TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).colorScheme.secondary),
+            ),
           NextQuestionButton(),
         ],
       )),

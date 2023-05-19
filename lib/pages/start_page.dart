@@ -32,9 +32,12 @@ class StartPage extends ConsumerWidget {
                         padding: EdgeInsets.all(32.0),
                         child: Column(
                           children: [
-                            StartPageButton(
+                            GenericPageButton(
                               text: 'Start',
                               onPressed: () {
+                                ref
+                                    .watch(quizStagingProvider.notifier)
+                                    .resetQuizGenerate(ref);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) =>
@@ -43,7 +46,7 @@ class StartPage extends ConsumerWidget {
                                 );
                               },
                             ),
-                            StartPageButton(
+                            GenericPageButton(
                               text: 'Settings',
                               onPressed: () {
                                 print('Settings');
@@ -90,11 +93,17 @@ class StartPage extends ConsumerWidget {
   }
 }
 
-class StartPageButton extends StatelessWidget {
+class GenericPageButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  const StartPageButton(
-      {super.key, required this.text, required this.onPressed});
+  final double height;
+  final double width;
+  const GenericPageButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      this.height = 60,
+      this.width = 200});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +115,7 @@ class StartPageButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   side: BorderSide(
                       color: Theme.of(context).colorScheme.secondary)),
-              fixedSize: const Size(200, 60)),
+              fixedSize: Size(width, height)),
           onPressed: onPressed,
           child: Text(text)),
     );

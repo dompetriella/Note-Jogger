@@ -71,7 +71,9 @@ class NextQuestionButton extends ConsumerWidget {
         ),
         onPressed: () {
           Navigator.pop(context);
-          ref.watch(quizStagingProvider.notifier).nextQuestionAction(ref);
+          ref
+              .watch(quizStagingProvider.notifier)
+              .nextQuestionAction(ref, context);
         },
         child: Text(
           'Continue',

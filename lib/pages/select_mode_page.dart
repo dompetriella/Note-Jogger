@@ -41,8 +41,9 @@ class SelectModePage extends StatelessWidget {
                     subText: 'All notes in the bass clef',
                   ),
                 ]
-                        .animate(interval: 150.ms)
-                        .slideX(duration: 300.ms, curve: Curves.easeInOut))),
+                        .animate(interval: 150.ms, delay: 150.ms)
+                        .slideX(duration: 300.ms, curve: Curves.easeInOut)
+                        .fadeIn())),
           ],
         ),
       ),
@@ -67,7 +68,7 @@ class ModeButton extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.secondary)),
               fixedSize: const Size(300, 100)),
           onPressed: () {
-            createNewQuizGenerateList(ref, 10, TrebleClefNotes.values.toList());
+            createNewQuizGenerateList(ref, 5, TrebleClefNotes.values.toList());
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const QuizPage(),

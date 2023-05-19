@@ -57,9 +57,10 @@ class QuizPage extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    HeartContainer(),
-                    HeartContainer(),
-                    HeartContainer()
+                    // TODO: Create lives system
+                    // HeartContainer(),
+                    // HeartContainer(),
+                    // HeartContainer()
                   ],
                 ),
               ),

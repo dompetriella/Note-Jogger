@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/game_logic/scoring.dart';
 import 'package:note_jogger/pages/start_page.dart';
@@ -155,7 +156,7 @@ class ResultsPage extends ConsumerWidget {
                                         .colorScheme
                                         .onBackground),
                               ),
-                              Text('C',
+                              Text(calculateRank(ref),
                                   style: TextStyle(
                                       fontSize: 60,
                                       fontWeight: FontWeight.w900,
@@ -186,7 +187,7 @@ class ResultsPage extends ConsumerWidget {
                         ],
                       ),
                     ),
-                  ],
+                  ].animate(interval: 1.seconds).slideY().fadeIn(),
                 ),
               ),
             ),
@@ -230,7 +231,13 @@ class RankCard extends StatelessWidget {
             '${index + 1}',
             style: const TextStyle(fontSize: 10),
           ),
-        )
+        ),
+        if (!correct)
+          Icon(
+            Icons.close_sharp,
+            size: 40,
+            color: Theme.of(context).colorScheme.error,
+          )
       ],
     );
   }

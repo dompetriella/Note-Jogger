@@ -53,10 +53,8 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
     if (correctNote == givenNote) {
       correct = true;
     }
-    print('added: $correct');
     ref.watch(quizAnswersProvider.notifier).addQuizAnswerToState(
-        QuizAnswer(correct: correct, timeElasped: 'TIME'));
-    print(ref.watch(quizGenerateTotalProvider));
+        QuizAnswer(correct: correct, timeElasped: 'TIME', rankPercentage: 0.5));
 
     return SizedBox(
       height: 200,

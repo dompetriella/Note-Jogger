@@ -19,3 +19,19 @@ List<RankCard> displayRankCards(WidgetRef ref) {
   }
   return rankCards;
 }
+
+String calculateRank(WidgetRef ref) {
+  double percentageCorrect =
+      calculateCorrectAnswers(ref) / ref.watch(quizGenerateTotalProvider);
+  if (percentageCorrect < .70) {
+    return 'D';
+  }
+  if (percentageCorrect < .80) {
+    return 'C';
+  }
+  if (percentageCorrect < .90) {
+    return 'B';
+  } else {
+    return 'A';
+  }
+}

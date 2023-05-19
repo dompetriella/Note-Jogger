@@ -16,6 +16,13 @@ final quizGenerateTotalProvider = StateProvider<int>((ref) {
   return 0;
 });
 
+final timerProvider = StateProvider<int>((ref) {
+  return 0;
+});
+final timerRunningProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 final quizAnswersProvider =
     StateNotifierProvider<QuizAnswersNotifier, List<QuizAnswer>>((ref) {
   return QuizAnswersNotifier();

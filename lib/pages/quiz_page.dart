@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
-import '../components/quiz/quiz_generate.dart';
 
 class QuizPage extends ConsumerWidget {
   const QuizPage({super.key});

@@ -29,7 +29,7 @@ class StartPage extends ConsumerWidget {
                           letterSpacing: 2),
                     ),
                     Padding(
-                        padding: EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(32.0),
                         child: Column(
                           children: [
                             GenericPageButton(

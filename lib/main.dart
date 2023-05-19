@@ -4,7 +4,7 @@ import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {

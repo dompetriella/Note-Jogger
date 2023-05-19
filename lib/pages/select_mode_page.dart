@@ -29,14 +29,14 @@ class SelectModePage extends StatelessWidget {
         child: ListView(
           children: [
             Padding(
-                padding: EdgeInsets.all(32.0),
+                padding: const EdgeInsets.all(32.0),
                 child: Column(
                     children: [
-                  ModeButton(
+                  const ModeButton(
                     title: 'Treble Clef (Hard)',
                     subText: 'All notes in the treble clef',
                   ),
-                  ModeButton(
+                  const ModeButton(
                     title: 'Bass Cleff (Hard)',
                     subText: 'All notes in the bass clef',
                   ),

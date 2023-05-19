@@ -66,7 +66,7 @@ class ResultsPage extends ConsumerWidget {
                               BoxShadow(
                                   color: Colors.black.withOpacity(.25),
                                   blurRadius: 5,
-                                  offset: Offset(0, 5))
+                                  offset: const Offset(0, 5))
                             ],
                             border: Border.all(
                                 width: 2,
@@ -89,7 +89,7 @@ class ResultsPage extends ConsumerWidget {
                                 ),
                                 Text(
                                   '${calculateCorrectAnswers(ref)}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w600),
                                 )
@@ -108,7 +108,7 @@ class ResultsPage extends ConsumerWidget {
                                 ),
                                 Text(
                                     '${ref.read(quizGenerateTotalProvider) - calculateCorrectAnswers(ref)}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.w600))
                               ],
@@ -127,7 +127,7 @@ class ResultsPage extends ConsumerWidget {
                               BoxShadow(
                                   color: Colors.black.withOpacity(.25),
                                   blurRadius: 5,
-                                  offset: Offset(0, 5))
+                                  offset: const Offset(0, 5))
                             ],
                             border: Border.all(
                                 width: 2,
@@ -228,7 +228,7 @@ class RankCard extends StatelessWidget {
           padding: const EdgeInsets.all(2.0),
           child: Text(
             '${index + 1}',
-            style: TextStyle(fontSize: 10),
+            style: const TextStyle(fontSize: 10),
           ),
         )
       ],

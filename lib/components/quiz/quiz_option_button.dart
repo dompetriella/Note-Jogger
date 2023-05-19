@@ -58,7 +58,7 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
         QuizAnswer(correct: correct, timeElasped: 'TIME'));
     print(ref.watch(quizGenerateTotalProvider));
 
-    return Container(
+    return SizedBox(
       height: 200,
       child: Center(
           child: Column(
@@ -82,7 +82,7 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
                   fontWeight: FontWeight.w400,
                   color: Theme.of(context).colorScheme.secondary),
             ),
-          NextQuestionButton(),
+          const NextQuestionButton(),
         ],
       )),
     );

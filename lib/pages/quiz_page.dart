@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
 import '../components/quiz/quiz_generate.dart';
-import '../models/notes.dart';
 
 class QuizPage extends ConsumerWidget {
   const QuizPage({super.key});
@@ -43,7 +42,7 @@ class QuizPage extends ConsumerWidget {
                               .watch(quizStagingProvider.notifier)
                               .resetQuizGenerate(ref);
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           size: 28,
                         ))),
@@ -53,7 +52,7 @@ class QuizPage extends ConsumerWidget {
           color: Theme.of(context).colorScheme.onPrimary,
           child: Stack(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,

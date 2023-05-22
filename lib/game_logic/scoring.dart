@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/provider.dart';
 
+import '../models/ranks.dart';
 import '../pages/results_page.dart';
 
 int calculateCorrectAnswers(WidgetRef ref) {
@@ -20,18 +23,34 @@ List<RankCard> displayRankCards(WidgetRef ref) {
   return rankCards;
 }
 
-String calculateRank(WidgetRef ref) {
-  double percentageCorrect =
-      calculateCorrectAnswers(ref) / ref.watch(quizGenerateTotalProvider);
-  if (percentageCorrect < .70) {
-    return 'D';
+Enum calculateRank(double timeElapsed) {
+  if (timeElapsed <= sRankTimeLimit) return Rank.S;
+  if (timeElapsed <= aRankTimeLimit) return Rank.A;
+  if (timeElapsed <= bRankTimeLimit) return Rank.B;
+  if (timeElapsed <= cRankTimeLimit) return Rank.C;
+  return Rank.D;
+}
+
+Enum calculateOverallRank(WidgetRef ref) {
+  double totalTime = 0;
+  for (var answer in ref.read(quizAnswersProvider)) {
+    totalTime += answer.secondsElapsed;
   }
-  if (percentageCorrect < .80) {
-    return 'C';
+  return calculateRank(totalTime / ref.read(quizAnswersProvider).length);
+}
+
+Color getRankTextColor(String rank) {
+  if (rank == 'S') {
+    return Colors.amber;
   }
-  if (percentageCorrect < .90) {
-    return 'B';
-  } else {
-    return 'A';
+  if (rank == 'A') {
+    return Colors.orange;
   }
+  if (rank == 'B') {
+    return Colors.green;
+  }
+  if (rank == 'S') {
+    return Colors.lightBlue;
+  }
+  return Colors.blue;
 }

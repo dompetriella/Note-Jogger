@@ -25,12 +25,15 @@ class QuizOptionButton extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.secondary)),
                 fixedSize: const Size(80, 40)),
             onPressed: () {
-              ref.read(stopwatchProvider.notifier).stopStopwatch(ref);
+              var timeElapsed = ref
+                  .watch(stopwatchProvider.notifier)
+                  .stopStopwatchAndReturnTime(ref);
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
                   return AnswerStagingBottomSheet(
                     correctNote: correctNote,
                     givenNote: givenNote,
+                    timeElapsed: timeElapsed,
                   );
                 },
               );
@@ -40,10 +43,12 @@ class QuizOptionButton extends ConsumerWidget {
 }
 
 class AnswerStagingBottomSheet extends ConsumerWidget {
+  final double timeElapsed;
   final String correctNote;
   final String givenNote;
   const AnswerStagingBottomSheet({
     required this.correctNote,
+    required this.timeElapsed,
     required this.givenNote,
     super.key,
   });
@@ -55,7 +60,9 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
       correct = true;
     }
     ref.watch(quizAnswersProvider.notifier).addQuizAnswerToState(
-        QuizAnswer(correct: correct, secondsElapsed: 0, rankPercentage: 0.5));
+        QuizAnswer(
+            correct: correct, secondsElapsed: timeElapsed, rankPercentage: 0.5),
+        ref);
 
     return SizedBox(
       height: 200,

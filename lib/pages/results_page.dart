@@ -35,159 +35,10 @@ class ResultsPage extends ConsumerWidget {
                             letterSpacing: 2),
                       ),
                     ),
-                    // results list, need the room for now
-                    // will later wrap in an expander
-                    // Expanded(
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         color: Theme.of(context).colorScheme.background,
-                    //         borderRadius: BorderRadius.circular(10),
-                    //         border: Border.all(
-                    //             width: 2,
-                    //             color: Theme.of(context)
-                    //                 .colorScheme
-                    //                 .primary
-                    //                 .withOpacity(.50))),
-                    //     child: ListView.builder(
-                    //         itemCount: ref.watch(quizAnswersProvider).length,
-                    //         itemBuilder: ((context, index) => Padding(
-                    //               padding: const EdgeInsets.symmetric(
-                    //                   horizontal: 8.0, vertical: 4.0),
-                    //               child: SingleResultContainer(),
-                    //             ))),
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Container(
-                        height: 100,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.25),
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 5))
-                            ],
-                            border: Border.all(
-                                width: 2,
-                                color: Theme.of(context).colorScheme.primary),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'Correct',
-                                  style: TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w800,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary,
-                                      letterSpacing: 1),
-                                ),
-                                Text(
-                                  '${calculateCorrectAnswers(ref)}',
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w600),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'Wrong',
-                                  style: TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w800,
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                      letterSpacing: 1),
-                                ),
-                                Text(
-                                    '${ref.read(quizGenerateTotalProvider) - calculateCorrectAnswers(ref)}',
-                                    style: const TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600))
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.25),
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 5))
-                            ],
-                            border: Border.all(
-                                width: 2,
-                                color: Theme.of(context).colorScheme.primary),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Wrap(
-                                alignment: WrapAlignment.start,
-                                runAlignment: WrapAlignment.start,
-                                spacing: 10,
-                                runSpacing: 10,
-                                children: displayRankCards(ref)),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Rank',
-                                style: TextStyle(
-                                    fontSize: 60,
-                                    fontWeight: FontWeight.w700,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
-                              ),
-                              Text(calculateRank(ref),
-                                  style: TextStyle(
-                                      fontSize: 60,
-                                      fontWeight: FontWeight.w900,
-                                      color:
-                                          Theme.of(context).colorScheme.error))
-                            ],
-                          )
-                        ]),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GenericPageButton(
-                              text: 'Return Home',
-                              onPressed: () {
-                                ref
-                                    .watch(quizStagingProvider.notifier)
-                                    .resetQuizGenerate(ref);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const StartPage(),
-                                  ),
-                                );
-                              }),
-                        ],
-                      ),
-                    ),
+                    // DetailedResults(),
+                    CorrectCount(),
+                    RankResult(),
+                    NavigationButton(),
                   ].animate(interval: 1.seconds).slideY().fadeIn(),
                 ),
               ),
@@ -195,6 +46,183 @@ class ResultsPage extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NavigationButton extends ConsumerWidget {
+  const NavigationButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GenericPageButton(
+              text: 'Return Home',
+              onPressed: () {
+                ref.watch(quizStagingProvider.notifier).resetQuizGenerate(ref);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const StartPage(),
+                  ),
+                );
+              }),
+        ],
+      ),
+    );
+  }
+}
+
+class RankResult extends ConsumerWidget {
+  const RankResult({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    String rank = calculateOverallRank(ref).name;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 5,
+                  offset: const Offset(0, 5))
+            ],
+            border: Border.all(
+                width: 2, color: Theme.of(context).colorScheme.primary),
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+                alignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.start,
+                spacing: 10,
+                runSpacing: 10,
+                children: displayRankCards(ref)),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                'Rank',
+                style: TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).colorScheme.onBackground),
+              ),
+              Text(rank,
+                  style: TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.w900,
+                      color: getRankTextColor(rank)))
+            ],
+          )
+        ]),
+      ),
+    );
+  }
+}
+
+class CorrectCount extends ConsumerWidget {
+  const CorrectCount({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        height: 100,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 5,
+                  offset: const Offset(0, 5))
+            ],
+            border: Border.all(
+                width: 2, color: Theme.of(context).colorScheme.primary),
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Text(
+                  'Correct',
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w800,
+                      color: Theme.of(context).colorScheme.tertiary,
+                      letterSpacing: 1),
+                ),
+                Text(
+                  '${calculateCorrectAnswers(ref)}',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'Wrong',
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w800,
+                      color: Theme.of(context).colorScheme.error,
+                      letterSpacing: 1),
+                ),
+                Text(
+                    '${ref.read(quizGenerateTotalProvider) - calculateCorrectAnswers(ref)}',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w600))
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DetailedResults extends ConsumerWidget {
+  const DetailedResults({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      height: 300,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+              width: 2,
+              color: Theme.of(context).colorScheme.primary.withOpacity(.50))),
+      child: ListView.builder(
+          itemCount: ref.watch(quizAnswersProvider).length,
+          itemBuilder: ((context, index) => Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: SingleResultContainer(),
+              ))),
     );
   }
 }
@@ -210,6 +238,8 @@ class RankCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String rank = calculateRank(answer.secondsElapsed).name;
+
     return Stack(
       children: [
         Container(
@@ -225,6 +255,15 @@ class RankCard extends StatelessWidget {
                       .colorScheme
                       .secondary
                       .withOpacity(.50))),
+          child: Center(
+              child: Text(
+            answer.correct ? rank : '',
+            style: TextStyle(
+                height: 0,
+                fontSize: 32,
+                fontWeight: FontWeight.w800,
+                color: getRankTextColor(rank)),
+          )),
         ),
         Padding(
           padding: const EdgeInsets.all(2.0),
@@ -233,10 +272,10 @@ class RankCard extends StatelessWidget {
             style: const TextStyle(fontSize: 10),
           ),
         ),
-        if (answer.correct) Text(answer.secondsElapsed.toString()),
         if (!answer.correct)
           Icon(
             Icons.close_sharp,
+            weight: 50,
             size: 40,
             color: Theme.of(context).colorScheme.error,
           )

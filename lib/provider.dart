@@ -34,12 +34,19 @@ class StopwatchNotifier extends StateNotifier<List<double>> {
 
   stopStopwatch(WidgetRef ref) {
     ref.read(stopwatchTimeProvider).stop();
-    var timeElapsed =
-        ref.read(stopwatchTimeProvider).elapsed.inSeconds.toDouble();
+  }
+
+  resetStopwatch(WidgetRef ref) {
     ref.read(stopwatchTimeProvider).reset();
-    var newState = state;
-    newState.add(timeElapsed);
-    state = newState;
+    print('stopwatch stopped');
+  }
+
+  double stopStopwatchAndReturnTime(WidgetRef ref) {
+    stopStopwatch(ref);
+    var timeElapsed =
+        ref.read(stopwatchTimeProvider).elapsed.inMilliseconds.toDouble();
+    ref.read(stopwatchTimeProvider).reset();
+    return timeElapsed;
   }
 }
 
@@ -51,7 +58,7 @@ final quizAnswersProvider =
 class QuizAnswersNotifier extends StateNotifier<List<QuizAnswer>> {
   QuizAnswersNotifier() : super([]);
 
-  addQuizAnswerToState(QuizAnswer quizAnswer) {
+  addQuizAnswerToState(QuizAnswer quizAnswer, WidgetRef ref) {
     var newState = state;
     newState.add(quizAnswer);
     state = newState;
@@ -59,12 +66,8 @@ class QuizAnswersNotifier extends StateNotifier<List<QuizAnswer>> {
 
   finalizeAnswers(WidgetRef ref) {
     List<QuizAnswer> newState = state;
-    List<double> times = List.from(ref.read(stopwatchProvider).reversed);
     List<QuizAnswer> answers = List.from(newState.reversed);
-    for (var i = 0; i < answers.length; i++) {
-      answers[i].copyWith(timeElasped: times[i]);
-    }
-    state = newState;
+    state = answers;
   }
 }
 
@@ -95,5 +98,6 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
     ref.watch(quizGenerateTotalProvider.notifier).state = 0;
     ref.watch(quizAnswersProvider.notifier).state = [];
     ref.read(stopwatchProvider.notifier).state = [];
+    ref.read(stopwatchTimeProvider).reset();
   }
 }

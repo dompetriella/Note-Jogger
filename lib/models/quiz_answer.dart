@@ -1,17 +1,18 @@
 class QuizAnswer {
   final bool correct;
-  final double secondsElapsed;
+  final double timeElapsed;
   final double rankPercentage;
 
   QuizAnswer(
       {required this.correct,
-      required this.secondsElapsed,
+      required this.timeElapsed,
       required this.rankPercentage});
 
-  QuizAnswer copyWith({bool? correct, double? timeElasped}) {
+  QuizAnswer copyWith(
+      {bool? correct, double? timeElasped, double? rankPercentage}) {
     return QuizAnswer(
         correct: correct ?? false,
-        secondsElapsed: secondsElapsed ?? 0,
-        rankPercentage: 0.5);
+        timeElapsed: timeElapsed ?? 0,
+        rankPercentage: rankPercentage ?? 0);
   }
 }

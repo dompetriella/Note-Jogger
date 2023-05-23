@@ -33,10 +33,14 @@ Enum calculateRank(double timeElapsed) {
 
 Enum calculateOverallRank(WidgetRef ref) {
   double totalTime = 0;
+  int numberOfCorrectAnswers = 0;
   for (var answer in ref.read(quizAnswersProvider)) {
-    totalTime += answer.secondsElapsed;
+    if (answer.correct) {
+      totalTime += answer.timeElapsed;
+      numberOfCorrectAnswers++;
+    }
   }
-  return calculateRank(totalTime / ref.read(quizAnswersProvider).length);
+  return calculateRank(totalTime / numberOfCorrectAnswers);
 }
 
 Color getRankTextColor(String rank) {
@@ -44,7 +48,7 @@ Color getRankTextColor(String rank) {
     return Colors.amber;
   }
   if (rank == 'A') {
-    return Colors.orange;
+    return Colors.deepOrange;
   }
   if (rank == 'B') {
     return Colors.green;

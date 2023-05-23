@@ -141,6 +141,14 @@ class CorrectCount extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    int answerCount = ref.read(quizAnswersProvider).length;
+    int numberCorrect = ref
+        .read(quizAnswersProvider)
+        .where(
+          (element) => element.correct,
+        )
+        .length;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
@@ -171,7 +179,7 @@ class CorrectCount extends ConsumerWidget {
                       letterSpacing: 1),
                 ),
                 Text(
-                  '${calculateCorrectAnswers(ref)}',
+                  '$numberCorrect',
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.w600),
                 )
@@ -180,15 +188,14 @@ class CorrectCount extends ConsumerWidget {
             Column(
               children: [
                 Text(
-                  'Wrong',
+                  'Missed',
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w800,
                       color: Theme.of(context).colorScheme.error,
                       letterSpacing: 1),
                 ),
-                Text(
-                    '${ref.read(quizGenerateTotalProvider) - calculateCorrectAnswers(ref)}',
+                Text('${answerCount - numberCorrect}',
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.w600))
               ],
@@ -238,7 +245,7 @@ class RankCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String rank = calculateRank(answer.secondsElapsed).name;
+    String rank = calculateRank(answer.timeElapsed).name;
 
     return Stack(
       children: [

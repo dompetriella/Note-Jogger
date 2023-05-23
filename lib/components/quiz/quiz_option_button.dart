@@ -61,7 +61,7 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
     }
     ref.watch(quizAnswersProvider.notifier).addQuizAnswerToState(
         QuizAnswer(
-            correct: correct, secondsElapsed: timeElapsed, rankPercentage: 0.5),
+            correct: correct, timeElapsed: timeElapsed, rankPercentage: 0.5),
         ref);
 
     return SizedBox(

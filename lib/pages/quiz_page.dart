@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
+
+import '../components/quiz/heart_container.dart';
+import '../globals.dart';
 
 class QuizPage extends ConsumerWidget {
   const QuizPage({super.key});
@@ -17,11 +21,12 @@ class QuizPage extends ConsumerWidget {
             centerTitle: true,
             automaticallyImplyLeading: false,
             title: Stack(
+              alignment: Alignment.center,
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Quiz",
+                    '',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w900,
@@ -32,42 +37,34 @@ class QuizPage extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const StartPage(),
-                            ),
-                          );
+                          ref
+                              .read(quizStagingProvider.notifier)
+                              .resetQuizGenerate(ref);
+                          context.go('/');
                           ref
                               .watch(quizStagingProvider.notifier)
                               .resetQuizGenerate(ref);
                         },
                         child: const Icon(
                           Icons.close,
-                          size: 28,
+                          size: 42,
                         ))),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    for (int i = 0; i < lives; i++)
+                      HeartContainer(
+                        isFilled: true,
+                      )
+                  ],
+                ),
               ],
             )),
         body: Container(
           color: Theme.of(context).colorScheme.onPrimary,
-          child: Stack(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // TODO: Create lives system
-                    // HeartContainer(),
-                    // HeartContainer(),
-                    // HeartContainer()
-                  ],
-                ),
-              ),
-              ref
-                  .watch(quizStagingProvider.notifier)
-                  .state[ref.watch(quizGenerateIndexStagingProvider)]
-            ],
-          ),
+          child: ref
+              .watch(quizStagingProvider.notifier)
+              .state[ref.watch(quizGenerateIndexStagingProvider)],
         ),
       ),
     );

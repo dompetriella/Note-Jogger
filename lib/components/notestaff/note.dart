@@ -35,7 +35,7 @@ class QuarterNoteWidget extends StatelessWidget {
       painter: QuarterNotePainter(
           flagIsUp: (value < 13),
           noteColor: Theme.of(context).colorScheme.secondary),
-    );
+    ).animate().fadeIn();
   }
 }
 

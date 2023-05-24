@@ -9,8 +9,6 @@ import '../models/notes.dart';
 createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes,
     {int numberOfButtons = 5}) {
   ref.watch(quizStagingProvider.notifier).state = [];
-  ref.watch(quizGenerateTotalProvider.notifier).state =
-      clefNotes.length; // Number of available notes
 
   clefNotes.shuffle();
   for (var enumNote in clefNotes) {

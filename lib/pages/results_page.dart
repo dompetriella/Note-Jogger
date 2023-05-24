@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/components/quiz/quiz_generate.dart';
 import 'package:note_jogger/game_logic/scoring.dart';
 import 'package:note_jogger/pages/start_page.dart';
 
+import '../components/quiz/heart_container.dart';
 import '../models/quiz_answer.dart';
 import '../provider.dart';
 
@@ -36,9 +38,9 @@ class ResultsPage extends ConsumerWidget {
                       ),
                     ),
                     // DetailedResults(),
-                    CorrectCount(),
-                    RankResult(),
-                    NavigationButton(),
+                    const CorrectCount(),
+                    const RankResult(),
+                    const NavigationButton(),
                   ].animate(interval: 1.seconds).slideY().fadeIn(),
                 ),
               ),
@@ -103,6 +105,12 @@ class RankResult extends ConsumerWidget {
             borderRadius: BorderRadius.circular(10)),
         child: Column(children: [
           Padding(
+            padding: const EdgeInsets.only(left: 28.0, top: 8.0),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Individual Ranks')),
+          ),
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
                 alignment: WrapAlignment.start,
@@ -110,6 +118,10 @@ class RankResult extends ConsumerWidget {
                 spacing: 10,
                 runSpacing: 10,
                 children: displayRankCards(ref)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 28.0, top: 8.0),
+            child: Align(alignment: Alignment.centerLeft, child: Text('Lives')),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -214,23 +226,12 @@ class DetailedResults extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      height: 300,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-              width: 2,
-              color: Theme.of(context).colorScheme.primary.withOpacity(.50))),
-      child: ListView.builder(
-          itemCount: ref.watch(quizAnswersProvider).length,
-          itemBuilder: ((context, index) => Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                child: SingleResultContainer(),
-              ))),
-    );
+    return ListView.builder(
+        itemCount: ref.watch(quizAnswersProvider).length,
+        itemBuilder: ((context, index) => const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: SingleResultContainer(),
+            )));
   }
 }
 

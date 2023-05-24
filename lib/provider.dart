@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
 import 'package:note_jogger/pages/results_page.dart';
 import 'components/quiz/quiz_generate.dart';
@@ -12,40 +13,30 @@ final quizGenerateIndexStagingProvider = StateProvider<int>((ref) {
   return 0;
 });
 
-final quizGenerateTotalProvider = StateProvider<int>((ref) {
-  return 0;
-});
-
-final stopwatchTimeProvider = StateProvider<Stopwatch>((ref) {
-  return Stopwatch();
-});
-
 final stopwatchProvider =
-    StateNotifierProvider<StopwatchNotifier, List<double>>((ref) {
+    StateNotifierProvider<StopwatchNotifier, Stopwatch>((ref) {
   return StopwatchNotifier();
 });
 
-class StopwatchNotifier extends StateNotifier<List<double>> {
-  StopwatchNotifier() : super([]);
+class StopwatchNotifier extends StateNotifier<Stopwatch> {
+  StopwatchNotifier() : super(Stopwatch());
 
   startStopwatch(WidgetRef ref) {
-    ref.read(stopwatchTimeProvider).start();
+    state.start();
   }
 
   stopStopwatch(WidgetRef ref) {
-    ref.read(stopwatchTimeProvider).stop();
+    state.stop();
   }
 
   resetStopwatch(WidgetRef ref) {
-    ref.read(stopwatchTimeProvider).reset();
-    print('stopwatch stopped');
+    state.reset();
   }
 
   double stopStopwatchAndReturnTime(WidgetRef ref) {
     stopStopwatch(ref);
-    var timeElapsed =
-        ref.read(stopwatchTimeProvider).elapsed.inMilliseconds.toDouble();
-    ref.read(stopwatchTimeProvider).reset();
+    var timeElapsed = state.elapsed.inMilliseconds.toDouble();
+    state.reset();
     return timeElapsed;
   }
 }
@@ -81,23 +72,28 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
 
   nextQuestionAction(WidgetRef ref, BuildContext context) {
     if (ref.watch(quizGenerateIndexStagingProvider) <
-        ref.watch(quizGenerateTotalProvider) - 1) {
+        ref.watch(quizStagingProvider).length - 1) {
       ref.watch(quizGenerateIndexStagingProvider.notifier).state++;
     } else {
+      ref.read(stopwatchProvider.notifier).stopStopwatchAndReturnTime(ref);
       ref.watch(quizAnswersProvider.notifier).finalizeAnswers(ref);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const ResultsPage(),
-        ),
-      );
+      context.go('/results_page');
     }
   }
 
   resetQuizGenerate(WidgetRef ref) {
     ref.watch(quizGenerateIndexStagingProvider.notifier).state = 0;
-    ref.watch(quizGenerateTotalProvider.notifier).state = 0;
     ref.watch(quizAnswersProvider.notifier).state = [];
-    ref.read(stopwatchProvider.notifier).state = [];
-    ref.read(stopwatchTimeProvider).reset();
+    ref.read(stopwatchProvider).reset();
   }
+}
+
+final livesProvider = StateNotifierProvider<LivesNotifier, List<bool>>((ref) {
+  return LivesNotifier();
+});
+
+class LivesNotifier extends StateNotifier<List<bool>> {
+  LivesNotifier() : super([]);
+
+  loseLife(BuildContext context) {}
 }

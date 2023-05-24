@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
+import 'package:note_jogger/routes.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -13,8 +14,9 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Note Jogger',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
@@ -25,7 +27,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       themeMode: ref.watch(lightModeProvider),
-      home: const StartPage(),
+      routerConfig: router,
     );
   }
 }

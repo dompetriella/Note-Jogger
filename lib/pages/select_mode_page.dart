@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/game_logic/quiz_generate.dart';
 import 'package:note_jogger/models/notes.dart';
@@ -30,8 +30,8 @@ class SelectModePage extends StatelessWidget {
       body: Container(
         color: Theme.of(context).colorScheme.onPrimary,
         child: ListView(
-          children: [
-            Padding(padding: const EdgeInsets.all(32.0), child: QuizModes()),
+          children: const [
+            Padding(padding: EdgeInsets.all(32.0), child: QuizModes()),
           ],
         ),
       ),
@@ -145,11 +145,7 @@ class ModeButton extends ConsumerWidget {
               fixedSize: const Size(300, 100)),
           onPressed: () {
             createNewQuizGenerateList(ref, modeNotes);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const QuizPage(),
-              ),
-            );
+            context.go('/quiz_page');
             ref.read(stopwatchProvider.notifier).startStopwatch(ref);
           },
           child: Column(
@@ -216,7 +212,7 @@ class ExpandableCatergory extends HookConsumerWidget {
                       BoxShadow(
                           color: Colors.black.withOpacity(.25),
                           blurRadius: 5,
-                          offset: Offset(0, 5))
+                          offset: const Offset(0, 5))
                     ],
                     border: Border.all(
                         color: Theme.of(context)

@@ -46,9 +46,7 @@ Enum calculateOverallRank(WidgetRef ref) {
     }
   }
   double timeRanking = totalTime / numberOfCorrectAnswers;
-  print(timeRanking);
   double finalRanking = timeRanking - (livesRemaining * GLOBAL_heartBonus);
-  print(finalRanking);
 
   return calculateRank(finalRanking);
 }

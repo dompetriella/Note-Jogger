@@ -90,6 +90,7 @@ class QuizModes extends StatelessWidget {
             ModeButton(
               title: 'Bass Clef (Easy)',
               subText: 'Only notes on lines of the staff',
+              imagePath: 'assets/bass_clef.svg',
               modeNotes: trimClefNotes(BassClefNotes.values.toList(),
                   BassClefNotes.G1.index, BassClefNotes.A2.index,
                   lineNotesOnly: true),
@@ -97,6 +98,7 @@ class QuizModes extends StatelessWidget {
             ModeButton(
               title: 'Bass Clef (Medium)',
               subText: 'Only notes on the staff',
+              imagePath: 'assets/bass_clef.svg',
               modeNotes: trimClefNotes(
                 BassClefNotes.values.toList(),
                 BassClefNotes.G1.index,
@@ -106,6 +108,7 @@ class QuizModes extends StatelessWidget {
             ModeButton(
               title: 'Bass Clef (Hard)',
               subText: 'The staff notes and above',
+              imagePath: 'assets/bass_clef.svg',
               modeNotes: trimClefNotes(
                 BassClefNotes.values.toList(),
                 BassClefNotes.G1.index,
@@ -115,6 +118,7 @@ class QuizModes extends StatelessWidget {
             ModeButton(
               title: 'Bass Clef (Expert)',
               subText: 'All notes',
+              imagePath: 'assets/bass_clef.svg',
               modeNotes: BassClefNotes.values.toList(),
             ),
           ]))
@@ -125,11 +129,13 @@ class QuizModes extends StatelessWidget {
 class ModeButton extends ConsumerWidget {
   final String title;
   final String subText;
+  final String imagePath;
   final List<Enum> modeNotes;
   const ModeButton(
       {super.key,
       required this.title,
       required this.modeNotes,
+      this.imagePath = 'assets/treble_clef.svg',
       this.subText = ''});
 
   @override
@@ -145,6 +151,8 @@ class ModeButton extends ConsumerWidget {
               fixedSize: const Size(300, 100)),
           onPressed: () {
             createNewQuizGenerateList(ref, modeNotes);
+            //TODO: change this to change per note, this is a bad solution
+            ref.read(imagePathProvider.notifier).state = imagePath;
             context.go('/quiz_page');
             ref.read(stopwatchProvider.notifier).startStopwatch(ref);
           },

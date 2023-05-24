@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
-import 'package:note_jogger/pages/results_page.dart';
 import 'components/quiz/quiz_generate.dart';
 
 final lightModeProvider = StateProvider<ThemeMode>((ref) {
   return ThemeMode.light;
+});
+
+final imagePathProvider = StateProvider<String>((ref) {
+  return 'assets/treble_clef.svg';
 });
 
 final quizGenerateIndexStagingProvider = StateProvider<int>((ref) {

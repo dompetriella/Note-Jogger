@@ -8,12 +8,10 @@ import '../notestaff/full_staff.dart';
 class QuizGenerate extends ConsumerWidget {
   final Enum note;
   final int numberOfButtons;
-  final int numberOfQuizGenerate;
   final String titleText;
   const QuizGenerate(
       {super.key,
       required this.note,
-      required this.numberOfQuizGenerate,
       this.numberOfButtons = 5,
       this.titleText = "Name the Note"});
 
@@ -33,7 +31,7 @@ class QuizGenerate extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 12),
                 child: NoteStaff(
-                  value: note.index,
+                  value: note,
                 ),
               ),
               Padding(

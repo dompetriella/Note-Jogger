@@ -26,10 +26,10 @@ class HeartContainer extends StatelessWidget {
                   border: Border.symmetric(
                     horizontal: BorderSide(
                         width: 3 * size,
-                        color: Theme.of(context).colorScheme.secondary),
+                        color: Theme.of(context).colorScheme.tertiary),
                     vertical: BorderSide(
                         width: 9 * size,
-                        color: Theme.of(context).colorScheme.secondary),
+                        color: Theme.of(context).colorScheme.tertiary),
                   )),
             ),
             AnimatedSize(
@@ -43,7 +43,7 @@ class HeartContainer extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(.95),
+                      Theme.of(context).colorScheme.tertiary.withOpacity(.95),
                 ),
               ),
             ),

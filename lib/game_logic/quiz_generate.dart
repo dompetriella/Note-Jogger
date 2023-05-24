@@ -12,10 +12,10 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes,
 
   clefNotes.shuffle();
   for (var enumNote in clefNotes) {
-    ref.watch(quizStagingProvider.notifier).state.add(QuizGenerate(
-        note: enumNote,
-        numberOfQuizGenerate: clefNotes.length,
-        numberOfButtons: numberOfButtons));
+    ref
+        .watch(quizStagingProvider.notifier)
+        .state
+        .add(QuizGenerate(note: enumNote, numberOfButtons: numberOfButtons));
   }
   ref.read(livesProvider.notifier).resetLives();
 }

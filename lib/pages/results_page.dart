@@ -150,10 +150,14 @@ class RankResult extends ConsumerWidget {
                     color: Theme.of(context).colorScheme.onBackground),
               ),
               Text(rank,
-                  style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.w900,
-                      color: getRankTextColor(rank)))
+                      style: TextStyle(
+                          fontSize: 84,
+                          fontWeight: FontWeight.w900,
+                          color: getRankTextColor(rank)))
+                  .animate(delay: 3000.ms)
+                  .rotate(begin: .25)
+                  .fadeIn()
+                  .scale(begin: Offset(3, 3))
             ],
           )
         ]),

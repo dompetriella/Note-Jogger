@@ -24,23 +24,33 @@ List<RankCard> displayRankCards(WidgetRef ref) {
 }
 
 Enum calculateRank(double timeElapsed) {
-  if (timeElapsed <= sRankTimeLimit) return Rank.S;
-  if (timeElapsed <= aRankTimeLimit) return Rank.A;
-  if (timeElapsed <= bRankTimeLimit) return Rank.B;
-  if (timeElapsed <= cRankTimeLimit) return Rank.C;
+  if (timeElapsed <= GLOBAL_sRankTimeLimit) return Rank.S;
+  if (timeElapsed <= GLOBAL_aRankTimeLimit) return Rank.A;
+  if (timeElapsed <= GLOBAL_bRankTimeLimit) return Rank.B;
+  if (timeElapsed <= GLOBAL_cRankTimeLimit) return Rank.C;
   return Rank.D;
 }
 
 Enum calculateOverallRank(WidgetRef ref) {
+  if (ref.read(livesProvider).every((element) => element == false)) {
+    return Rank.D;
+  }
   double totalTime = 0;
   int numberOfCorrectAnswers = 0;
+  int livesRemaining =
+      ref.read(livesProvider).where((element) => element == true).length;
   for (var answer in ref.read(quizAnswersProvider)) {
     if (answer.correct) {
       totalTime += answer.timeElapsed;
       numberOfCorrectAnswers++;
     }
   }
-  return calculateRank(totalTime / numberOfCorrectAnswers);
+  double timeRanking = totalTime / numberOfCorrectAnswers;
+  print(timeRanking);
+  double finalRanking = timeRanking - (livesRemaining * GLOBAL_heartBonus);
+  print(finalRanking);
+
+  return calculateRank(finalRanking);
 }
 
 Color getRankTextColor(String rank) {

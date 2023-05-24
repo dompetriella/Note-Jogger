@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
 import 'package:note_jogger/pages/results_page.dart';
 import 'components/quiz/quiz_generate.dart';
@@ -85,6 +87,7 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
     ref.watch(quizGenerateIndexStagingProvider.notifier).state = 0;
     ref.watch(quizAnswersProvider.notifier).state = [];
     ref.read(stopwatchProvider).reset();
+    ref.read(livesProvider.notifier).resetLives();
   }
 }
 
@@ -95,5 +98,26 @@ final livesProvider = StateNotifierProvider<LivesNotifier, List<bool>>((ref) {
 class LivesNotifier extends StateNotifier<List<bool>> {
   LivesNotifier() : super([]);
 
-  loseLife(BuildContext context) {}
+  resetLives() {
+    List<bool> newState = [];
+    for (var i = 0; i < GLOBAL_lives; i++) {
+      newState.add(true);
+    }
+    state = newState;
+  }
+
+  loseLife(BuildContext context) {
+    if (state.every((element) => element == false)) {
+    } else {
+      var newState = state;
+      if (state.every((element) => element == true)) {
+        newState[0] = false;
+        state = newState;
+      } else {
+        int lastHeartIndex = newState.lastIndexOf(false);
+        newState[lastHeartIndex + 1] = false;
+        state = newState;
+      }
+    }
+  }
 }

@@ -83,29 +83,3 @@ class NextQuestionButton extends ConsumerWidget {
         ));
   }
 }
-
-class HeartContainer extends StatelessWidget {
-  const HeartContainer({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        height: 20,
-        width: 20,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(9),
-          border: Border.symmetric(
-              vertical: BorderSide(
-                  color: Theme.of(context).colorScheme.primary, width: 2),
-              horizontal: BorderSide(
-                  color: Theme.of(context).colorScheme.primary, width: 5)),
-        ),
-      ),
-    );
-  }
-}

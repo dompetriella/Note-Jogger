@@ -17,6 +17,7 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes,
         numberOfQuizGenerate: clefNotes.length,
         numberOfButtons: numberOfButtons));
   }
+  ref.read(livesProvider.notifier).resetLives();
 }
 
 List<Widget> createQuizOptionButtons(Enum note, int numberOfButtons) {

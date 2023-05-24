@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:note_jogger/components/quiz/quiz_generate.dart';
 import 'package:note_jogger/game_logic/scoring.dart';
 import 'package:note_jogger/pages/start_page.dart';
 
@@ -122,6 +121,23 @@ class RankResult extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(left: 28.0, top: 8.0),
             child: Align(alignment: Alignment.centerLeft, child: Text('Lives')),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: ref
+                .watch(livesProvider)
+                .map((e) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: HeartContainer(
+                        size: 2,
+                        isFilled: e,
+                      ),
+                    ))
+                .toList()
+                .animate(interval: 200.ms, delay: 2000.ms)
+                .slideY(begin: -2, duration: 400.ms)
+                .scale()
+                .fadeIn(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

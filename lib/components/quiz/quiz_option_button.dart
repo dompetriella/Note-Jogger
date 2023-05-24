@@ -28,6 +28,13 @@ class QuizOptionButton extends ConsumerWidget {
               var timeElapsed = ref
                   .watch(stopwatchProvider.notifier)
                   .stopStopwatchAndReturnTime(ref);
+              bool correct = false;
+              if (correctNote == givenNote) {
+                correct = true;
+              }
+              if (!correct) {
+                ref.read(livesProvider.notifier).loseLife(context);
+              }
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
                   return AnswerStagingBottomSheet(

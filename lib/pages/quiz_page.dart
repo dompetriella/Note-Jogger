@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
 
 import '../components/quiz/heart_container.dart';
-import '../globals.dart';
 
 class QuizPage extends ConsumerWidget {
   const QuizPage({super.key});
@@ -45,18 +43,22 @@ class QuizPage extends ConsumerWidget {
                               .watch(quizStagingProvider.notifier)
                               .resetQuizGenerate(ref);
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.close,
                           size: 42,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .error
+                              .withOpacity(.50),
                         ))),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    for (int i = 0; i < lives; i++)
-                      HeartContainer(
-                        isFilled: true,
-                      )
-                  ],
+                  children: ref
+                      .watch(livesProvider)
+                      .map((e) => HeartContainer(
+                            isFilled: e,
+                          ))
+                      .toList(),
                 ),
               ],
             )),

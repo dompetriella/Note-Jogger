@@ -86,7 +86,6 @@ class RankResult extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String rank = calculateOverallRank(ref).name;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
@@ -149,11 +148,12 @@ class RankResult extends ConsumerWidget {
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).colorScheme.onBackground),
               ),
-              Text(rank,
+              Text(calculateOverallRank(ref).name,
                       style: TextStyle(
                           fontSize: 84,
                           fontWeight: FontWeight.w900,
-                          color: getRankTextColor(rank)))
+                          color:
+                              getRankTextColor(calculateOverallRank(ref).name)))
                   .animate(delay: 3000.ms)
                   .rotate(begin: .25)
                   .fadeIn()

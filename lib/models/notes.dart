@@ -29,7 +29,7 @@ enum TrebleClefNotes {
   G3;
 
   final String clefImagePath;
-  const TrebleClefNotes({this.clefImagePath = 'path'});
+  const TrebleClefNotes({this.clefImagePath = 'assets/treble_clef.svg'});
 }
 
 enum BassClefNotes {
@@ -61,5 +61,5 @@ enum BassClefNotes {
   B3;
 
   final String clefImagePath;
-  const BassClefNotes({this.clefImagePath = 'path'});
+  const BassClefNotes({this.clefImagePath = 'assets/bass_clef.svg'});
 }

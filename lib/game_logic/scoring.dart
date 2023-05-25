@@ -36,7 +36,7 @@ Enum calculateRank(double timeElapsed) {
 }
 
 Enum calculateOverallRank(WidgetRef ref) {
-  if (calculateCorrectAnswers(ref) > GLOBAL_lives) {
+  if (calculateIncorrectAnswers(ref) > GLOBAL_lives) {
     return Rank.D;
   }
   double totalTime = 0;

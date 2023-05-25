@@ -154,6 +154,7 @@ class ModeButton extends ConsumerWidget {
             //TODO: change this to change per note, this is a bad solution
             ref.read(imagePathProvider.notifier).state = imagePath;
             context.go('/quiz_page');
+            ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
             ref.read(stopwatchProvider.notifier).startStopwatch(ref);
           },
           child: Column(

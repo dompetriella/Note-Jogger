@@ -80,7 +80,6 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
       ref.watch(quizGenerateIndexStagingProvider.notifier).state++;
     } else {
       ref.read(stopwatchProvider.notifier).stopStopwatchAndReturnTime(ref);
-      ref.watch(quizAnswersProvider.notifier).finalizeAnswers(ref);
       context.go('/results_page');
     }
   }

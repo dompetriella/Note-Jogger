@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/models/notes.dart';
 
 import '../../game_logic/quiz_generate.dart';
 import '../../provider.dart';
-import '../notestaff/full_staff.dart';
+import '../notestaff/note_staff.dart';
 
 class QuizGenerate extends ConsumerWidget {
   final Enum note;
@@ -17,6 +18,10 @@ class QuizGenerate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String clefPath = 'assets/treble_clef.svg';
+    if (note.runtimeType is BassClefNotes) {
+      clefPath = 'assets/bass_clef.svg';
+    }
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,6 +36,7 @@ class QuizGenerate extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 12),
                 child: NoteStaff(
+                  imagePath: clefPath,
                   value: note,
                 ),
               ),

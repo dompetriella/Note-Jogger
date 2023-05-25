@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/models/notes.dart';
-import 'package:note_jogger/provider.dart';
 import 'floating_staff.dart';
 import 'note.dart';
 
 class NoteStaff extends ConsumerWidget {
-  final Enum value;
+  final dynamic value;
+  final String imagePath;
   const NoteStaff({
     required this.value,
+    required this.imagePath,
     super.key,
   });
 
@@ -94,11 +94,14 @@ class NoteStaff extends ConsumerWidget {
                     padding: const EdgeInsets.only(bottom: 18.0, left: 6),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: SvgPicture.asset(ref.watch(imagePathProvider),
+                      child: SvgPicture.asset(value.clefImagePath,
                           colorFilter: ColorFilter.mode(
                               Theme.of(context).colorScheme.secondary,
                               BlendMode.srcIn),
-                          height: 80,
+                          height:
+                              value.clefImagePath == 'assets/treble_clef.svg'
+                                  ? 120
+                                  : 80,
                           width: 80,
                           semanticsLabel: ''),
                     ),

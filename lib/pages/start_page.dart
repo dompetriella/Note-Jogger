@@ -49,7 +49,14 @@ class StartPage extends ConsumerWidget {
                             GenericPageButton(
                               text: 'Settings',
                               onPressed: () {
-                                print('Settings');
+                                if (ref.watch(lightModeProvider) ==
+                                    ThemeMode.light) {
+                                  ref.watch(lightModeProvider.notifier).state =
+                                      ThemeMode.dark;
+                                } else {
+                                  ref.watch(lightModeProvider.notifier).state =
+                                      ThemeMode.light;
+                                }
                               },
                             ),
                           ],

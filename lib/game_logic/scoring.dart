@@ -14,6 +14,10 @@ int calculateCorrectAnswers(WidgetRef ref) {
   return correct;
 }
 
+int calculateIncorrectAnswers(WidgetRef ref) {
+  return ref.read(quizAnswersProvider).length - calculateCorrectAnswers(ref);
+}
+
 List<RankCard> displayRankCards(WidgetRef ref) {
   List<RankCard> rankCards = [];
   for (var i = 0; i < ref.watch(quizAnswersProvider).length; i++) {
@@ -32,7 +36,7 @@ Enum calculateRank(double timeElapsed) {
 }
 
 Enum calculateOverallRank(WidgetRef ref) {
-  if (ref.read(livesProvider).every((element) => element == false)) {
+  if (calculateCorrectAnswers(ref) > GLOBAL_lives) {
     return Rank.D;
   }
   double totalTime = 0;
@@ -46,9 +50,17 @@ Enum calculateOverallRank(WidgetRef ref) {
     }
   }
   double timeRanking = totalTime / numberOfCorrectAnswers;
-  double finalRanking = timeRanking - (livesRemaining * GLOBAL_heartBonus);
+  double finalTimeRanking = timeRanking - (livesRemaining * GLOBAL_heartBonus);
 
-  return calculateRank(finalRanking);
+  // if there's no lives left, drop a rank
+  Enum finalRank = calculateRank(finalTimeRanking);
+  if (livesRemaining == 0 && finalRank != Rank.S) {
+    int rankIndex = finalRank.index;
+    rankIndex++;
+    return Rank.values[rankIndex];
+  }
+
+  return finalRank;
 }
 
 Color getRankTextColor(String rank) {

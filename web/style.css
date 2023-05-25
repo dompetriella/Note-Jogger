@@ -1,0 +1,56 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-body {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.p1 {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    background-color: red;
+    animation: loading-animation 2s infinite;
+}
+
+.p2 {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    background-color: blue;
+    animation: loading-animation 2s 333ms infinite;
+}
+
+.p3 {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    background-color: green;
+    animation: loading-animation 2s 666ms infinite;
+}
+
+@keyframes loading-animation {
+
+    25% {
+        transform: translateY(0px)
+    }
+
+    50% {
+        transform: translateY(-20px)
+    }
+
+    75% {
+        transform: translateY(0px)
+    }
+
+}

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:note_jogger/models/notes.dart';
 
 class Note extends StatelessWidget {
   final int value;
@@ -33,7 +34,7 @@ class QuarterNoteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: QuarterNotePainter(
-          flagIsUp: (value < 13),
+          flagIsUp: (value < TrebleClefNotes.C2.index),
           noteColor: Theme.of(context).colorScheme.secondary),
     ).animate().fadeIn();
   }
@@ -45,7 +46,7 @@ class QuarterNotePainter extends CustomPainter {
   final Color noteColor;
   QuarterNotePainter({
     required this.noteColor,
-    this.flagIsUp = true,
+    this.flagIsUp = false,
     this.needsFloatingStaff = false,
   });
 
@@ -93,6 +94,6 @@ class QuarterNotePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+    return true;
   }
 }

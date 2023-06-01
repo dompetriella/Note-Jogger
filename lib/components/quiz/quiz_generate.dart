@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/models/notes.dart';
 
 import '../../game_logic/quiz_generate.dart';
-import '../../provider.dart';
 import '../notestaff/note_staff.dart';
 
 class QuizGenerate extends ConsumerWidget {
@@ -55,35 +54,5 @@ class QuizGenerate extends ConsumerWidget {
         ],
       ),
     );
-  }
-}
-
-class NextQuestionButton extends ConsumerWidget {
-  const NextQuestionButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          fixedSize: const Size(200, 50),
-          backgroundColor: Theme.of(context).colorScheme.tertiary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-          ref
-              .watch(quizStagingProvider.notifier)
-              .nextQuestionAction(ref, context);
-
-          ref.read(stopwatchProvider.notifier).startStopwatch(ref);
-        },
-        child: Text(
-          'Continue',
-          style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
-        ));
   }
 }

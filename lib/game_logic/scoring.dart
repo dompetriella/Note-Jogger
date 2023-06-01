@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/provider.dart';
 
+import '../components/results/rank_card.dart';
 import '../models/ranks.dart';
 import '../pages/results_page.dart';
 

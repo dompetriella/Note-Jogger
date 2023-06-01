@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/game_logic/quiz_generate.dart';
 import 'package:note_jogger/models/notes.dart';
-import 'package:note_jogger/pages/quiz_page.dart';
 import 'package:note_jogger/provider.dart';
 
 class SelectModePage extends StatelessWidget {
@@ -151,8 +150,6 @@ class ModeButton extends ConsumerWidget {
               fixedSize: const Size(300, 100)),
           onPressed: () {
             createNewQuizGenerateList(ref, modeNotes);
-            //TODO: change this to change per note, this is a bad solution
-            ref.read(imagePathProvider.notifier).state = imagePath;
             context.go('/quiz_page');
             ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
             ref.read(stopwatchProvider.notifier).startStopwatch(ref);

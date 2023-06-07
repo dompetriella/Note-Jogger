@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../components/select_mode/quiz_modes.dart';
+import '../utility.dart';
 
 class SelectModePage extends StatelessWidget {
-  const SelectModePage({super.key});
+  final Enum gameMode;
+  const SelectModePage({super.key, required this.gameMode});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class SelectModePage extends StatelessWidget {
           foregroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: true,
           title: Text(
-            "Select Mode",
+            capitalizeString(gameMode.name),
             style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.w900,
@@ -23,8 +25,10 @@ class SelectModePage extends StatelessWidget {
       body: Container(
         color: Theme.of(context).colorScheme.onPrimary,
         child: ListView(
-          children: const [
-            Padding(padding: EdgeInsets.all(32.0), child: QuizModes()),
+          children: [
+            Padding(
+                padding: EdgeInsets.all(32.0),
+                child: QuizModes(gameMode: gameMode)),
           ],
         ),
       ),

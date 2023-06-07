@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:note_jogger/provider.dart';
 
 import '../components/quiz/heart_container.dart';
+import '../models/modes.dart';
 
 class QuizPage extends ConsumerWidget {
-  const QuizPage({super.key});
+  final Enum gameMode;
+  const QuizPage({super.key, required this.gameMode});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -51,15 +53,16 @@ class QuizPage extends ConsumerWidget {
                               .error
                               .withOpacity(.50),
                         ))),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: ref
-                      .watch(livesProvider)
-                      .map((e) => HeartContainer(
-                            isFilled: e,
-                          ))
-                      .toList(),
-                ),
+                if (gameMode == GameMode.ranked)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: ref
+                        .watch(livesProvider)
+                        .map((e) => HeartContainer(
+                              isFilled: e,
+                            ))
+                        .toList(),
+                  ),
               ],
             )),
         body: Container(

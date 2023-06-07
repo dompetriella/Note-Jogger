@@ -10,10 +10,12 @@ class ModeButton extends ConsumerWidget {
   final String subText;
   final String imagePath;
   final List<Enum> modeNotes;
+  final Enum gameMode;
   const ModeButton(
       {super.key,
       required this.title,
       required this.modeNotes,
+      required this.gameMode,
       this.imagePath = 'assets/treble_clef.svg',
       this.subText = ''});
 
@@ -30,7 +32,7 @@ class ModeButton extends ConsumerWidget {
               fixedSize: const Size(300, 100)),
           onPressed: () {
             createNewQuizGenerateList(ref, modeNotes);
-            context.go('/quiz_page');
+            context.go('/quiz_page', extra: gameMode);
             ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
             ref.read(stopwatchProvider.notifier).startStopwatch(ref);
           },

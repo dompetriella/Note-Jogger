@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:note_jogger/game_logic/scoring.dart';
-import 'package:note_jogger/pages/start_page.dart';
 import '../components/navigation_button.dart';
 import '../components/results/correct_count.dart';
 import '../components/results/rank_result.dart';
-import '../models/quiz_answer.dart';
-import '../provider.dart';
 
 class ResultsPage extends ConsumerWidget {
-  const ResultsPage({super.key});
+  final Enum gameMode;
+  const ResultsPage({super.key, required this.gameMode});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

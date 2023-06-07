@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/models/modes.dart';
 
 import '../../provider.dart';
 
 class NextQuestionButton extends ConsumerWidget {
-  const NextQuestionButton({
-    super.key,
-  });
+  final Enum gameMode;
+  const NextQuestionButton({super.key, this.gameMode = GameMode.training});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +22,7 @@ class NextQuestionButton extends ConsumerWidget {
           Navigator.pop(context);
           ref
               .watch(quizStagingProvider.notifier)
-              .nextQuestionAction(ref, context);
+              .nextQuestionAction(ref, context, gameMode);
 
           ref.read(stopwatchProvider.notifier).startStopwatch(ref);
         },

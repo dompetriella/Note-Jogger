@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -49,7 +50,10 @@ class ExpandableCatergory extends HookConsumerWidget {
             Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
-                  children: modeButtonTree,
+                  children: modeButtonTree
+                      .animate(interval: 150.ms, delay: 150.ms)
+                      .slideX(duration: 300.ms, curve: Curves.easeInOut)
+                      .fadeIn(),
                 )),
         ],
       ),

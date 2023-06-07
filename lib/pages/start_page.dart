@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/models/modes.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
 
 import '../components/generic_button.dart';
@@ -12,10 +13,27 @@ class StartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {
+            if (ref.watch(lightModeProvider) == ThemeMode.light)
+              {ref.watch(lightModeProvider.notifier).state = ThemeMode.dark}
+            else
+              {ref.watch(lightModeProvider.notifier).state = ThemeMode.light}
+          },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          child: Icon(
+            Icons.settings,
+            color: Theme.of(context).colorScheme.onSecondary,
+            size: 30,
+          ),
+        ),
         body: Stack(
           children: [
             Container(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme.of(context).colorScheme.background,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -34,63 +52,38 @@ class StartPage extends ConsumerWidget {
                         child: Column(
                           children: [
                             GenericPageButton(
-                              text: 'Start',
+                              text: 'Training',
                               onPressed: () {
                                 ref
                                     .watch(quizStagingProvider.notifier)
                                     .resetQuizGenerate(ref);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SelectModePage(),
+                                    builder: (context) => const SelectModePage(
+                                      gameMode: GameMode.training,
+                                    ),
                                   ),
                                 );
                               },
                             ),
                             GenericPageButton(
-                              text: 'Settings',
+                              text: 'Ranked Mode',
                               onPressed: () {
-                                if (ref.watch(lightModeProvider) ==
-                                    ThemeMode.light) {
-                                  ref.watch(lightModeProvider.notifier).state =
-                                      ThemeMode.dark;
-                                } else {
-                                  ref.watch(lightModeProvider.notifier).state =
-                                      ThemeMode.light;
-                                }
+                                ref
+                                    .watch(quizStagingProvider.notifier)
+                                    .resetQuizGenerate(ref);
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const SelectModePage(
+                                      gameMode: GameMode.ranked,
+                                    ),
+                                  ),
+                                );
                               },
                             ),
                           ],
                         )),
                   ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: GestureDetector(
-                  onTap: () {
-                    if (ref.watch(lightModeProvider) == ThemeMode.light) {
-                      ref.watch(lightModeProvider.notifier).state =
-                          ThemeMode.dark;
-                    } else {
-                      ref.watch(lightModeProvider.notifier).state =
-                          ThemeMode.light;
-                    }
-                  },
-                  child: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Icon(
-                        Icons.lightbulb,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                        size: 30,
-                      )),
                 ),
               ),
             ),

@@ -74,13 +74,13 @@ final quizStagingProvider =
 class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
   QuizStagingNotifier() : super([]);
 
-  nextQuestionAction(WidgetRef ref, BuildContext context) {
+  nextQuestionAction(WidgetRef ref, BuildContext context, Enum gameMode) {
     if (ref.watch(quizGenerateIndexStagingProvider) <
         ref.watch(quizStagingProvider).length - 1) {
       ref.watch(quizGenerateIndexStagingProvider.notifier).state++;
     } else {
       ref.read(stopwatchProvider.notifier).stopStopwatchAndReturnTime(ref);
-      context.go('/results_page');
+      context.go('/results_page', extra: gameMode);
     }
   }
 

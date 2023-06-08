@@ -6,7 +6,7 @@ import '../../provider.dart';
 
 class NextQuestionButton extends ConsumerWidget {
   final Enum gameMode;
-  const NextQuestionButton({super.key, this.gameMode = GameMode.training});
+  const NextQuestionButton({super.key, required this.gameMode});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

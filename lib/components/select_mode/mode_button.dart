@@ -31,7 +31,7 @@ class ModeButton extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.secondary)),
               fixedSize: const Size(300, 100)),
           onPressed: () {
-            createNewQuizGenerateList(ref, modeNotes);
+            createNewQuizGenerateList(ref, modeNotes, gameMode);
             context.go('/quiz_page', extra: gameMode);
             ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
             ref.read(stopwatchProvider.notifier).startStopwatch(ref);

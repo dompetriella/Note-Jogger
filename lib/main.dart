@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:note_jogger/pages/start_page.dart';
 import 'package:note_jogger/provider.dart';
 import 'package:note_jogger/routes.dart';
 

@@ -22,15 +22,12 @@ class SelectModePage extends StatelessWidget {
                 fontWeight: FontWeight.w900,
                 letterSpacing: 2),
           )),
-      body: Container(
-        color: Theme.of(context).colorScheme.onPrimary,
-        child: ListView(
-          children: [
-            Padding(
-                padding: EdgeInsets.all(32.0),
-                child: QuizModes(gameMode: gameMode)),
-          ],
-        ),
+      body: ListView(
+        children: [
+          Padding(
+              padding: EdgeInsets.all(32.0),
+              child: QuizModes(gameMode: gameMode)),
+        ],
       ),
     ));
   }

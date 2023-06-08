@@ -7,11 +7,13 @@ import '../notestaff/note_staff.dart';
 
 class QuizGenerate extends ConsumerWidget {
   final Enum note;
+  final Enum gameMode;
   final int numberOfButtons;
   final String titleText;
   const QuizGenerate(
       {super.key,
       required this.note,
+      required this.gameMode,
       this.numberOfButtons = 5,
       this.titleText = "Name the Note"});
 
@@ -46,7 +48,8 @@ class QuizGenerate extends ConsumerWidget {
                   child: Wrap(
                       runAlignment: WrapAlignment.center,
                       alignment: WrapAlignment.center,
-                      children: createQuizOptionButtons(note, numberOfButtons)),
+                      children: createQuizOptionButtons(
+                          note, numberOfButtons, gameMode)),
                 ),
               ),
             ],

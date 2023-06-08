@@ -13,6 +13,7 @@ class StartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () => {
@@ -32,59 +33,56 @@ class StartPage extends ConsumerWidget {
         ),
         body: Stack(
           children: [
-            Container(
-              color: Theme.of(context).colorScheme.background,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Note \nJogger",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 60,
-                          letterSpacing: 2),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.all(32.0),
-                        child: Column(
-                          children: [
-                            GenericPageButton(
-                              text: 'Training',
-                              onPressed: () {
-                                ref
-                                    .watch(quizStagingProvider.notifier)
-                                    .resetQuizGenerate(ref);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SelectModePage(
-                                      gameMode: GameMode.training,
-                                    ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Note \nJogger",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 60,
+                        letterSpacing: 2),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        children: [
+                          GenericPageButton(
+                            text: 'Training',
+                            onPressed: () {
+                              ref
+                                  .watch(quizStagingProvider.notifier)
+                                  .resetQuizGenerate(ref);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SelectModePage(
+                                    gameMode: GameMode.training,
                                   ),
-                                );
-                              },
-                            ),
-                            GenericPageButton(
-                              text: 'Ranked Mode',
-                              onPressed: () {
-                                ref
-                                    .watch(quizStagingProvider.notifier)
-                                    .resetQuizGenerate(ref);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SelectModePage(
-                                      gameMode: GameMode.ranked,
-                                    ),
+                                ),
+                              );
+                            },
+                          ),
+                          GenericPageButton(
+                            text: 'Ranked Mode',
+                            onPressed: () {
+                              ref
+                                  .watch(quizStagingProvider.notifier)
+                                  .resetQuizGenerate(ref);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SelectModePage(
+                                    gameMode: GameMode.ranked,
                                   ),
-                                );
-                              },
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      )),
+                ],
               ),
             ),
           ],

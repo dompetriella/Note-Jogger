@@ -14,6 +14,7 @@ class QuizPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
             backgroundColor:
                 Theme.of(context).colorScheme.primary.withOpacity(.1),
@@ -65,8 +66,7 @@ class QuizPage extends ConsumerWidget {
                   ),
               ],
             )),
-        body: Container(
-          color: Theme.of(context).colorScheme.onPrimary,
+        body: SizedBox(
           child: ref
               .watch(quizStagingProvider.notifier)
               .state[ref.watch(quizGenerateIndexStagingProvider)],

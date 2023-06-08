@@ -149,7 +149,6 @@ class Ranked extends StatelessWidget {
         ExpandableCatergory(title: 'Treble Clef', modeButtonTree: [
           ModeButton(
             title: 'Treble Clef (Easy)',
-            subText: 'Only notes on the lines of the staff',
             gameMode: gameMode,
             modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
                 TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
@@ -157,7 +156,6 @@ class Ranked extends StatelessWidget {
           ),
           ModeButton(
             title: 'Treble Clef (Medium)',
-            subText: 'Only notes on the staff',
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
@@ -167,7 +165,6 @@ class Ranked extends StatelessWidget {
           ),
           ModeButton(
             title: 'Treble Clef (Hard)',
-            subText: 'The staff notes and above',
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
@@ -177,7 +174,6 @@ class Ranked extends StatelessWidget {
           ),
           ModeButton(
             title: 'Treble Clef (Expert)',
-            subText: 'All notes',
             gameMode: gameMode,
             modeNotes: TrebleClefNotes.values.toList(),
           ),
@@ -185,7 +181,6 @@ class Ranked extends StatelessWidget {
         ExpandableCatergory(title: 'Bass Clef', modeButtonTree: [
           ModeButton(
             title: 'Bass Clef (Easy)',
-            subText: 'Only notes on lines of the staff',
             imagePath: 'assets/bass_clef.svg',
             gameMode: gameMode,
             modeNotes: trimClefNotes(BassClefNotes.values.toList(),
@@ -194,7 +189,6 @@ class Ranked extends StatelessWidget {
           ),
           ModeButton(
             title: 'Bass Clef (Medium)',
-            subText: 'Only notes on the staff',
             imagePath: 'assets/bass_clef.svg',
             gameMode: gameMode,
             modeNotes: trimClefNotes(
@@ -205,7 +199,6 @@ class Ranked extends StatelessWidget {
           ),
           ModeButton(
             title: 'Bass Clef (Hard)',
-            subText: 'The staff notes and above',
             imagePath: 'assets/bass_clef.svg',
             gameMode: gameMode,
             modeNotes: trimClefNotes(
@@ -216,7 +209,6 @@ class Ranked extends StatelessWidget {
           ),
           ModeButton(
             title: 'Bass Clef (Expert)',
-            subText: 'All notes',
             imagePath: 'assets/bass_clef.svg',
             gameMode: gameMode,
             modeNotes: BassClefNotes.values.toList(),

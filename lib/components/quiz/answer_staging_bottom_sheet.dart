@@ -9,10 +9,12 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
   final double timeElapsed;
   final String correctNote;
   final String givenNote;
+  final Enum gameMode;
   const AnswerStagingBottomSheet({
     required this.correctNote,
     required this.timeElapsed,
     required this.givenNote,
+    required this.gameMode,
     super.key,
   });
 
@@ -51,7 +53,9 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
                   fontWeight: FontWeight.w400,
                   color: Theme.of(context).colorScheme.secondary),
             ),
-          const NextQuestionButton(),
+          NextQuestionButton(
+            gameMode: gameMode,
+          ),
         ],
       )),
     );

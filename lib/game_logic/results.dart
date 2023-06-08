@@ -5,7 +5,6 @@ import 'package:note_jogger/provider.dart';
 
 import '../components/results/rank_card.dart';
 import '../models/ranks.dart';
-import '../pages/results_page.dart';
 
 int calculateCorrectAnswers(WidgetRef ref) {
   int correct = 0;
@@ -13,6 +12,20 @@ int calculateCorrectAnswers(WidgetRef ref) {
     if (answer.correct) correct++;
   }
   return correct;
+}
+
+double calculateCorrectAnswerPercentageAsDouble(WidgetRef ref) {
+  int correct = 0;
+  for (var answer in ref.read(quizAnswersProvider)) {
+    if (answer.correct) correct++;
+  }
+  double percentCorrect = correct / ref.read(quizAnswersProvider).length;
+  return percentCorrect;
+}
+
+int calculateCorrectAnswerPercentageAsInt(WidgetRef ref) {
+  double percentCorrect = calculateCorrectAnswerPercentageAsDouble(ref) * 100;
+  return percentCorrect.toInt();
 }
 
 int calculateIncorrectAnswers(WidgetRef ref) {
@@ -34,6 +47,19 @@ Enum calculateRank(double timeElapsed) {
   if (timeElapsed <= GLOBAL_bRankTimeLimit) return Rank.B;
   if (timeElapsed <= GLOBAL_cRankTimeLimit) return Rank.C;
   return Rank.D;
+}
+
+double calculateTotalTimeInMiliseconds(WidgetRef ref) {
+  double totalTime = 0;
+  for (var answer in ref.read(quizAnswersProvider)) {
+    totalTime += answer.timeElapsed;
+  }
+  return totalTime;
+}
+
+String calculateTotalTimeInSeconds(WidgetRef ref) {
+  double secondsWithDecimal = calculateTotalTimeInMiliseconds(ref) / 1000;
+  return secondsWithDecimal.toStringAsFixed(1);
 }
 
 Enum calculateOverallRank(WidgetRef ref) {

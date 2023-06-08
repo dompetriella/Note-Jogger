@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../game_logic/scoring.dart';
+import '../../game_logic/results.dart';
 import '../../models/quiz_answer.dart';
 
 class RankCard extends StatelessWidget {

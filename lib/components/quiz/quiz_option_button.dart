@@ -4,9 +4,11 @@ import 'package:note_jogger/provider.dart';
 import 'answer_staging_bottom_sheet.dart';
 
 class QuizOptionButton extends ConsumerWidget {
+  final Enum gameMode;
   final String correctNote;
   final String givenNote;
   const QuizOptionButton({
+    required this.gameMode,
     required this.givenNote,
     required this.correctNote,
     super.key,
@@ -37,6 +39,7 @@ class QuizOptionButton extends ConsumerWidget {
               Scaffold.of(context).showBottomSheet<void>(
                 (BuildContext context) {
                   return AnswerStagingBottomSheet(
+                    gameMode: gameMode,
                     correctNote: correctNote,
                     givenNote: givenNote,
                     timeElapsed: timeElapsed,

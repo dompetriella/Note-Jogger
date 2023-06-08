@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../game_logic/scoring.dart';
+import '../../game_logic/results.dart';
 import '../../provider.dart';
 import '../quiz/heart_container.dart';
 

@@ -16,7 +16,7 @@ class ExperimentPage extends StatelessWidget {
             color: Colors.white,
             child: Center(
                 child: NoteStaff(
-              value: BassClefNotes.C2,
+              value: TrebleClefNotes.F2,
               imagePath: '',
             )),
           ),

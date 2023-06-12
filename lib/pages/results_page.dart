@@ -56,7 +56,7 @@ class IntroResult extends ConsumerWidget {
                     fontWeight: FontWeight.w900,
                     fontSize: 48,
                     letterSpacing: 2),
-              ).animate().fadeIn().slideX(),
+              ).animate().fadeIn(duration: 800.ms).slideX(begin: 1.8),
             ],
           ),
           Padding(

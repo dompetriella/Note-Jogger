@@ -34,6 +34,16 @@ class Training extends StatelessWidget {
     Enum gameMode = GameMode.training;
     return Column(
       children: [
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '#1: Clefs and Notes',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary),
+            )),
+        Divider(),
         ExpandableCatergory(
           title: 'Intro',
           modeButtonTree: [
@@ -79,6 +89,7 @@ class Training extends StatelessWidget {
           ModeButton(
             title: 'Treble Clef 3',
             subText: 'Only notes on the staff',
+            enableHintsOnStartup: true,
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
@@ -88,7 +99,7 @@ class Training extends StatelessWidget {
           ),
           ModeButton(
             title: 'Treble Clef 4',
-            subText: 'The staff notes and above',
+            subText: 'The notes above the staff',
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
@@ -98,6 +109,36 @@ class Training extends StatelessWidget {
           ),
           ModeButton(
             title: 'Treble Clef 5',
+            subText: 'Notes below the staff',
+            gameMode: gameMode,
+            modeNotes: trimClefNotes(
+              TrebleClefNotes.values.toList(),
+              TrebleClefNotes.E0.index,
+              TrebleClefNotes.D1.index,
+            ),
+          ),
+          ModeButton(
+            title: 'Treble Clef 6',
+            subText: 'The staff notes and above',
+            gameMode: gameMode,
+            modeNotes: trimClefNotes(
+              TrebleClefNotes.values.toList(),
+              TrebleClefNotes.E1.index,
+              TrebleClefNotes.G3.index,
+            ),
+          ),
+          ModeButton(
+            title: 'Treble Clef 7',
+            subText: 'The staff notes and below',
+            gameMode: gameMode,
+            modeNotes: trimClefNotes(
+              TrebleClefNotes.values.toList(),
+              TrebleClefNotes.E0.index,
+              TrebleClefNotes.F2.index,
+            ),
+          ),
+          ModeButton(
+            title: 'Treble Clef 8',
             subText: 'All notes',
             gameMode: gameMode,
             modeNotes: TrebleClefNotes.values.toList(),
@@ -127,6 +168,7 @@ class Training extends StatelessWidget {
           ModeButton(
             title: 'Bass Clef 3',
             subText: 'Only notes on the staff',
+            enableHintsOnStartup: true,
             imagePath: 'assets/bass_clef.svg',
             gameMode: gameMode,
             modeNotes: trimClefNotes(
@@ -137,6 +179,28 @@ class Training extends StatelessWidget {
           ),
           ModeButton(
             title: 'Bass Clef 4',
+            subText: 'Notes above the staff',
+            gameMode: gameMode,
+            imagePath: 'assets/bass_clef.svg',
+            modeNotes: trimClefNotes(
+              BassClefNotes.values.toList(),
+              BassClefNotes.B2.index,
+              BassClefNotes.B3.index,
+            ),
+          ),
+          ModeButton(
+            title: 'Bass Clef 5',
+            subText: 'Notes below the staff',
+            gameMode: gameMode,
+            imagePath: 'assets/bass_clef.svg',
+            modeNotes: trimClefNotes(
+              BassClefNotes.values.toList(),
+              BassClefNotes.E0.index,
+              BassClefNotes.F1.index,
+            ),
+          ),
+          ModeButton(
+            title: 'Bass Clef 6',
             subText: 'The staff notes and above',
             gameMode: gameMode,
             imagePath: 'assets/bass_clef.svg',
@@ -147,7 +211,18 @@ class Training extends StatelessWidget {
             ),
           ),
           ModeButton(
-            title: 'Bass Clef 5',
+            title: 'Bass Clef 7',
+            subText: 'The notes on the staff and below',
+            gameMode: gameMode,
+            imagePath: 'assets/bass_clef.svg',
+            modeNotes: trimClefNotes(
+              BassClefNotes.values.toList(),
+              BassClefNotes.E0.index,
+              BassClefNotes.A2.index,
+            ),
+          ),
+          ModeButton(
+            title: 'Bass Clef 8',
             subText: 'All notes',
             gameMode: gameMode,
             imagePath: 'assets/bass_clef.svg',
@@ -169,6 +244,16 @@ class Ranked extends StatelessWidget {
     Enum gameMode = GameMode.ranked;
     return Column(
       children: [
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Marathon #1 - Notes Circuit',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary),
+            )),
+        Divider(),
         ExpandableCatergory(title: 'Treble Clef', modeButtonTree: [
           ModeButton(
             title: 'Treble Clef (Easy)',

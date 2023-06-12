@@ -20,14 +20,53 @@ class ResultsPage extends ConsumerWidget {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Builder(builder: (context) {
           switch (gameMode) {
+            case GameMode.intro:
+              return IntroResult();
             case GameMode.training:
               return TrainingResult();
             case GameMode.ranked:
               return RankedResult();
             default:
-              return RankedResult();
+              return TrainingResult();
           }
         }),
+      ),
+    );
+  }
+}
+
+class IntroResult extends ConsumerWidget {
+  const IntroResult({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SizedBox.expand(
+      child: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Lesson Complete",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 48,
+                    letterSpacing: 2),
+              ).animate().fadeIn().slideX(),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: const NavigationButton(text: 'Return Home'),
+            ),
+          ),
+        ],
       ),
     );
   }

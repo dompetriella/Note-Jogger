@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:note_jogger/components/generic_button.dart';
-import 'package:note_jogger/components/navigation_button.dart';
 import 'package:note_jogger/components/notestaff/note_staff.dart';
 import 'package:note_jogger/models/notes.dart';
 import 'package:note_jogger/pages/start_page.dart';

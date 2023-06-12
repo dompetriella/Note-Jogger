@@ -1,1 +1,1 @@
-enum GameMode { training, ranked }
+enum GameMode { intro, training, ranked }

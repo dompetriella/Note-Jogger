@@ -13,7 +13,7 @@ class QuizModes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       switch (gameMode) {
-        case GameMode.training:
+        case GameMode.training || GameMode.intro:
           return const Training();
         case GameMode.ranked:
           return const Ranked();
@@ -41,7 +41,7 @@ class Training extends StatelessWidget {
               title: 'Treble Clef',
               subText: 'A crash course of the Treble Clef',
               enableHintsOnStartup: true,
-              gameMode: gameMode,
+              gameMode: GameMode.intro,
               modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
                   TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
                   spaceNotesOnly: true),
@@ -50,7 +50,7 @@ class Training extends StatelessWidget {
               title: 'Bass Clef',
               subText: 'A crash course of the Bass Clef',
               enableHintsOnStartup: true,
-              gameMode: gameMode,
+              gameMode: GameMode.intro,
               modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
                   TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
                   spaceNotesOnly: true),
@@ -117,6 +117,7 @@ class Training extends StatelessWidget {
           ModeButton(
             title: 'Bass Clef 2',
             subText: 'Only notes on lines of the staff',
+            enableHintsOnStartup: true,
             gameMode: gameMode,
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(BassClefNotes.values.toList(),

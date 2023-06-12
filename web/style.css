@@ -17,7 +17,7 @@ body {
     height: 3em;
     width: 3em;
     border-radius: 50%;
-    background-color: red;
+    background-color: #251605;
     animation: loading-animation 2s infinite;
 }
 
@@ -27,7 +27,7 @@ body {
     border-radius: 50%;
     margin-left: 0.5em;
     margin-right: 0.5em;
-    background-color: blue;
+    background-color: #E59D77;
     animation: loading-animation 2s 333ms infinite;
 }
 
@@ -35,7 +35,7 @@ body {
     height: 3em;
     width: 3em;
     border-radius: 50%;
-    background-color: green;
+    background-color: #EC4067;
     animation: loading-animation 2s 666ms infinite;
 }
 

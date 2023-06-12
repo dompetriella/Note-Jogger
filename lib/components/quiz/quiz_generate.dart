@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/models/notes.dart';
+import 'package:note_jogger/provider.dart';
 
 import '../../game_logic/quiz_generate.dart';
 import '../notestaff/note_staff.dart';
@@ -29,10 +30,15 @@ class QuizGenerate extends ConsumerWidget {
         children: [
           Column(
             children: [
-              Text(
-                titleText,
-                style: TextStyle(
-                    fontSize: 24, color: Theme.of(context).colorScheme.primary),
+              GestureDetector(
+                onLongPress: () => ref.read(showHintsProvider.notifier).state =
+                    !ref.read(showHintsProvider),
+                child: Text(
+                  titleText,
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Theme.of(context).colorScheme.primary),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 12),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:note_jogger/models/notes.dart';
+import 'package:note_jogger/provider.dart';
 import 'floating_staff.dart';
 import 'note.dart';
 
@@ -15,6 +18,8 @@ class NoteStaff extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool isTrebleClef = value.runtimeType == TrebleClefNotes;
+
     return Stack(
       children: [
         Container(
@@ -36,15 +41,35 @@ class NoteStaff extends ConsumerWidget {
             children: [
               Stack(
                 children: [
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      StaffLine(),
-                      StaffLine(),
-                      StaffLine(),
-                      StaffLine(),
-                      StaffLine(),
-                    ],
+                    children: ref.watch(showHintsProvider)
+                        ? [
+                            StaffLine(
+                              valueHint: isTrebleClef ? 'E' : 'G',
+                              animationDelay: 600,
+                            ),
+                            StaffLine(
+                              valueHint: isTrebleClef ? 'C' : 'E',
+                              animationDelay: 500,
+                            ),
+                            StaffLine(
+                              valueHint: isTrebleClef ? 'A' : 'C',
+                              animationDelay: 400,
+                            ),
+                            StaffLine(
+                              valueHint: isTrebleClef ? 'F' : 'A',
+                              animationDelay: 300,
+                            ),
+                            const StaffLine(),
+                          ]
+                        : [
+                            StaffLine(),
+                            StaffLine(),
+                            StaffLine(),
+                            StaffLine(),
+                            const StaffLine(),
+                          ],
                   ),
                   Stack(
                     children: [
@@ -122,20 +147,39 @@ class NoteStaff extends ConsumerWidget {
 }
 
 class StaffLine extends StatelessWidget {
-  const StaffLine({
-    super.key,
-  });
+  final String valueHint;
+  final double animationDelay;
+  const StaffLine({super.key, this.valueHint = '', this.animationDelay = 0});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      decoration: BoxDecoration(
-          border: Border(
-              top: BorderSide(
-                  color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(.50),
-                  width: 2))),
+    return Stack(
+      children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(.50),
+                      width: 2))),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 80.0),
+          child: Text(
+            valueHint,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).colorScheme.primary),
+          )
+              .animate()
+              .fadeIn(delay: animationDelay.ms)
+              .slideY(begin: -2, delay: animationDelay.ms),
+        )
+      ],
     );
   }
 }

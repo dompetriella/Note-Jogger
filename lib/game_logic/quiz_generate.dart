@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/globals.dart';
-import 'package:note_jogger/models/modes.dart';
 import 'package:note_jogger/provider.dart';
 import 'dart:math';
 import '../components/quiz/quiz_generate.dart';
@@ -9,7 +8,7 @@ import '../components/quiz/quiz_option_button.dart';
 import '../models/notes.dart';
 
 createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes, Enum gameMode,
-    {int numberOfButtons = 5}) {
+    {int numberOfButtons = 5, bool hintsEnabled = false}) {
   ref.watch(quizStagingProvider.notifier).state = [];
   List<Enum> preliminaryNoteList = [];
   if (GLOBAL_normal_quiz_amount > clefNotes.length) {
@@ -45,8 +44,10 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes, Enum gameMode,
           gameMode: gameMode,
         ));
   }
-  print(ref.read(quizStagingProvider).length);
   ref.read(livesProvider.notifier).resetLives();
+  if (hintsEnabled) {
+    ref.read(showHintsProvider.notifier).state = true;
+  }
 }
 
 List<Widget> createQuizOptionButtons(
@@ -77,13 +78,20 @@ List<Widget> createQuizOptionButtons(
 // modes
 
 List<Enum> trimClefNotes(List<Enum> clef, int lowestNote, int highestNote,
-    {bool lineNotesOnly = false}) {
+    {bool lineNotesOnly = false, bool spaceNotesOnly = false}) {
   List<Enum> returnList = [];
   for (var i = 0; i < clef.length; i++) {
     if (i >= lowestNote && i <= highestNote) {
-      if (lineNotesOnly) {
-        if (!(i % 2 == 0)) {
-          returnList.add(clef[i]);
+      if (lineNotesOnly || spaceNotesOnly) {
+        if (lineNotesOnly) {
+          if (!(i % 2 == 0)) {
+            returnList.add(clef[i]);
+          }
+        }
+        if (spaceNotesOnly) {
+          if ((i % 2 == 0)) {
+            returnList.add(clef[i]);
+          }
         }
       } else {
         returnList.add(clef[i]);

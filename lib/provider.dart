@@ -17,6 +17,10 @@ final quizGenerateIndexStagingProvider = StateProvider<int>((ref) {
   return 0;
 });
 
+final showHintsProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 final stopwatchProvider =
     StateNotifierProvider<StopwatchNotifier, Stopwatch>((ref) {
   return StopwatchNotifier();
@@ -89,6 +93,7 @@ class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
     ref.watch(quizAnswersProvider.notifier).state = [];
     ref.read(stopwatchProvider).reset();
     ref.read(livesProvider.notifier).resetLives();
+    ref.read(showHintsProvider.notifier).state = false;
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/models/modes.dart';
+import 'package:note_jogger/pages/experimental_ui.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
 
 import '../components/generic_button.dart';
@@ -80,6 +81,16 @@ class StartPage extends ConsumerWidget {
                               );
                             },
                           ),
+                          // GenericPageButton(
+                          //   text: 'TestingPage',
+                          //   onPressed: () {
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 const ExperimentPage()));
+                          //   },
+                          // ),
                         ],
                       )),
                 ],

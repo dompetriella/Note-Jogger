@@ -17,7 +17,7 @@ body {
     height: 3em;
     width: 3em;
     border-radius: 50%;
-    background-color: #251605;
+    background-color: #FDF1E1;
     animation: loading-animation 2s infinite;
 }
 

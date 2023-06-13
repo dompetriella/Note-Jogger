@@ -1,6 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 String capitalizeString(String s) => s[0].toUpperCase() + s.substring(1);
+
+int getRandomInt(int max, {int min = 0}) {
+  Random random = new Random();
+  return random.nextInt(max) + min;
+}
 
 Color darkenColor(Color c, {int percent = 10}) {
   assert(1 <= percent && percent <= 100);

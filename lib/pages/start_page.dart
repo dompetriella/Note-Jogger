@@ -81,16 +81,34 @@ class StartPage extends ConsumerWidget {
                               );
                             },
                           ),
-                          // GenericPageButton(
-                          //   text: 'TestingPage',
-                          //   onPressed: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 const ExperimentPage()));
-                          //   },
-                          // ),
+                          GenericPageButton(
+                            text: 'TestingPage',
+                            onPressed: () {
+                              ref
+                                  .read(
+                                      informationWindowStagingProvider.notifier)
+                                  .flushInformationWindow(ref);
+                              ref
+                                  .read(
+                                      informationWindowStagingProvider.notifier)
+                                  .state = [
+                                InformationWindowScreen(
+                                  textAmount: 32,
+                                ),
+                                InformationWindowScreen(
+                                  textAmount: 12,
+                                ),
+                                InformationWindowScreen(
+                                  textAmount: 4,
+                                ),
+                              ];
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ExperimentPage()));
+                            },
+                          ),
                         ],
                       )),
                 ],

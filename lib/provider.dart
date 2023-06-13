@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
+import 'package:note_jogger/pages/experimental_ui.dart';
 import 'components/quiz/quiz_generate.dart';
 
 final lightModeProvider = StateProvider<ThemeMode>((ref) {
@@ -125,5 +126,38 @@ class LivesNotifier extends StateNotifier<List<bool>> {
         state = newState;
       }
     }
+  }
+}
+
+final informationWindowIndexProvider = StateProvider<int>((ref) {
+  return 0;
+});
+
+final informationWindowStagingProvider = StateNotifierProvider<
+    InformationWindowStagingNotifier, List<InformationWindowScreen>>((ref) {
+  return InformationWindowStagingNotifier();
+});
+
+class InformationWindowStagingNotifier
+    extends StateNotifier<List<InformationWindowScreen>> {
+  InformationWindowStagingNotifier() : super([]);
+
+  goToNextPage(WidgetRef ref, BuildContext context) {
+    if (ref.watch(informationWindowIndexProvider) < state.length - 1) {
+      ref.read(informationWindowIndexProvider.notifier).state++;
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  goToPreviousPage(WidgetRef ref) {
+    if (ref.watch(informationWindowIndexProvider) != 0) {
+      ref.read(informationWindowIndexProvider.notifier).state--;
+    }
+  }
+
+  flushInformationWindow(WidgetRef ref) {
+    ref.read(informationWindowIndexProvider.notifier).state = 0;
+    ref.read(informationWindowStagingProvider.notifier).state = [];
   }
 }

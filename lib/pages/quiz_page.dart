@@ -38,9 +38,6 @@ class QuizPage extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                         onTap: () {
-                          ref
-                              .read(quizStagingProvider.notifier)
-                              .resetQuizGenerate(ref);
                           context.go('/');
                           ref
                               .watch(quizStagingProvider.notifier)

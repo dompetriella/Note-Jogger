@@ -92,15 +92,9 @@ class StartPage extends ConsumerWidget {
                                   .read(
                                       informationWindowStagingProvider.notifier)
                                   .state = [
-                                InformationWindowScreen(
-                                  textAmount: 32,
-                                ),
-                                InformationWindowScreen(
-                                  textAmount: 12,
-                                ),
-                                InformationWindowScreen(
-                                  textAmount: 4,
-                                ),
+                                InformationWindowScreen(),
+                                InformationWindowScreen(),
+                                InformationWindowScreen(),
                               ];
                               Navigator.push(
                                   context,

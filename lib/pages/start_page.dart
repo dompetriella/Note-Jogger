@@ -5,7 +5,7 @@ import 'package:note_jogger/pages/information_window_page.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
 
 import '../components/generic_button.dart';
-import '../content/intro_treble_clef.dart';
+import '../content/information_windows/intro_treble_clef.dart';
 import '../provider.dart';
 
 class StartPage extends ConsumerWidget {

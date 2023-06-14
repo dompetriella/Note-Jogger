@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_jogger/content/intro_treble_clef.dart';
+import 'package:note_jogger/content/information_windows/intro_basics.dart';
+import 'package:note_jogger/content/information_windows/intro_treble_clef.dart';
 import 'package:note_jogger/models/modes.dart';
 import '../../game_logic/quiz_generate.dart';
 import '../../models/notes.dart';
@@ -49,24 +50,23 @@ class Training extends StatelessWidget {
           title: 'Intro',
           modeButtonTree: [
             ModeButton(
-              title: 'Treble Clef',
-              subText: 'A crash course of the Treble Clef',
-              enableHintsOnStartup: true,
-              gameMode: GameMode.intro,
-              listOfInformationWindowScreen: introTrebleClefContent,
-              modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
-                  TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
-                  spaceNotesOnly: true),
-            ),
+                title: 'Basics of Note Jogger',
+                subText: 'How things go around here',
+                gameMode: GameMode.intro,
+                listOfInformationWindowScreen: introBasicsContent,
+                modeNotes: const []),
             ModeButton(
-              title: 'Bass Clef',
-              subText: 'A crash course of the Bass Clef',
-              enableHintsOnStartup: true,
-              gameMode: GameMode.intro,
-              modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
-                  TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
-                  spaceNotesOnly: true),
-            ),
+                title: 'Treble Clef',
+                subText: 'A crash course of the Treble Clef',
+                gameMode: GameMode.intro,
+                listOfInformationWindowScreen: introTrebleClefContent,
+                modeNotes: const []),
+            ModeButton(
+                title: 'Bass Clef',
+                subText: 'A crash course of the Bass Clef',
+                gameMode: GameMode.intro,
+                listOfInformationWindowScreen: introTrebleClefContent,
+                modeNotes: const []),
           ],
         ),
         ExpandableCatergory(title: 'Treble Clef', modeButtonTree: [

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:note_jogger/components/quiz/quiz_generate.dart';
 import 'package:note_jogger/models/notes.dart';
 
-import '../models/modes.dart';
-import 'common_widget.dart';
+import '../../models/modes.dart';
+import '../common_widget.dart';
 
 List<List<Widget>> introTrebleClefContent = [
   [
@@ -16,6 +16,7 @@ List<List<Widget>> introTrebleClefContent = [
   ],
   [
     const InformationWindowTitle(text: 'Page Two'),
+    const InformationWindowSubtitle(text: 'Learning!'),
     const InformationWindowText(
       text:
           'This should be the second page of the InformationWindow.  I can say anything I want here',

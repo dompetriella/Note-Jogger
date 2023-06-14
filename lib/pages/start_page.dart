@@ -5,6 +5,7 @@ import 'package:note_jogger/pages/experimental_ui.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
 
 import '../components/generic_button.dart';
+import '../content/intro_treble_clef.dart';
 import '../provider.dart';
 
 class StartPage extends ConsumerWidget {
@@ -87,15 +88,8 @@ class StartPage extends ConsumerWidget {
                               ref
                                   .read(
                                       informationWindowStagingProvider.notifier)
-                                  .flushInformationWindow(ref);
-                              ref
-                                  .read(
-                                      informationWindowStagingProvider.notifier)
-                                  .state = [
-                                InformationWindowScreen(),
-                                InformationWindowScreen(),
-                                InformationWindowScreen(),
-                              ];
+                                  .addInformationWindowsToState(
+                                      introTrebleClefContent);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

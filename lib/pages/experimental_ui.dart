@@ -55,7 +55,9 @@ class InformationWindowScreenScaffold extends ConsumerWidget {
 }
 
 class InformationWindowScreen extends StatelessWidget {
+  final List<Widget> content;
   const InformationWindowScreen({
+    required this.content,
     super.key,
   });
 
@@ -64,7 +66,9 @@ class InformationWindowScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         color: Theme.of(context).colorScheme.background,
-        child: InformationWindowContents(),
+        child: InformationWindowContents(
+          content: content,
+        ),
       ),
     );
   }
@@ -173,7 +177,9 @@ class InformationWindowStaging extends ConsumerWidget {
 }
 
 class InformationWindowContents extends StatelessWidget {
+  final List<Widget> content;
   const InformationWindowContents({
+    required this.content,
     super.key,
   });
 
@@ -181,20 +187,7 @@ class InformationWindowContents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0),
-      child: ListView(
-        children: [
-          InformationWidgetTitle(),
-          for (var i = 0; i < getRandomInt(10, min: 2); i++)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque gravida venenatis.' +
-                    'In et sollicitudin diam. Fusce commodo eleifend tristique.',
-                textAlign: TextAlign.center,
-              ),
-            ),
-        ],
-      ),
+      child: ListView(children: content),
     );
   }
 }

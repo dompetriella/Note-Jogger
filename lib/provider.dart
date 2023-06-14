@@ -160,4 +160,13 @@ class InformationWindowStagingNotifier
     ref.read(informationWindowIndexProvider.notifier).state = 0;
     ref.read(informationWindowStagingProvider.notifier).state = [];
   }
+
+  addInformationWindowsToState(
+      List<List<Widget>> listOfInformationWindowScreen) {
+    state = [];
+    var newState = state;
+    for (var data in listOfInformationWindowScreen) {
+      newState.add(InformationWindowScreen(content: data));
+    }
+  }
 }

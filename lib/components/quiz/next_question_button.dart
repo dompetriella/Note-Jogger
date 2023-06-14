@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:note_jogger/models/modes.dart';
-
+import '../../models/modes.dart';
 import '../../provider.dart';
 
 class NextQuestionButton extends ConsumerWidget {
@@ -20,11 +19,13 @@ class NextQuestionButton extends ConsumerWidget {
         ),
         onPressed: () {
           Navigator.pop(context);
-          ref
-              .watch(quizStagingProvider.notifier)
-              .nextQuestionAction(ref, context, gameMode);
+          if (gameMode != GameMode.intro) {
+            ref
+                .watch(quizStagingProvider.notifier)
+                .nextQuestionAction(ref, context, gameMode);
 
-          ref.read(stopwatchProvider.notifier).startStopwatch(ref);
+            ref.read(stopwatchProvider.notifier).startStopwatch(ref);
+          }
         },
         child: Text(
           'Continue',

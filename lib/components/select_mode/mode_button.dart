@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:note_jogger/models/modes.dart';
+import 'package:note_jogger/pages/information_window_page.dart';
 
 import '../../game_logic/quiz_generate.dart';
 import '../../provider.dart';
@@ -12,11 +15,13 @@ class ModeButton extends ConsumerWidget {
   final List<Enum> modeNotes;
   final bool enableHintsOnStartup;
   final Enum gameMode;
+  final List<List<Widget>> listOfInformationWindowScreen;
   const ModeButton(
       {super.key,
       required this.title,
       required this.modeNotes,
       required this.gameMode,
+      this.listOfInformationWindowScreen = const [],
       this.enableHintsOnStartup = false,
       this.imagePath = 'assets/treble_clef.svg',
       this.subText = ''});
@@ -33,6 +38,17 @@ class ModeButton extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.secondary)),
               fixedSize: const Size(300, 100)),
           onPressed: () {
+            if (gameMode == GameMode.intro) {
+              ref
+                  .read(informationWindowStagingProvider.notifier)
+                  .addInformationWindowsToState(
+                      ref, listOfInformationWindowScreen);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => InformationWindowPage()));
+              return;
+            }
             createNewQuizGenerateList(ref, modeNotes, gameMode,
                 hintsEnabled: enableHintsOnStartup);
             context.go('/quiz_page', extra: gameMode);

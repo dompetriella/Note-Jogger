@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_jogger/content/intro_treble_clef.dart';
 import 'package:note_jogger/models/modes.dart';
 import '../../game_logic/quiz_generate.dart';
 import '../../models/notes.dart';
@@ -52,6 +53,7 @@ class Training extends StatelessWidget {
               subText: 'A crash course of the Treble Clef',
               enableHintsOnStartup: true,
               gameMode: GameMode.intro,
+              listOfInformationWindowScreen: introTrebleClefContent,
               modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
                   TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
                   spaceNotesOnly: true),

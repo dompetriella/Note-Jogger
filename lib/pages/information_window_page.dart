@@ -3,10 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/provider.dart';
-import 'package:note_jogger/utility.dart';
 
-class ExperimentPage extends ConsumerWidget {
-  const ExperimentPage({super.key});
+class InformationWindowPage extends ConsumerWidget {
+  const InformationWindowPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

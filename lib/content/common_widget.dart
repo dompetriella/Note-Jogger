@@ -34,6 +34,7 @@ class InformationWindowText extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
+        style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
       ),
     );
   }

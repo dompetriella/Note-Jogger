@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
-import 'package:note_jogger/pages/experimental_ui.dart';
+import 'package:note_jogger/pages/information_window_page.dart';
 import 'components/quiz/quiz_generate.dart';
+import 'models/modes.dart';
 
 final lightModeProvider = StateProvider<ThemeMode>((ref) {
   return ThemeMode.light;
@@ -142,11 +143,15 @@ class InformationWindowStagingNotifier
     extends StateNotifier<List<InformationWindowScreen>> {
   InformationWindowStagingNotifier() : super([]);
 
-  goToNextPage(WidgetRef ref, BuildContext context) {
+  goToNextPage(WidgetRef ref, BuildContext context, {bool goToResults = true}) {
     if (ref.watch(informationWindowIndexProvider) < state.length - 1) {
       ref.read(informationWindowIndexProvider.notifier).state++;
     } else {
-      Navigator.pop(context);
+      if (goToResults) {
+        context.go('/results_page', extra: GameMode.intro);
+      } else {
+        Navigator.pop(context);
+      }
     }
   }
 
@@ -162,11 +167,13 @@ class InformationWindowStagingNotifier
   }
 
   addInformationWindowsToState(
-      List<List<Widget>> listOfInformationWindowScreen) {
+      WidgetRef ref, List<List<Widget>> listOfInformationWindowScreen) {
     state = [];
+    ref.read(informationWindowIndexProvider.notifier).state = 0;
     var newState = state;
     for (var data in listOfInformationWindowScreen) {
       newState.add(InformationWindowScreen(content: data));
     }
+    state = newState;
   }
 }

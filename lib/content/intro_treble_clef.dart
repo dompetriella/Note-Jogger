@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:note_jogger/components/quiz/quiz_generate.dart';
+import 'package:note_jogger/models/notes.dart';
 
+import '../models/modes.dart';
 import 'common_widget.dart';
 
 List<List<Widget>> introTrebleClefContent = [
@@ -8,7 +11,8 @@ List<List<Widget>> introTrebleClefContent = [
     const InformationWindowTitle(text: 'Page One'),
     const InformationWindowText(
       text: 'Hello this is some text, just testing this one out',
-    )
+    ),
+    QuizGenerate(note: TrebleClefNotes.A1, gameMode: GameMode.intro)
   ],
   [
     const InformationWindowTitle(text: 'Page Two'),
@@ -47,7 +51,8 @@ List<List<Widget>> introTrebleClefContent = [
       text: 'MANY TEXTS',
     ),
     for (var i = 0; i < 5; i++)
-      const InformationWindowText(text: '''SING US A SONG YOU ARE THE SPIDERMAN, 
+      const InformationWindowText(
+          text: '''SING US A SONG YOU ARE THE SPIDERMAN, 
 SING US A SONG TONIGHT, 
 ALL IN THE MOOD FOR A HERO NOW
 AND YOU HAVE GOT US FEELING ALRIGHT''')

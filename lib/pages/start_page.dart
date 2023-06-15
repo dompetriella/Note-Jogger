@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/models/modes.dart';
-import 'package:note_jogger/pages/information_window_page.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
-
 import '../components/generic_button.dart';
-import '../content/information_windows/intro_treble_clef.dart';
 import '../provider.dart';
 
 class StartPage extends ConsumerWidget {

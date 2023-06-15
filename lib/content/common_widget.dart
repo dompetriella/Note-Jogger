@@ -15,9 +15,9 @@ class InformationWindowTitle extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 32,
+            fontSize: 36,
             letterSpacing: 1,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             color: Theme.of(context).colorScheme.primary),
       ),
     );
@@ -31,7 +31,7 @@ class InformationWindowSubtitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 10, 8.0, 12),
+      padding: const EdgeInsets.fromLTRB(8.0, 16, 8.0, 0),
       child: Column(
         children: [
           Align(
@@ -41,10 +41,10 @@ class InformationWindowSubtitle extends StatelessWidget {
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onBackground,
                   fontSize: 18,
-                  fontWeight: FontWeight.w400),
+                  fontWeight: FontWeight.w500),
             ),
           ),
-          Divider()
+          const Divider()
         ],
       ),
     );

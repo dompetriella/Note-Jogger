@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:note_jogger/models/modes.dart';
 import 'package:note_jogger/pages/quiz_page.dart';
 import 'package:note_jogger/pages/results_page.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';

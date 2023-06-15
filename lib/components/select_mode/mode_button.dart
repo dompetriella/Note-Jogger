@@ -60,6 +60,7 @@ class ModeButton extends ConsumerWidget {
             children: [
               Text(
                 title,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontSize: 20,
                     letterSpacing: 2,

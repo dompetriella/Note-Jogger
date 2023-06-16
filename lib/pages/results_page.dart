@@ -48,15 +48,17 @@ class IntroResult extends ConsumerWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Lesson Complete",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 48,
-                    letterSpacing: 2),
-              ).animate().fadeIn(duration: 800.ms).slideX(begin: 1.8),
+              Center(
+                child: Text(
+                  "Lesson\nComplete",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 48,
+                      letterSpacing: 2),
+                ).animate().fadeIn(duration: 800.ms).slideX(begin: 1.8),
+              ),
             ],
           ),
           Padding(

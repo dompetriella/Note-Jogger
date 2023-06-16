@@ -65,30 +65,42 @@ class RankResult extends ConsumerWidget {
                 .scale()
                 .fadeIn(),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                'Rank',
-                style: TextStyle(
-                    fontSize: 60,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).colorScheme.onBackground),
-              ),
-              Text(calculateOverallRank(ref).name,
-                      style: TextStyle(
-                          fontSize: 84,
-                          fontWeight: FontWeight.w900,
-                          color:
-                              getRankTextColor(calculateOverallRank(ref).name)))
-                  .animate(delay: 3000.ms)
-                  .rotate(begin: .25)
-                  .fadeIn()
-                  .scale(begin: Offset(3, 3))
-            ],
-          )
+          FinalRankResult(text: calculateOverallRank(ref).name)
         ]),
       ),
+    );
+  }
+}
+
+class FinalRankResult extends StatelessWidget {
+  final String text;
+  const FinalRankResult({
+    required this.text,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          'Rank',
+          style: TextStyle(
+              fontSize: 60,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.onBackground),
+        ),
+        Text(text,
+                style: TextStyle(
+                    fontSize: 84,
+                    fontWeight: FontWeight.w900,
+                    color: getRankTextColor(text)))
+            .animate(delay: 3000.ms)
+            .rotate(begin: .25)
+            .fadeIn()
+            .scale(begin: Offset(3, 3))
+      ],
     );
   }
 }

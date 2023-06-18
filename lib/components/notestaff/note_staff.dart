@@ -3,16 +3,38 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:note_jogger/models/notes.dart';
-import 'package:note_jogger/provider.dart';
 import 'floating_staff.dart';
 import 'note.dart';
+
+showHintsSwitch(String hintString, bool showHints, bool isTreble) {
+  if (!showHints) {
+    return ' ';
+  }
+  if (isTreble) {
+    return hintString;
+  }
+  if (!isTreble) {
+    switch (hintString) {
+      case 'E':
+        return 'G';
+      case 'C':
+        return 'E';
+      case 'A':
+        return 'C';
+      case 'F':
+        return 'A';
+    }
+  }
+}
 
 class NoteStaff extends ConsumerWidget {
   final dynamic value;
   final String imagePath;
+  final bool showHints;
   const NoteStaff({
     required this.value,
     required this.imagePath,
+    this.showHints = false,
     super.key,
   });
 
@@ -42,35 +64,30 @@ class NoteStaff extends ConsumerWidget {
               Stack(
                 children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: ref.watch(showHintsProvider)
-                        ? [
-                            StaffLine(
-                              valueHint: isTrebleClef ? 'E' : 'G',
-                              animationDelay: 600,
-                            ),
-                            StaffLine(
-                              valueHint: isTrebleClef ? 'C' : 'E',
-                              animationDelay: 500,
-                            ),
-                            StaffLine(
-                              valueHint: isTrebleClef ? 'A' : 'C',
-                              animationDelay: 400,
-                            ),
-                            StaffLine(
-                              valueHint: isTrebleClef ? 'F' : 'A',
-                              animationDelay: 300,
-                            ),
-                            const StaffLine(),
-                          ]
-                        : [
-                            StaffLine(),
-                            StaffLine(),
-                            StaffLine(),
-                            StaffLine(),
-                            const StaffLine(),
-                          ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        StaffLine(
+                          valueHint:
+                              showHintsSwitch('E', showHints, isTrebleClef),
+                          animationDelay: 600,
+                        ),
+                        StaffLine(
+                          valueHint:
+                              showHintsSwitch('C', showHints, isTrebleClef),
+                          animationDelay: 500,
+                        ),
+                        StaffLine(
+                          valueHint:
+                              showHintsSwitch('A', showHints, isTrebleClef),
+                          animationDelay: 400,
+                        ),
+                        StaffLine(
+                          valueHint:
+                              showHintsSwitch('F', showHints, isTrebleClef),
+                          animationDelay: 300,
+                        ),
+                        const StaffLine(),
+                      ]),
                   Stack(
                     children: [
                       if (value.index > 24)

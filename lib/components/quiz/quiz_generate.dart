@@ -33,18 +33,21 @@ class QuizGenerate extends ConsumerWidget {
               GestureDetector(
                 onLongPress: () => ref.read(showHintsProvider.notifier).state =
                     !ref.read(showHintsProvider),
-                child: Text(
-                  titleText,
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Theme.of(context).colorScheme.primary),
-                ),
+                child: titleText != ''
+                    ? Text(
+                        titleText,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Theme.of(context).colorScheme.primary),
+                      )
+                    : SizedBox.shrink(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 12),
                 child: NoteStaff(
                   imagePath: clefPath,
                   value: note,
+                  showHints: ref.watch(showHintsProvider),
                 ),
               ),
               Padding(

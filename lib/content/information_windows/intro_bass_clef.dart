@@ -6,20 +6,17 @@ import 'package:note_jogger/models/notes.dart';
 import '../../models/modes.dart';
 import '../common_widget.dart';
 
-List<List<Widget>> introTrebleClefContent = [
+List<List<Widget>> introBassClefContent = [
   [
-    const InformationWindowTitle(text: 'Treble Clef'),
-    SizedBox(height: 100, child: SvgPicture.asset('assets/treble_clef.svg')),
-    InformationWindowText(
-        text:
-            'The treble clef notates music notes above middle C, and is traditionally used for the right hand when playing piano.'),
-    InformationWindowText(
-        text:
-            "The notes on the treble clef are different than that of the bass clef (two whole steps higher), making it important to learn their positions at a glance"),
+    const InformationWindowTitle(text: 'Page One'),
+    const InformationWindowText(
+      text: 'Hello this is some text, just testing this one out',
+    ),
+    QuizGenerate(note: TrebleClefNotes.A1, gameMode: GameMode.intro)
   ],
   [
-    const InformationWindowTitle(text: 'Learning Treble Clef'),
-    const InformationWindowSubtitle(text: 'Every Good Boy Does Fine'),
+    const InformationWindowTitle(text: 'Page Two'),
+    const InformationWindowSubtitle(text: 'Learning!'),
     const InformationWindowText(
       text:
           'This should be the second page of the InformationWindow.  I can say anything I want here',

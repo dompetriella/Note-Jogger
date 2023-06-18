@@ -143,7 +143,8 @@ class InformationWindowStagingNotifier
     extends StateNotifier<List<InformationWindowScreen>> {
   InformationWindowStagingNotifier() : super([]);
 
-  goToNextPage(WidgetRef ref, BuildContext context, {bool goToResults = true}) {
+  goToNextPage(WidgetRef ref, BuildContext context,
+      {bool goToResults = false}) {
     if (ref.watch(informationWindowIndexProvider) < state.length - 1) {
       ref.read(informationWindowIndexProvider.notifier).state++;
     } else {

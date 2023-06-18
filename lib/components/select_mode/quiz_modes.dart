@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_jogger/content/information_windows/intro_basics.dart';
+import 'package:note_jogger/content/information_windows/intro_bass_clef.dart';
+import 'package:note_jogger/content/information_windows/intro_music_notation.dart';
 import 'package:note_jogger/content/information_windows/intro_treble_clef.dart';
 import 'package:note_jogger/models/modes.dart';
 import '../../game_logic/quiz_generate.dart';
@@ -51,21 +53,27 @@ class Training extends StatelessWidget {
           modeButtonTree: [
             ModeButton(
                 title: 'Basics of Note Jogger',
-                subText: 'How things go around here',
+                subText: 'How to Play',
                 gameMode: GameMode.intro,
                 listOfInformationWindowScreen: introBasicsContent,
                 modeNotes: const []),
             ModeButton(
+                title: 'Music Notation',
+                subText: 'Names and Terms of Written Music',
+                gameMode: GameMode.intro,
+                listOfInformationWindowScreen: introMusicNotation,
+                modeNotes: const []),
+            ModeButton(
                 title: 'Treble Clef',
-                subText: 'A crash course of the Treble Clef',
+                subText: 'A Crash Course of the Treble Clef',
                 gameMode: GameMode.intro,
                 listOfInformationWindowScreen: introTrebleClefContent,
                 modeNotes: const []),
             ModeButton(
                 title: 'Bass Clef',
-                subText: 'A crash course of the Bass Clef',
+                subText: 'A Crash Course of the Bass Clef',
                 gameMode: GameMode.intro,
-                listOfInformationWindowScreen: introTrebleClefContent,
+                listOfInformationWindowScreen: introBassClefContent,
                 modeNotes: const []),
           ],
         ),

@@ -40,7 +40,7 @@ class InformationWindowSubtitle extends StatelessWidget {
               text,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onBackground,
-                  fontSize: 18,
+                  fontSize: 24,
                   fontWeight: FontWeight.w500),
             ),
           ),
@@ -64,7 +64,8 @@ class InformationWindowText extends StatelessWidget {
       child: Text(
         text,
         textAlign: textAlign,
-        style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.onBackground, fontSize: 16),
       ),
     );
   }

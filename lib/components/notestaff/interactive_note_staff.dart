@@ -6,36 +6,70 @@ import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 
 class InteractiveNoteStaff extends HookConsumerWidget {
-  InteractiveNoteStaff({super.key});
+  final int startingValue;
+  final bool isTrebleClef;
+  final bool jumpTwoWholeSteps;
+  const InteractiveNoteStaff(
+      {super.key,
+      required this.startingValue,
+      this.isTrebleClef = true,
+      this.jumpTwoWholeSteps = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var noteValue = useState(TrebleClefNotes.C2.index);
+    var clefValues =
+        isTrebleClef ? TrebleClefNotes.values : BassClefNotes.values;
+    var noteValue = useState(clefValues[startingValue].index);
+
+    final initFunction = useCallback((_) async {
+      noteValue.value = startingValue;
+    }, []);
+
+    useEffect(() {
+      initFunction(null);
+    }, []);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Note Value: ${TrebleClefNotes.values[noteValue.value].name[0]}',
+          'Note Value: ${clefValues[noteValue.value].name[0]}',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
         NoteStaff(
             showHints: true,
-            value: TrebleClefNotes.values[noteValue.value],
-            imagePath: GLOBAL_treble_clef_path),
+            value: clefValues[noteValue.value],
+            imagePath:
+                isTrebleClef ? GLOBAL_treble_clef_path : GLOBAL_bass_clef_path),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ToggleButton(
               icon: Icons.arrow_downward,
               onPressed: () => {
-                if (noteValue.value > 0) {noteValue.value--}
+                if (jumpTwoWholeSteps)
+                  {
+                    if (noteValue.value > 1) {noteValue.value -= 2}
+                  }
+                else
+                  {
+                    if (noteValue.value > 0) {noteValue.value--}
+                  }
               },
             ),
             ToggleButton(
               icon: Icons.arrow_upward,
               onPressed: () => {
-                if (noteValue.value < TrebleClefNotes.values.last.index)
-                  {noteValue.value++}
+                if (jumpTwoWholeSteps)
+                  {
+                    if (noteValue.value < clefValues.last.index - 1)
+                      {noteValue.value += 2}
+                  }
+                else
+                  {
+                    if (noteValue.value < clefValues.last.index)
+                      {noteValue.value++}
+                  }
               },
             ),
           ],

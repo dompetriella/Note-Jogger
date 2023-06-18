@@ -80,16 +80,16 @@ class StartPage extends ConsumerWidget {
                               );
                             },
                           ),
-                          GenericPageButton(
-                            text: 'TestingPage',
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const ExperimentPage(),
-                                ),
-                              );
-                            },
-                          ),
+                          // GenericPageButton(
+                          //   text: 'TestingPage',
+                          //   onPressed: () {
+                          //     Navigator.of(context).push(
+                          //       MaterialPageRoute(
+                          //         builder: (context) => const ExperimentPage(),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                         ],
                       )),
                 ],

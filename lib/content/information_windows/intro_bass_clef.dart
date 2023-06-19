@@ -1,61 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/components/quiz/quiz_generate.dart';
+import 'package:note_jogger/components/notestaff/interactive_note_staff.dart';
+import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
-
-import '../../models/modes.dart';
 import '../common_widget.dart';
 
 List<List<Widget>> introBassClefContent = [
   [
-    const InformationWindowTitle(text: 'Page One'),
+    const InformationWindowTitle(text: 'Bass Clef'),
+    SizedBox(height: 100, child: SvgPicture.asset(GLOBAL_bass_clef_path)),
     const InformationWindowText(
-      text: 'Hello this is some text, just testing this one out',
-    ),
-    QuizGenerate(note: TrebleClefNotes.A1, gameMode: GameMode.intro)
+        text:
+            'The bass clef notates music for lower pitches below below middle C, and is traditionally used for the left hand when playing piano.  It also sometimes called "F Clef" because the two dots point to the note F on the staff.'),
   ],
   [
-    const InformationWindowTitle(text: 'Page Two'),
-    const InformationWindowSubtitle(text: 'Learning!'),
+    const InformationWindowTitle(text: 'Learning Bass Clef'),
+    const InformationWindowSubtitle(text: 'All Cows Eat Grass'),
     const InformationWindowText(
       text:
-          'This should be the second page of the InformationWindow.  I can say anything I want here',
+          'A common mnemonic device for the notes between the staff on the bass clef is "All Cows Eat Grass", with the first letter of each word corresponding to the notes in the open space.',
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: InteractiveNoteStaff(
+        startingValue: BassClefNotes.A1.index,
+        isTrebleClef: false,
+        jumpTwoWholeSteps: true,
+      ),
     ),
     const InformationWindowText(
-      text: 'Let us add a happy little picture',
-    ),
-    SvgPicture.asset('assets/treble_clef.svg')
+        text:
+            "Keep in mind, these are just common mnemonic devices, and making up your own might help you remember better than the ones suggested!"),
   ],
   [
-    const InformationWindowTitle(text: 'Page Three'),
+    const InformationWindowTitle(text: 'Learning Bass Clef (Cont.)'),
+    const InformationWindowSubtitle(text: "Grizzly Bears Don't Fly Airplanes"),
     const InformationWindowText(
-      text: 'We are on page three now',
+        text:
+            "To remember the notes on the lines of the staff for the bass clef I use Grizzly Bears Don't Fly Airplanes as my mnemonic device.  There are more common ones, but they often reuse the word 'good' from the treble clef. The obsurdity of it makes it very memorable!"),
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Builder(builder: (context) {
+        return InteractiveNoteStaff(
+          startingValue: BassClefNotes.F2.index,
+          isTrebleClef: false,
+          jumpTwoWholeSteps: true,
+        );
+      }),
     ),
     const InformationWindowText(
-      text: 'Maybe some boxes?',
+      text:
+          "That's it!  Jump into the training and ranked modes when you feel ready.  Good luck!",
     ),
-    for (var i = 0; i < 5; i++)
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 30,
-          color: Colors.orange,
-        ),
-      )
-  ],
-  [
-    const InformationWindowTitle(text: 'Page Four'),
-    const InformationWindowText(
-      text: 'WE PAGE FOUR NOW LET GET CRAZY',
-    ),
-    const InformationWindowText(
-      text: 'MANY TEXTS',
-    ),
-    for (var i = 0; i < 5; i++)
-      const InformationWindowText(
-          text: '''SING US A SONG YOU ARE THE SPIDERMAN, 
-SING US A SONG TONIGHT, 
-ALL IN THE MOOD FOR A HERO NOW
-AND YOU HAVE GOT US FEELING ALRIGHT''')
   ],
 ];

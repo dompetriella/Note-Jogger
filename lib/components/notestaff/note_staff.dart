@@ -133,7 +133,8 @@ class NoteStaff extends ConsumerWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 18.0, left: 6),
+                    padding: EdgeInsets.only(
+                        bottom: isTrebleClef ? 18.0 : 38.0, left: 6),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: SvgPicture.asset(value.clefImagePath,

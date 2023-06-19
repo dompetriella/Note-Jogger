@@ -21,14 +21,6 @@ class InteractiveNoteStaff extends HookConsumerWidget {
         isTrebleClef ? TrebleClefNotes.values : BassClefNotes.values;
     var noteValue = useState(clefValues[startingValue].index);
 
-    final initFunction = useCallback((_) async {
-      noteValue.value = startingValue;
-    }, []);
-
-    useEffect(() {
-      initFunction(null);
-    }, []);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -91,7 +83,7 @@ class ToggleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -100,7 +92,13 @@ class ToggleButton extends StatelessWidget {
                     BorderSide(color: Theme.of(context).colorScheme.secondary)),
           ),
           onPressed: onPressed,
-          child: Icon(icon)),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Icon(
+              icon,
+              size: 32,
+            ),
+          )),
     );
   }
 }

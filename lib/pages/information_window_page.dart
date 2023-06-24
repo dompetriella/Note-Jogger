@@ -101,9 +101,14 @@ class InformationWindowStaging extends ConsumerWidget {
                           .read(informationWindowStagingProvider.notifier)
                           .goToPreviousPage(ref);
                     },
-                    child: SizedBox(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              width: 2,
+                              color: Theme.of(context).colorScheme.background)),
                       height: 50,
-                      width: 50,
+                      width: 75,
                       child: Icon(Icons.arrow_back_ios_outlined,
                           color: Theme.of(context).colorScheme.primary),
                     ),
@@ -113,7 +118,7 @@ class InformationWindowStaging extends ConsumerWidget {
                     .slideX(curve: Curves.easeInOut, duration: 500.ms)
                 : SizedBox(
                     height: 50,
-                    width: 50,
+                    width: 75,
                   ),
             SizedBox(
               height: 50,
@@ -127,27 +132,34 @@ class InformationWindowStaging extends ConsumerWidget {
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 4.0, horizontal: 8.0),
-                        child: Container(
-                          height: 14,
-                          width: 14,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color:
-                                      Theme.of(context).colorScheme.primary)),
-                          child: Center(
-                            child:
-                                ref.watch(informationWindowIndexProvider) == i
-                                    ? Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary),
-                                      ).animate().scale(
-                                          duration: 400.ms,
-                                        )
-                                    : SizedBox.shrink(),
+                        child: GestureDetector(
+                          onTap: () => {
+                            ref
+                                .read(informationWindowIndexProvider.notifier)
+                                .state = i
+                          },
+                          child: Container(
+                            height: 14,
+                            width: 14,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary)),
+                            child: Center(
+                              child:
+                                  ref.watch(informationWindowIndexProvider) == i
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                        ).animate().scale(
+                                            duration: 400.ms,
+                                          )
+                                      : SizedBox.shrink(),
+                            ),
                           ),
                         )),
                 ],
@@ -159,9 +171,14 @@ class InformationWindowStaging extends ConsumerWidget {
                     .read(informationWindowStagingProvider.notifier)
                     .goToNextPage(ref, context);
               },
-              child: SizedBox(
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                        width: 2,
+                        color: Theme.of(context).colorScheme.background)),
                 height: 50,
-                width: 50,
+                width: 75,
                 child: Icon(
                   Icons.arrow_forward_ios_outlined,
                   color: Theme.of(context).colorScheme.primary,

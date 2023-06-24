@@ -6,10 +6,22 @@ import 'package:note_jogger/models/notes.dart';
 
 class Note extends StatelessWidget {
   final int value;
-  const Note({super.key, required this.value});
+  final List<Enum> clef;
+  const Note({super.key, required this.value, required this.clef});
 
   @override
   Widget build(BuildContext context) {
+    double calculateNotePosition(int noteValue, List<Enum> clefList) {
+      int previousFlats = 0;
+      for (var i = 0; i < clefList[value].index; i++) {
+        if (clefList[i].name.contains('flat')) {
+          previousFlats++;
+        }
+      }
+      var position = 29 + (((value - previousFlats) + 1) * 10);
+      return position.toDouble();
+    }
+
     return Stack(
       children: [
         // low c in treble cleft
@@ -18,7 +30,7 @@ class Note extends StatelessWidget {
             duration: 200.ms,
             curve: Curves.easeInOut,
             left: 135,
-            bottom: 29 + ((value + 1) * 10),
+            bottom: calculateNotePosition(value, clef),
             child: QuarterNoteWidget(
               value: value,
             )),
@@ -34,7 +46,7 @@ class QuarterNoteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: QuarterNotePainter(
-          flagIsUp: (value < TrebleClefNotes.C2.index),
+          flagIsUp: (value < TrebleClefNotes.C5.index),
           noteColor: Theme.of(context).colorScheme.secondary),
     ).animate().fadeIn();
   }

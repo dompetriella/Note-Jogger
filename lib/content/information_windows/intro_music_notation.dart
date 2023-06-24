@@ -16,7 +16,7 @@ List<List<Widget>> introMusicNotation = [
         child: Padding(
           padding: const EdgeInsets.only(right: 32.0),
           child: QuarterNoteWidget(
-            value: TrebleClefNotes.C1.index,
+            value: TrebleClefNotes.C5.index,
           ),
         ),
       ),
@@ -40,7 +40,7 @@ List<List<Widget>> introMusicNotation = [
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: InteractiveNoteStaff(
             isTrebleClef: true,
-            startingValue: TrebleClefNotes.C2.index,
+            startingValue: TrebleClefNotes.C5.index,
           )),
     ),
     const InformationWindowText(

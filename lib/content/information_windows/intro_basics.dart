@@ -44,7 +44,7 @@ List<List<Widget>> introBasicsContent = [
           'When you start a lesson or "jog", it will present you with something like this.',
     ),
     const QuizGenerate(
-      note: TrebleClefNotes.C1,
+      note: TrebleClefNotes.C5,
       gameMode: GameMode.intro,
     ),
     InformationWindowText(

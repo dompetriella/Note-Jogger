@@ -23,7 +23,7 @@ List<List<Widget>> introBassClefContent = [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InteractiveNoteStaff(
-        startingValue: BassClefNotes.A1.index,
+        startingValue: BassClefNotes.A2.index,
         isTrebleClef: false,
         jumpTwoWholeSteps: true,
       ),

@@ -77,11 +77,11 @@ List<Widget> createQuizOptionButtons(
 
 // modes
 
-List<Enum> trimClefNotes(List<Enum> clef, int lowestNote, int highestNote,
+List<Enum> trimClefNotes(List<Enum> clef, Enum lowestNote, Enum highestNote,
     {bool lineNotesOnly = false, bool spaceNotesOnly = false}) {
   List<Enum> returnList = [];
   for (var i = 0; i < clef.length; i++) {
-    if (i >= lowestNote && i <= highestNote) {
+    if (i >= lowestNote.index && i <= highestNote.index) {
       if (lineNotesOnly || spaceNotesOnly) {
         if (lineNotesOnly) {
           if (!(i % 2 == 0)) {

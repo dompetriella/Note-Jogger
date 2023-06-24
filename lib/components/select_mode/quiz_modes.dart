@@ -84,7 +84,7 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             enableHintsOnStartup: true,
             modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
-                TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
+                TrebleClefNotes.E4, TrebleClefNotes.F5,
                 spaceNotesOnly: true),
           ),
           ModeButton(
@@ -93,7 +93,7 @@ class Training extends StatelessWidget {
             enableHintsOnStartup: true,
             gameMode: gameMode,
             modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
-                TrebleClefNotes.E1.index, TrebleClefNotes.F2.index,
+                TrebleClefNotes.E4, TrebleClefNotes.F5,
                 lineNotesOnly: true),
           ),
           ModeButton(
@@ -103,8 +103,8 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E1.index,
-              TrebleClefNotes.F2.index,
+              TrebleClefNotes.E4,
+              TrebleClefNotes.F5,
             ),
           ),
           ModeButton(
@@ -113,8 +113,8 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E1.index,
-              TrebleClefNotes.G3.index,
+              TrebleClefNotes.F5,
+              TrebleClefNotes.values.last,
             ),
           ),
           ModeButton(
@@ -123,8 +123,8 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E0.index,
-              TrebleClefNotes.D1.index,
+              TrebleClefNotes.values.first,
+              TrebleClefNotes.D4,
             ),
           ),
           ModeButton(
@@ -133,8 +133,8 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E1.index,
-              TrebleClefNotes.G3.index,
+              TrebleClefNotes.E4,
+              TrebleClefNotes.values.last,
             ),
           ),
           ModeButton(
@@ -143,8 +143,8 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E0.index,
-              TrebleClefNotes.F2.index,
+              TrebleClefNotes.values.first,
+              TrebleClefNotes.F5,
             ),
           ),
           ModeButton(
@@ -162,7 +162,7 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(BassClefNotes.values.toList(),
-                BassClefNotes.G1.index, BassClefNotes.A2.index,
+                BassClefNotes.A2, BassClefNotes.G3,
                 spaceNotesOnly: true),
           ),
           ModeButton(
@@ -172,7 +172,7 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(BassClefNotes.values.toList(),
-                BassClefNotes.G1.index, BassClefNotes.A2.index,
+                BassClefNotes.G2, BassClefNotes.A3,
                 lineNotesOnly: true),
           ),
           ModeButton(
@@ -183,8 +183,8 @@ class Training extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.G1.index,
-              BassClefNotes.A2.index,
+              BassClefNotes.G2,
+              BassClefNotes.A3,
             ),
           ),
           ModeButton(
@@ -194,8 +194,8 @@ class Training extends StatelessWidget {
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.B2.index,
-              BassClefNotes.B3.index,
+              BassClefNotes.B2,
+              BassClefNotes.values.last,
             ),
           ),
           ModeButton(
@@ -205,8 +205,8 @@ class Training extends StatelessWidget {
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.E0.index,
-              BassClefNotes.F1.index,
+              BassClefNotes.F2,
+              BassClefNotes.values.first,
             ),
           ),
           ModeButton(
@@ -216,8 +216,8 @@ class Training extends StatelessWidget {
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.G1.index,
-              BassClefNotes.B3.index,
+              BassClefNotes.G3,
+              BassClefNotes.values.last,
             ),
           ),
           ModeButton(
@@ -227,8 +227,8 @@ class Training extends StatelessWidget {
             imagePath: 'assets/bass_clef.svg',
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.E0.index,
-              BassClefNotes.A2.index,
+              BassClefNotes.values.first,
+              BassClefNotes.A3,
             ),
           ),
           ModeButton(
@@ -270,8 +270,8 @@ class Ranked extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E1.index,
-              TrebleClefNotes.F2.index,
+              TrebleClefNotes.E4,
+              TrebleClefNotes.F5,
             ),
           ),
           ModeButton(
@@ -279,8 +279,8 @@ class Ranked extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               TrebleClefNotes.values.toList(),
-              TrebleClefNotes.E1.index,
-              TrebleClefNotes.G3.index,
+              TrebleClefNotes.E4,
+              TrebleClefNotes.values.last,
             ),
           ),
           ModeButton(
@@ -296,8 +296,8 @@ class Ranked extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.G1.index,
-              BassClefNotes.A2.index,
+              BassClefNotes.G2,
+              BassClefNotes.A3,
             ),
           ),
           ModeButton(
@@ -306,8 +306,8 @@ class Ranked extends StatelessWidget {
             gameMode: gameMode,
             modeNotes: trimClefNotes(
               BassClefNotes.values.toList(),
-              BassClefNotes.G1.index,
-              BassClefNotes.B3.index,
+              BassClefNotes.values.first,
+              BassClefNotes.A3,
             ),
           ),
           ModeButton(

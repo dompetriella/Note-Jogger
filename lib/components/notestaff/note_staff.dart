@@ -132,6 +132,7 @@ class NoteStaff extends ConsumerWidget {
                             child: FloatingStaffWidget()),
                     ],
                   ),
+                  // TODO: Fix this/get a different svg.  The elevation is need for bass but looks bad
                   Padding(
                     padding: EdgeInsets.only(
                         bottom: isTrebleClef ? 18.0 : 38.0, left: 6),
@@ -153,6 +154,9 @@ class NoteStaff extends ConsumerWidget {
               ),
               Center(
                 child: Note(
+                  clef: isTrebleClef
+                      ? TrebleClefNotes.values
+                      : BassClefNotes.values,
                   value: value.index,
                 ),
               ),

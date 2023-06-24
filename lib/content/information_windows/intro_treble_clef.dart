@@ -26,7 +26,7 @@ List<List<Widget>> introTrebleClefContent = [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InteractiveNoteStaff(
-        startingValue: TrebleClefNotes.F1.index,
+        startingValue: TrebleClefNotes.F4.index,
         isTrebleClef: true,
         jumpTwoWholeSteps: true,
       ),
@@ -50,7 +50,7 @@ List<List<Widget>> introTrebleClefContent = [
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Builder(builder: (context) {
         return InteractiveNoteStaff(
-          startingValue: TrebleClefNotes.E1.index,
+          startingValue: TrebleClefNotes.E4.index,
           isTrebleClef: true,
           jumpTwoWholeSteps: true,
         );

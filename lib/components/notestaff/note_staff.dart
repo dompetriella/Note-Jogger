@@ -90,42 +90,59 @@ class NoteStaff extends ConsumerWidget {
                       ]),
                   Stack(
                     children: [
-                      if (value.index > 24)
+                      if (isTrebleClef
+                          ? value.index > TrebleClefNotes.F6.index
+                          : value.index > BassClefNotes.A5.index)
                         const Positioned(
                             left: 150,
                             bottom: 290,
                             child: FloatingStaffWidget()),
-                      if (value.index > 22)
+                      if (isTrebleClef
+                          ? value.index > TrebleClefNotes.D6.index
+                          : value.index > BassClefNotes.F5.index)
                         const Positioned(
                             left: 150,
                             bottom: 270,
                             child: FloatingStaffWidget()),
-                      if (value.index > 20)
+                      if (isTrebleClef
+                          ? value.index > TrebleClefNotes.B5.index
+                          : value.index > BassClefNotes.D4.index)
                         const Positioned(
                             left: 150,
                             bottom: 250,
                             child: FloatingStaffWidget()),
-                      if (value.index > 18)
+                      if (isTrebleClef
+                          ? value.index > TrebleClefNotes.G5.index
+                          : value.index > BassClefNotes.B4.index)
                         const Positioned(
                             left: 150,
                             bottom: 230,
                             child: FloatingStaffWidget()),
-                      if (value.index < 8)
+                      // below the staff
+                      if (isTrebleClef
+                          ? value.index < TrebleClefNotes.D4_flat.index
+                          : value.index < BassClefNotes.F3.index)
                         const Positioned(
                             left: 150,
                             bottom: 110,
                             child: FloatingStaffWidget()),
-                      if (value.index < 6)
+                      if (isTrebleClef
+                          ? value.index < TrebleClefNotes.B3_flat.index
+                          : value.index < BassClefNotes.D2_flat.index)
                         const Positioned(
                             left: 150,
                             bottom: 90,
                             child: FloatingStaffWidget()),
-                      if (value.index < 4)
+                      if (isTrebleClef
+                          ? value.index < TrebleClefNotes.G3_flat.index
+                          : value.index < BassClefNotes.B2_flat.index)
                         const Positioned(
                             left: 150,
                             bottom: 70,
                             child: FloatingStaffWidget()),
-                      if (value.index < 2)
+                      if (isTrebleClef
+                          ? value.index < TrebleClefNotes.E3_flat.index
+                          : value.index < BassClefNotes.G2_flat.index)
                         const Positioned(
                             left: 150,
                             bottom: 50,

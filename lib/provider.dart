@@ -23,6 +23,10 @@ final showHintsProvider = StateProvider<bool>((ref) {
   return false;
 });
 
+final showLetterNamesOnPianoProvider = StateProvider<bool>((ref) {
+  return true;
+});
+
 final stopwatchProvider =
     StateNotifierProvider<StopwatchNotifier, Stopwatch>((ref) {
   return StopwatchNotifier();

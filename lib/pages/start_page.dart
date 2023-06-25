@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/models/modes.dart';
-import 'package:note_jogger/pages/experiment_page.dart';
+import 'package:note_jogger/pages/piano_lab_page.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
 import '../components/generic_button.dart';
 import '../provider.dart';
@@ -85,7 +85,7 @@ class StartPage extends ConsumerWidget {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const ExperimentPage(),
+                                  builder: (context) => const PianoLabPage(),
                                 ),
                               );
                             },

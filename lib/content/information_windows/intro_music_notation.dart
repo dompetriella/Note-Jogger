@@ -21,9 +21,12 @@ List<List<Widget>> introMusicNotation = [
         ),
       ),
     ),
-    const InformationWindowText(
-        text:
-            "The first thing to learn in music is the note.  Above is a note (a quarter note specifically).  Notes represent a specific tone played on an instrument and how long to hold the pitch."),
+    Padding(
+      padding: const EdgeInsets.only(top: 48.0),
+      child: const InformationWindowText(
+          text:
+              "The first thing to learn in music is the note.  Above is a note (a quarter note specifically).  Notes represent a specific tone played on an instrument and how long to hold the pitch."),
+    ),
     const InformationWindowText(
         text:
             "Notes can have one of 7 values, A through G of the English alphabet, repeating that pattern as the pitch increases. The note itself doesn't tell you much, however, unless placed on a staff.")

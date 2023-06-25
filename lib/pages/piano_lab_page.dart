@@ -8,7 +8,7 @@ import 'package:note_jogger/models/notes.dart';
 
 import '../provider.dart';
 
-double whiteKeyHeight = 120;
+double whiteKeyHeight = 110;
 double blackKeyHeight = whiteKeyHeight / 2;
 var scrollController = ScrollController();
 
@@ -98,7 +98,9 @@ class BlackPianoKey extends HookConsumerWidget {
         height: whiteKeyHeight / 2,
         width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
-            color: isPressed.value ? Colors.lightBlue : Colors.black,
+            color: isPressed.value
+                ? Colors.lightBlue
+                : Theme.of(context).colorScheme.onBackground,
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(5), bottomRight: Radius.circular(5))),
         child: Padding(
@@ -111,7 +113,7 @@ class BlackPianoKey extends HookConsumerWidget {
                   ? Text(
                       '${note.name[0]}b',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.background,
                           fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ).animate().fadeIn()
@@ -142,7 +144,7 @@ class WhitePianoKey extends HookConsumerWidget {
         height: whiteKeyHeight,
         decoration: BoxDecoration(
           color: isPressed.value
-              ? Colors.orange.withOpacity(.25)
+              ? Theme.of(context).colorScheme.tertiary.withOpacity(.25)
               : Theme.of(context).colorScheme.background,
           border: Border.symmetric(
               horizontal: BorderSide(

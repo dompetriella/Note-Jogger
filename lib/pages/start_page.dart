@@ -81,7 +81,7 @@ class StartPage extends ConsumerWidget {
                             },
                           ),
                           GenericPageButton(
-                            text: 'TestingPage',
+                            text: 'Piano Lab',
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(

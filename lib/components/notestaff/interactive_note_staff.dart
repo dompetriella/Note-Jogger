@@ -5,6 +5,33 @@ import 'package:note_jogger/components/notestaff/note_staff.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 
+moveNoteValueToNextNaturalNote(ValueNotifier<int> noteState,
+    List<Enum> clefValues, bool increase, bool twoSteps) {
+  switch (increase) {
+    case true:
+      var nextNote = twoSteps ? noteState.value + 3 : noteState.value + 1;
+      if (nextNote < clefValues.length &&
+          clefValues[nextNote].name.contains('flat')) {
+        nextNote++;
+      }
+      if (nextNote < clefValues.length) {
+        noteState.value = nextNote;
+      }
+
+      break;
+
+    case false:
+      var nextNote = twoSteps ? noteState.value - 3 : noteState.value - 1;
+      if (nextNote > 0 && clefValues[nextNote].name.contains('flat')) {
+        nextNote--;
+      }
+      if (nextNote > 0) {
+        noteState.value = nextNote;
+      }
+      break;
+  }
+}
+
 class InteractiveNoteStaff extends HookConsumerWidget {
   final int startingValue;
   final bool isTrebleClef;
@@ -19,7 +46,7 @@ class InteractiveNoteStaff extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var clefValues =
         isTrebleClef ? TrebleClefNotes.values : BassClefNotes.values;
-    var noteValue = useState(clefValues[startingValue].index);
+    ValueNotifier<int> noteValue = useState(clefValues[startingValue].index);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,33 +64,13 @@ class InteractiveNoteStaff extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ToggleButton(
-              icon: Icons.arrow_downward,
-              onPressed: () => {
-                if (jumpTwoWholeSteps)
-                  {
-                    if (noteValue.value > 1) {noteValue.value -= 2}
-                  }
-                else
-                  {
-                    if (noteValue.value > 0) {noteValue.value--}
-                  }
-              },
-            ),
+                icon: Icons.arrow_downward,
+                onPressed: () => moveNoteValueToNextNaturalNote(
+                    noteValue, clefValues, false, jumpTwoWholeSteps)),
             ToggleButton(
-              icon: Icons.arrow_upward,
-              onPressed: () => {
-                if (jumpTwoWholeSteps)
-                  {
-                    if (noteValue.value < clefValues.last.index - 1)
-                      {noteValue.value += 2}
-                  }
-                else
-                  {
-                    if (noteValue.value < clefValues.last.index)
-                      {noteValue.value++}
-                  }
-              },
-            ),
+                icon: Icons.arrow_upward,
+                onPressed: () => moveNoteValueToNextNaturalNote(
+                    noteValue, clefValues, true, jumpTwoWholeSteps)),
           ],
         )
       ],

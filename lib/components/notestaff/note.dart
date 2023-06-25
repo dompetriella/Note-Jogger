@@ -46,7 +46,7 @@ class QuarterNoteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: QuarterNotePainter(
-          flagIsUp: (value < TrebleClefNotes.C5.index),
+          flagIsUp: (value < TrebleClefNotes.B4.index),
           noteColor: Theme.of(context).colorScheme.secondary),
     ).animate().fadeIn();
   }

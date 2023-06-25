@@ -39,8 +39,8 @@ List<List<Widget>> introMusicNotation = [
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: InteractiveNoteStaff(
-            isTrebleClef: false,
-            startingValue: BassClefNotes.F2.index,
+            isTrebleClef: true,
+            startingValue: TrebleClefNotes.C4.index,
           )),
     ),
     const InformationWindowText(

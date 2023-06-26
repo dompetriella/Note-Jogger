@@ -203,20 +203,23 @@ class StaffLine extends StatelessWidget {
                           .colorScheme
                           .secondary
                           .withOpacity(.50),
-                      width: 2))),
+                      width: 3))),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 80.0),
-          child: Text(
-            valueHint,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.primary),
-          )
-              .animate()
-              .fadeIn(delay: animationDelay.ms)
-              .slideY(begin: -2, delay: animationDelay.ms),
+          child: Transform.translate(
+            offset: Offset(0, 1),
+            child: Text(
+              valueHint,
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.primary),
+            )
+                .animate()
+                .fadeIn(delay: animationDelay.ms)
+                .slideY(begin: -2, delay: animationDelay.ms),
+          ),
         )
       ],
     );

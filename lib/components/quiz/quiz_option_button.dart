@@ -47,6 +47,9 @@ class QuizOptionButton extends ConsumerWidget {
                 },
               );
             },
-            child: Text(givenNote)));
+            child: Text(
+              givenNote,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+            )));
   }
 }

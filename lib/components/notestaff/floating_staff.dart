@@ -25,7 +25,7 @@ class FloatingStaffPainter extends CustomPainter {
     final floatingStaffPaint = Paint()
       ..color = staffColor
       ..style = PaintingStyle.fill
-      ..strokeWidth = 2.0;
+      ..strokeWidth = 3.0;
 
     canvas.translate(0, 11);
 

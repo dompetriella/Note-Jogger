@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_midi/flutter_midi.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/models/notes.dart';
 
@@ -11,12 +13,31 @@ import '../provider.dart';
 double whiteKeyHeight = 95;
 double blackKeyHeight = whiteKeyHeight / 2;
 ScrollController scrollController = ScrollController();
+final flutterMidi = FlutterMidi();
+
+playNote(int noteFrequency) {
+  flutterMidi.playMidiNote(midi: noteFrequency);
+}
+
+stopNote(int noteFrequency) {
+  flutterMidi.stopMidiNote(midi: noteFrequency);
+}
 
 class PianoLabPage extends HookConsumerWidget {
   const PianoLabPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final initFunction = useCallback((_) async {
+      flutterMidi.unmute();
+      ByteData _byte = await rootBundle.load("assets/soundfonts/Piano.sf2");
+      flutterMidi.prepare(sf2: _byte);
+    }, []);
+
+    useEffect(() {
+      initFunction(null);
+    }, []);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -125,8 +146,14 @@ class BlackPianoKey extends HookConsumerWidget {
     }, [ref.watch(pianoIsScrollingProvider)]);
 
     return GestureDetector(
-      onPanDown: (details) => isPressed.value = true,
-      onTapUp: (details) => isPressed.value = false,
+      onPanDown: (details) {
+        isPressed.value = true;
+        playNote(note.index + 48);
+      },
+      onTapUp: (details) {
+        isPressed.value = false;
+        stopNote(note.index + 48);
+      },
       child: Builder(builder: (context) {
         return Container(
           height: whiteKeyHeight / 2,
@@ -181,8 +208,14 @@ class WhitePianoKey extends HookConsumerWidget {
     }, [ref.watch(pianoIsScrollingProvider)]);
 
     return GestureDetector(
-      onPanDown: (details) => isPressed.value = true,
-      onTapUp: (details) => isPressed.value = false,
+      onPanDown: (details) {
+        isPressed.value = true;
+        playNote(note.index + 48);
+      },
+      onTapUp: (details) {
+        isPressed.value = false;
+        stopNote(note.index + 48);
+      },
       child: Container(
         height: whiteKeyHeight,
         decoration: BoxDecoration(

@@ -8,7 +8,7 @@ import 'package:note_jogger/models/notes.dart';
 
 import '../provider.dart';
 
-double whiteKeyHeight = 110;
+double whiteKeyHeight = 95;
 double blackKeyHeight = whiteKeyHeight / 2;
 var scrollController = ScrollController();
 

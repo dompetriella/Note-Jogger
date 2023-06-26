@@ -96,7 +96,7 @@ class BlackPianoKey extends HookConsumerWidget {
       onPanStart: (details) => isPressed.value = false,
       child: Container(
         height: whiteKeyHeight / 2,
-        width: MediaQuery.of(context).size.width / 2,
+        width: MediaQuery.of(context).size.width * .60,
         decoration: BoxDecoration(
             color: isPressed.value
                 ? Colors.lightBlue

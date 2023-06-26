@@ -39,15 +39,21 @@ class Training extends StatelessWidget {
     return Column(
       children: [
         Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              '#1: Clefs and Notes',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Text(
+                  'Session 1: The Basics',
+                  style: TextStyle(
+                      height: 0.9,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 2,
+                      color: Theme.of(context).colorScheme.primary),
+                ),
+                Divider()
+              ],
             )),
-        Divider(),
         ExpandableCatergory(
           title: 'Intro',
           modeButtonTree: [

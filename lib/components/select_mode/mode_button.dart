@@ -62,15 +62,17 @@ class ModeButton extends ConsumerWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontSize: 20,
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w700),
+                    letterSpacing: 2.5,
+                    fontWeight: FontWeight.w500),
               ),
               if (subText != '')
                 Text(
                   subText,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w400),
+                      fontSize: 14,
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.w300),
                 ),
             ],
           )),

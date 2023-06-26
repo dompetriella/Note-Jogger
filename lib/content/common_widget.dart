@@ -12,13 +12,13 @@ class InformationWindowTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Text(
-        text,
+        text.toUpperCase(),
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 36,
-            letterSpacing: 1,
-            fontWeight: FontWeight.w700,
-            color: Theme.of(context).colorScheme.primary),
+            fontSize: 48,
+            letterSpacing: 3,
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).colorScheme.onBackground),
       ),
     );
   }
@@ -35,13 +35,15 @@ class InformationWindowSubtitle extends StatelessWidget {
       child: Column(
         children: [
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: Text(
               text,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onBackground,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500),
+                  height: 0.9,
+                  fontSize: 28,
+                  letterSpacing: 3,
+                  fontWeight: FontWeight.w400),
             ),
           ),
           const Divider()
@@ -65,7 +67,10 @@ class InformationWindowText extends StatelessWidget {
         text,
         textAlign: textAlign,
         style: TextStyle(
-            color: Theme.of(context).colorScheme.onBackground, fontSize: 16),
+            color: Theme.of(context).colorScheme.onBackground,
+            fontSize: 18,
+            letterSpacing: 2,
+            fontWeight: FontWeight.w300),
       ),
     );
   }

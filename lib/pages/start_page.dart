@@ -38,13 +38,13 @@ class StartPage extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Note \nJogger",
+                    "NOTE\nJOGGER",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w700,
                         fontSize: 60,
-                        letterSpacing: 2),
+                        letterSpacing: 6),
                   ),
                   Padding(
                       padding: const EdgeInsets.all(32.0),

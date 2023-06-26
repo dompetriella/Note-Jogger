@@ -207,24 +207,3 @@ class InformationWindowContents extends StatelessWidget {
     );
   }
 }
-
-class InformationWidgetTitle extends StatelessWidget {
-  const InformationWidgetTitle({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Text(
-        'Information Window',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).colorScheme.primary),
-      ),
-    );
-  }
-}

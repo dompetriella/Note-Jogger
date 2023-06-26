@@ -38,10 +38,11 @@ class ExpandableCatergory extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
-                    title,
+                    title.toUpperCase(),
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1,
                         fontSize: 32),
                   ),
                 ),

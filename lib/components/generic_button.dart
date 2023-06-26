@@ -24,7 +24,10 @@ class GenericPageButton extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary)),
               fixedSize: Size(width, height)),
           onPressed: onPressed,
-          child: Text(text)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 20, letterSpacing: 1),
+          )),
     );
   }
 }

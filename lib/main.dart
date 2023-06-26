@@ -18,11 +18,13 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+        fontFamily: 'LondrinaSolid',
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             brightness: Brightness.dark, seedColor: Colors.blue),
+        fontFamily: 'LondrinaSolid',
         useMaterial3: true,
       ),
       themeMode: ref.watch(lightModeProvider),

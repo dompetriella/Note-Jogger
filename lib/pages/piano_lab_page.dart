@@ -10,7 +10,7 @@ import '../provider.dart';
 
 double whiteKeyHeight = 95;
 double blackKeyHeight = whiteKeyHeight / 2;
-var scrollController = ScrollController();
+ScrollController scrollController = ScrollController();
 
 class PianoLabPage extends HookConsumerWidget {
   const PianoLabPage({super.key});
@@ -30,23 +30,49 @@ class PianoLabPage extends HookConsumerWidget {
           shadowColor: Colors.black,
         ),
         body: ListView(
-          children: [
-            Stack(
-              children: [
-                Column(
-                  children: createWhiteKeys(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: whiteKeyHeight * .75),
-                  child: Column(
-                    children: createBlackKeys(),
-                  ),
-                ),
-              ],
-            )
-          ],
+          controller: scrollController,
+          children: [PianoUI()],
         ),
       ),
+    );
+  }
+}
+
+class PianoUI extends HookConsumerWidget {
+  const PianoUI({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final initFunction = useCallback((_) async {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        scrollController.position.isScrollingNotifier.addListener(() {
+          if (!scrollController.position.isScrollingNotifier.value) {
+            ref.read(pianoIsScrollingProvider.notifier).state = false;
+          } else {
+            ref.read(pianoIsScrollingProvider.notifier).state = true;
+          }
+        });
+      });
+    }, []);
+
+    useEffect(() {
+      initFunction(null);
+    }, []);
+
+    return Stack(
+      children: [
+        Column(
+          children: createWhiteKeys(),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: whiteKeyHeight * .75),
+          child: Column(
+            children: createBlackKeys(),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -93,35 +119,37 @@ class BlackPianoKey extends HookConsumerWidget {
     return GestureDetector(
       onPanDown: (details) => isPressed.value = true,
       onTapUp: (details) => isPressed.value = false,
-      onPanStart: (details) => isPressed.value = false,
-      child: Container(
-        height: whiteKeyHeight / 2,
-        width: MediaQuery.of(context).size.width * .60,
-        decoration: BoxDecoration(
-            color: isPressed.value
-                ? Colors.lightBlue
-                : Theme.of(context).colorScheme.onBackground,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(5), bottomRight: Radius.circular(5))),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Transform.rotate(
-              angle: 3 * pi / 2,
-              child: ref.watch(showLetterNamesOnPianoProvider)
-                  ? Text(
-                      '${note.name[0]}b',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.background,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ).animate().fadeIn()
-                  : SizedBox.shrink(),
+      child: Builder(builder: (context) {
+        return Container(
+          height: whiteKeyHeight / 2,
+          width: MediaQuery.of(context).size.width * .60,
+          decoration: BoxDecoration(
+              color: isPressed.value && !ref.watch(pianoIsScrollingProvider)
+                  ? Colors.lightBlue
+                  : Theme.of(context).colorScheme.onBackground,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(5),
+                  bottomRight: Radius.circular(5))),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Transform.rotate(
+                angle: 3 * pi / 2,
+                child: ref.watch(showLetterNamesOnPianoProvider)
+                    ? Text(
+                        '${note.name[0]}b',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400),
+                      ).animate().fadeIn()
+                    : SizedBox.shrink(),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
@@ -136,14 +164,14 @@ class WhitePianoKey extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
+
     return GestureDetector(
       onPanDown: (details) => isPressed.value = true,
       onTapUp: (details) => isPressed.value = false,
-      onPanStart: (details) => isPressed.value = false,
       child: Container(
         height: whiteKeyHeight,
         decoration: BoxDecoration(
-          color: isPressed.value
+          color: isPressed.value && !ref.watch(pianoIsScrollingProvider)
               ? Theme.of(context).colorScheme.tertiary.withOpacity(.25)
               : Theme.of(context).colorScheme.background,
           border: Border.symmetric(
@@ -157,14 +185,43 @@ class WhitePianoKey extends HookConsumerWidget {
               child: Transform.rotate(
                 angle: 3 * pi / 2,
                 child: ref.watch(showLetterNamesOnPianoProvider)
-                    ? Text(
-                        note.name,
-                        style: TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.w900),
-                      ).animate().fadeIn()
+                    ? PianoNoteHint(note: note).animate().fadeIn()
                     : SizedBox.shrink(),
               ),
             )),
+      ),
+    );
+  }
+}
+
+class PianoNoteHint extends StatelessWidget {
+  const PianoNoteHint({
+    super.key,
+    required this.note,
+  });
+
+  final Enum note;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 75,
+      width: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            note.name[0],
+            style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Text(
+              note.name[1],
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
       ),
     );
   }

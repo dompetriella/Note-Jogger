@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/models/modes.dart';
-import 'package:note_jogger/pages/information_window_page.dart';
-
 import '../../game_logic/quiz_generate.dart';
 import '../../provider.dart';
+import '../information_window/information_window_screen_scaffold.dart';
 
 class ModeButton extends ConsumerWidget {
   final String title;

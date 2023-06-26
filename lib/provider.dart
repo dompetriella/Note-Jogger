@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
-import 'package:note_jogger/pages/information_window_page.dart';
+import 'components/information_window/information_window_staging.dart';
 import 'components/quiz/quiz_generate.dart';
 import 'models/modes.dart';
 
@@ -25,6 +25,10 @@ final showHintsProvider = StateProvider<bool>((ref) {
 
 final showLetterNamesOnPianoProvider = StateProvider<bool>((ref) {
   return true;
+});
+
+final pianoIsScrollingProvider = StateProvider<bool>((ref) {
+  return false;
 });
 
 final stopwatchProvider =

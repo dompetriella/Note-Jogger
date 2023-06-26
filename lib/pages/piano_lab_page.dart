@@ -116,6 +116,14 @@ class BlackPianoKey extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
+
+    useEffect(() {
+      final pianoScrolling = ref.watch(pianoIsScrollingProvider);
+      if (!pianoScrolling) {
+        isPressed.value = false;
+      }
+    }, [ref.watch(pianoIsScrollingProvider)]);
+
     return GestureDetector(
       onPanDown: (details) => isPressed.value = true,
       onTapUp: (details) => isPressed.value = false,
@@ -124,7 +132,7 @@ class BlackPianoKey extends HookConsumerWidget {
           height: whiteKeyHeight / 2,
           width: MediaQuery.of(context).size.width * .60,
           decoration: BoxDecoration(
-              color: isPressed.value && !ref.watch(pianoIsScrollingProvider)
+              color: isPressed.value
                   ? Colors.lightBlue
                   : Theme.of(context).colorScheme.onBackground,
               borderRadius: BorderRadius.only(
@@ -165,13 +173,20 @@ class WhitePianoKey extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
 
+    useEffect(() {
+      final pianoScrolling = ref.watch(pianoIsScrollingProvider);
+      if (!pianoScrolling) {
+        isPressed.value = false;
+      }
+    }, [ref.watch(pianoIsScrollingProvider)]);
+
     return GestureDetector(
       onPanDown: (details) => isPressed.value = true,
       onTapUp: (details) => isPressed.value = false,
       child: Container(
         height: whiteKeyHeight,
         decoration: BoxDecoration(
-          color: isPressed.value && !ref.watch(pianoIsScrollingProvider)
+          color: isPressed.value
               ? Theme.of(context).colorScheme.tertiary.withOpacity(.25)
               : Theme.of(context).colorScheme.background,
           border: Border.symmetric(

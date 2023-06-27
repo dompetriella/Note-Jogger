@@ -158,11 +158,10 @@ class BlackPianoKey extends HookConsumerWidget {
     return GestureDetector(
       onPanDown: (details) async {
         isPressed.value = true;
-
+        ref.read(noteOnPianoStaffProvider.notifier).state = note.index;
         await player
             .setAsset('audio/base_piano/${note.name[0]}b${note.name[1]}.mp3');
         await player.play();
-        ref.read(noteOnPianoStaffProvider.notifier).state = note.index;
       },
       onTapUp: (details) async {
         isPressed.value = false;
@@ -226,9 +225,9 @@ class WhitePianoKey extends HookConsumerWidget {
     return GestureDetector(
       onPanDown: (details) async {
         isPressed.value = true;
+        ref.read(noteOnPianoStaffProvider.notifier).state = note.index;
         await player.setAsset('audio/base_piano/${note.name}.mp3');
         await player.play();
-        ref.read(noteOnPianoStaffProvider.notifier).state = note.index;
       },
       onTapUp: (details) async {
         isPressed.value = false;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/globals.dart';
+import 'package:note_jogger/models/notes.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
 import 'components/information_window/information_window_staging.dart';
 import 'components/quiz/quiz_generate.dart';
@@ -25,6 +26,14 @@ final showHintsProvider = StateProvider<bool>((ref) {
 
 final showLetterNamesOnPianoProvider = StateProvider<bool>((ref) {
   return true;
+});
+
+final showStaffOnPianoProvider = StateProvider<bool>((ref) {
+  return true;
+});
+
+final noteOnPianoStaffProvider = StateProvider<int>((ref) {
+  return TrebleClefNotes.C4.index;
 });
 
 final pianoIsScrollingProvider = StateProvider<bool>((ref) {

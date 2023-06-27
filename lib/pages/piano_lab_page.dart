@@ -4,6 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:note_jogger/components/notestaff/note_staff.dart';
+import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 
 import '../provider.dart';
@@ -30,9 +32,37 @@ class PianoLabPage extends HookConsumerWidget {
           elevation: 20,
           shadowColor: Colors.black,
         ),
-        body: ListView(
-          controller: scrollController,
-          children: [PianoUI()],
+        body: Column(
+          children: [
+            if (ref.watch(showStaffOnPianoProvider))
+              SizedBox(
+                height: 350,
+                child: Center(
+                  child: Builder(builder: (context) {
+                    return Transform.rotate(
+                      angle: 3 * pi / 2,
+                      child: NoteStaff(
+                          value: TrebleClefNotes
+                              .values[ref.watch(noteOnPianoStaffProvider)],
+                          imagePath: GLOBAL_treble_clef_path),
+                    );
+                  }),
+                ),
+              ),
+            Expanded(
+              child: AnimatedContainer(
+                duration: 400.ms,
+                decoration: BoxDecoration(
+                    border: ref.watch(showStaffOnPianoProvider)
+                        ? Border(top: BorderSide(width: 4, color: Colors.black))
+                        : null),
+                child: ListView(
+                  controller: scrollController,
+                  children: [PianoUI()],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -128,9 +158,11 @@ class BlackPianoKey extends HookConsumerWidget {
     return GestureDetector(
       onPanDown: (details) async {
         isPressed.value = true;
+
         await player
             .setAsset('audio/base_piano/${note.name[0]}b${note.name[1]}.mp3');
         await player.play();
+        ref.read(noteOnPianoStaffProvider.notifier).state = note.index;
       },
       onTapUp: (details) async {
         isPressed.value = false;
@@ -196,6 +228,7 @@ class WhitePianoKey extends HookConsumerWidget {
         isPressed.value = true;
         await player.setAsset('audio/base_piano/${note.name}.mp3');
         await player.play();
+        ref.read(noteOnPianoStaffProvider.notifier).state = note.index;
       },
       onTapUp: (details) async {
         isPressed.value = false;
@@ -270,6 +303,20 @@ class PianoControls extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: GestureDetector(
+            onTap: () => ref.read(showStaffOnPianoProvider.notifier).state =
+                !ref.read(showStaffOnPianoProvider),
+            child: Icon(
+              Icons.key,
+              size: 65,
+              color: ref.watch(showStaffOnPianoProvider)
+                  ? Colors.white
+                  : Colors.black.withOpacity(.5),
+            ),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
           child: GestureDetector(

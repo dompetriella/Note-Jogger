@@ -72,6 +72,7 @@ flutter:
   assets:
     - assets/bass_clef.svg
     - assets/treble_clef.svg
+    - assets/flat.svg
     - audio/base_piano/
 
   # An image asset can refer to one or more resolution-specific "variants", see

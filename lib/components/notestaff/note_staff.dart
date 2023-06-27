@@ -174,7 +174,7 @@ class NoteStaff extends ConsumerWidget {
                   clef: isTrebleClef
                       ? TrebleClefNotes.values
                       : BassClefNotes.values,
-                  value: value.index,
+                  value: value,
                 ),
               ),
             ],

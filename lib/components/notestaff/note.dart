@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 
 class Note extends StatelessWidget {
-  final int value;
+  final Enum value;
   final List<Enum> clef;
   const Note({super.key, required this.value, required this.clef});
 
@@ -13,27 +15,46 @@ class Note extends StatelessWidget {
   Widget build(BuildContext context) {
     double calculateNotePosition(int noteValue, List<Enum> clefList) {
       int previousFlats = 0;
-      for (var i = 0; i < clefList[value].index; i++) {
+      for (var i = 0; i < clefList[value.index].index; i++) {
         if (clefList[i].name.contains('flat')) {
           previousFlats++;
         }
       }
-      var position = 29 + (((value - previousFlats) + 1) * 10);
+      var position = 29 + (((value.index - previousFlats) + 1) * 10);
       return position.toDouble();
     }
 
     return Stack(
       children: [
-        // low c in treble cleft
-        // low e in bass cleft
+        Stack(
+          children: [
+            // low c in treble cleft
+            // low e in bass cleft
+            AnimatedPositioned(
+                duration: 200.ms,
+                curve: Curves.easeInOut,
+                left: 135,
+                bottom: calculateNotePosition(value.index, clef),
+                child: QuarterNoteWidget(
+                  value: value.index,
+                )),
+          ],
+        ),
         AnimatedPositioned(
-            duration: 200.ms,
-            curve: Curves.easeInOut,
-            left: 135,
-            bottom: calculateNotePosition(value, clef),
-            child: QuarterNoteWidget(
-              value: value,
-            )),
+          duration: 200.ms,
+          curve: Curves.easeInOut,
+          left: 110,
+          bottom: calculateNotePosition(value.index, clef) - 18,
+          child: Container(
+              height: 40,
+              width: 20,
+              child: SvgPicture.asset('assets/flat.svg',
+                  colorFilter: ColorFilter.mode(
+                      value.name.contains('flat')
+                          ? Theme.of(context).colorScheme.primary
+                          : Colors.transparent,
+                      BlendMode.srcIn))),
+        )
       ],
     );
   }

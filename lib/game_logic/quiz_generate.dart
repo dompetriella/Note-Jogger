@@ -78,25 +78,22 @@ List<Widget> createQuizOptionButtons(
 // modes
 
 List<Enum> trimClefNotes(List<Enum> clef, Enum lowestNote, Enum highestNote,
-    {bool lineNotesOnly = false, bool spaceNotesOnly = false}) {
+    {bool lineNotesOnly = false,
+    bool spaceNotesOnly = false,
+    bool includeFlats = true}) {
   List<Enum> returnList = [];
   for (var i = 0; i < clef.length; i++) {
     if (i >= lowestNote.index && i <= highestNote.index) {
-      if (lineNotesOnly || spaceNotesOnly) {
-        if (lineNotesOnly) {
-          if (!(i % 2 == 0)) {
-            returnList.add(clef[i]);
-          }
-        }
-        if (spaceNotesOnly) {
-          if ((i % 2 == 0)) {
-            returnList.add(clef[i]);
-          }
-        }
-      } else {
-        returnList.add(clef[i]);
-      }
+      returnList.add(clef[i]);
     }
+  }
+
+  if (!includeFlats) {
+    returnList = returnList
+        .where(
+          (element) => !element.name.contains('flat'),
+        )
+        .toList();
   }
   return returnList;
 }

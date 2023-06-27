@@ -28,8 +28,11 @@ class NextQuestionButton extends ConsumerWidget {
           }
         },
         child: Text(
-          'Continue',
-          style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
+          'Continue'.toUpperCase(),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onTertiary,
+              fontSize: 24,
+              fontWeight: FontWeight.w300),
         ));
   }
 }

@@ -1,5 +1,8 @@
 List<String> noteStrings = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
+List<String> trebleClefLineNotes = ['E', 'G', 'B', 'D', 'F'];
+List<String> bassClefLineNotes = ['G', 'B', 'D', 'F', 'A'];
+
 enum TrebleClefNotes {
   // below staff
   C3,

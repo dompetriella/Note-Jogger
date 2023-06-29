@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 
 class Note extends StatelessWidget {
@@ -45,15 +44,18 @@ class Note extends StatelessWidget {
           curve: Curves.easeInOut,
           left: 110,
           bottom: calculateNotePosition(value.index, clef) - 18,
-          child: Container(
+          child: SizedBox(
               height: 40,
               width: 20,
-              child: SvgPicture.asset('assets/flat.svg',
-                  colorFilter: ColorFilter.mode(
-                      value.name.contains('flat')
-                          ? Theme.of(context).colorScheme.primary
-                          : Colors.transparent,
-                      BlendMode.srcIn))),
+              child: value.name.contains('flat')
+                  ? SvgPicture.asset('assets/flat.svg',
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.primary,
+                          BlendMode.srcIn))
+                  : const SizedBox(
+                      height: 40,
+                      width: 20,
+                    )),
         )
       ],
     );

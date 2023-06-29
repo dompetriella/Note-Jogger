@@ -31,36 +31,50 @@ class PianoLabPage extends HookConsumerWidget {
           elevation: 20,
           shadowColor: Colors.black,
         ),
-        body: Row(
-          children: [
-            Expanded(
-              child: AnimatedContainer(
-                duration: 400.ms,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  controller: scrollController,
-                  children: [PianoUI()],
-                  reverse: true,
-                ),
-              ),
-            ),
-            if (ref.watch(showStaffOnPianoProvider))
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: SizedBox(
-                  height: 350,
-                  child: Center(
-                    child: Builder(builder: (context) {
-                      return NoteStaff(
-                          value: TrebleClefNotes
-                              .values[ref.watch(noteOnPianoStaffProvider)],
-                          imagePath: GLOBAL_treble_clef_path);
-                    }),
+        body: Builder(builder: (context) {
+          if (MediaQuery.of(context).orientation == Orientation.portrait) {
+            return Container(
+              color: Theme.of(context).colorScheme.background,
+              child: Center(
+                  child: Text(
+                'Try Rotating the Device!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 36),
+              )),
+            );
+          } else {
+            return Row(
+              children: [
+                Expanded(
+                  child: AnimatedContainer(
+                    duration: 400.ms,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      controller: scrollController,
+                      children: [PianoUI()],
+                      reverse: true,
+                    ),
                   ),
                 ),
-              ),
-          ],
-        ),
+                if (ref.watch(showStaffOnPianoProvider))
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: SizedBox(
+                      height: 350,
+                      child: Center(
+                        child: Builder(builder: (context) {
+                          return NoteStaff(
+                              value: TrebleClefNotes
+                                  .values[ref.watch(noteOnPianoStaffProvider)],
+                              imagePath: GLOBAL_treble_clef_path);
+                        }),
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          }
+        }),
       ),
     );
   }
@@ -298,7 +312,7 @@ class PianoControls extends ConsumerWidget {
                 !ref.read(showStaffOnPianoProvider),
             child: Icon(
               Icons.key,
-              size: 65,
+              size: 45,
               color: ref.watch(showStaffOnPianoProvider)
                   ? Colors.white
                   : Colors.black.withOpacity(.5),
@@ -313,7 +327,7 @@ class PianoControls extends ConsumerWidget {
                 .state = !ref.read(showLetterNamesOnPianoProvider),
             child: Icon(
               Icons.abc,
-              size: 80,
+              size: 60,
               color: ref.watch(showLetterNamesOnPianoProvider)
                   ? Colors.white
                   : Colors.black.withOpacity(.5),

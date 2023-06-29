@@ -45,15 +45,18 @@ class PianoLabPage extends HookConsumerWidget {
               ),
             ),
             if (ref.watch(showStaffOnPianoProvider))
-              SizedBox(
-                height: 350,
-                child: Center(
-                  child: Builder(builder: (context) {
-                    return NoteStaff(
-                        value: TrebleClefNotes
-                            .values[ref.watch(noteOnPianoStaffProvider)],
-                        imagePath: GLOBAL_treble_clef_path);
-                  }),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: SizedBox(
+                  height: 350,
+                  child: Center(
+                    child: Builder(builder: (context) {
+                      return NoteStaff(
+                          value: TrebleClefNotes
+                              .values[ref.watch(noteOnPianoStaffProvider)],
+                          imagePath: GLOBAL_treble_clef_path);
+                    }),
+                  ),
                 ),
               ),
           ],
@@ -70,6 +73,22 @@ class PianoUI extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final initFunction = useCallback((_) async {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        scrollController.position.isScrollingNotifier.addListener(() {
+          if (!scrollController.position.isScrollingNotifier.value) {
+            ref.read(pianoIsScrollingProvider.notifier).state = false;
+          } else {
+            ref.read(pianoIsScrollingProvider.notifier).state = true;
+          }
+        });
+      });
+    }, []);
+
+    useEffect(() {
+      initFunction(null);
+    }, []);
+
     return Stack(
       children: [
         Row(
@@ -187,6 +206,13 @@ class WhitePianoKey extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
+
+    useEffect(() {
+      final pianoScrolling = ref.watch(pianoIsScrollingProvider);
+      if (!pianoScrolling) {
+        isPressed.value = false;
+      }
+    }, [ref.watch(pianoIsScrollingProvider)]);
 
     return GestureDetector(
       onPanDown: (details) async {

@@ -29,7 +29,7 @@ final showLetterNamesOnPianoProvider = StateProvider<bool>((ref) {
 });
 
 final showStaffOnPianoProvider = StateProvider<bool>((ref) {
-  return true;
+  return false;
 });
 
 final noteOnPianoStaffProvider = StateProvider<int>((ref) {

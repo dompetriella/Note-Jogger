@@ -10,8 +10,8 @@ import 'package:note_jogger/models/notes.dart';
 
 import '../provider.dart';
 
-double whiteKeyHeight = 95;
-double blackKeyHeight = whiteKeyHeight / 2;
+double whiteKeyWidth = 100;
+double blackKeyWidth = whiteKeyWidth / 2;
 ScrollController scrollController = ScrollController();
 final player = AudioPlayer();
 
@@ -23,45 +23,39 @@ class PianoLabPage extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 75,
-          actions: [PianoControls()],
           backgroundColor: Colors.orange,
+          actions: [PianoControls()],
           shape: Border(
               bottom: BorderSide(
                   color: Theme.of(context).colorScheme.onBackground, width: 4)),
           elevation: 20,
           shadowColor: Colors.black,
         ),
-        body: Column(
+        body: Row(
           children: [
+            Expanded(
+              child: AnimatedContainer(
+                duration: 400.ms,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  controller: scrollController,
+                  children: [PianoUI()],
+                  reverse: true,
+                ),
+              ),
+            ),
             if (ref.watch(showStaffOnPianoProvider))
               SizedBox(
                 height: 350,
                 child: Center(
                   child: Builder(builder: (context) {
-                    return Transform.rotate(
-                      angle: 3 * pi / 2,
-                      child: NoteStaff(
-                          value: TrebleClefNotes
-                              .values[ref.watch(noteOnPianoStaffProvider)],
-                          imagePath: GLOBAL_treble_clef_path),
-                    );
+                    return NoteStaff(
+                        value: TrebleClefNotes
+                            .values[ref.watch(noteOnPianoStaffProvider)],
+                        imagePath: GLOBAL_treble_clef_path);
                   }),
                 ),
               ),
-            Expanded(
-              child: AnimatedContainer(
-                duration: 400.ms,
-                decoration: BoxDecoration(
-                    border: ref.watch(showStaffOnPianoProvider)
-                        ? Border(top: BorderSide(width: 4, color: Colors.black))
-                        : null),
-                child: ListView(
-                  controller: scrollController,
-                  children: [PianoUI()],
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -76,30 +70,14 @@ class PianoUI extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final initFunction = useCallback((_) async {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        scrollController.position.isScrollingNotifier.addListener(() {
-          if (!scrollController.position.isScrollingNotifier.value) {
-            ref.read(pianoIsScrollingProvider.notifier).state = false;
-          } else {
-            ref.read(pianoIsScrollingProvider.notifier).state = true;
-          }
-        });
-      });
-    }, []);
-
-    useEffect(() {
-      initFunction(null);
-    }, []);
-
     return Stack(
       children: [
-        Column(
+        Row(
           children: createWhiteKeys(),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: whiteKeyHeight * .75),
-          child: Column(
+        Positioned(
+          right: whiteKeyWidth * .75,
+          child: Row(
             children: createBlackKeys(),
           ),
         ),
@@ -117,7 +95,6 @@ List<Widget> createWhiteKeys() {
       ));
     }
   }
-  returnList = returnList.reversed.toList();
   return returnList;
 }
 
@@ -127,16 +104,15 @@ List<Widget> createBlackKeys() {
     if (noteEnum.name.contains('flat')) {
       returnList.add(Padding(
         padding: EdgeInsets.only(
-            bottom: noteEnum.name[0] == 'G' || noteEnum.name[0] == 'D'
-                ? whiteKeyHeight + whiteKeyHeight * .5
-                : whiteKeyHeight / 2),
+            left: noteEnum.name[0] == 'G' || noteEnum.name[0] == 'D'
+                ? whiteKeyWidth + whiteKeyWidth * .5
+                : whiteKeyWidth / 2),
         child: BlackPianoKey(
           note: noteEnum,
         ),
       ));
     }
   }
-  returnList = returnList.reversed.toList();
   return returnList;
 }
 
@@ -171,31 +147,28 @@ class BlackPianoKey extends HookConsumerWidget {
       },
       child: Builder(builder: (context) {
         return Container(
-          height: whiteKeyHeight / 2,
-          width: MediaQuery.of(context).size.width * .60,
+          width: whiteKeyWidth / 2,
+          height: MediaQuery.of(context).size.height * .50,
           decoration: BoxDecoration(
               color: isPressed.value
                   ? Colors.lightBlue
                   : Theme.of(context).colorScheme.onBackground,
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(5),
+                  bottomLeft: Radius.circular(5),
                   bottomRight: Radius.circular(5))),
           child: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Align(
-              alignment: Alignment.centerRight,
-              child: Transform.rotate(
-                angle: 3 * pi / 2,
-                child: ref.watch(showLetterNamesOnPianoProvider)
-                    ? Text(
-                        '${note.name[0]}b',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.background,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w400),
-                      ).animate().fadeIn()
-                    : SizedBox.shrink(),
-              ),
+              alignment: Alignment.bottomCenter,
+              child: ref.watch(showLetterNamesOnPianoProvider)
+                  ? Text(
+                      '${note.name[0]}b',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.background,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400),
+                    ).animate().fadeIn()
+                  : SizedBox.shrink(),
             ),
           ),
         );
@@ -215,13 +188,6 @@ class WhitePianoKey extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
 
-    useEffect(() {
-      final pianoScrolling = ref.watch(pianoIsScrollingProvider);
-      if (!pianoScrolling) {
-        isPressed.value = false;
-      }
-    }, [ref.watch(pianoIsScrollingProvider)]);
-
     return GestureDetector(
       onPanDown: (details) async {
         isPressed.value = true;
@@ -235,25 +201,21 @@ class WhitePianoKey extends HookConsumerWidget {
         await player.stop();
       },
       child: Container(
-        height: whiteKeyHeight,
+        width: whiteKeyWidth,
         decoration: BoxDecoration(
           color: isPressed.value
               ? Theme.of(context).colorScheme.tertiary.withOpacity(.25)
               : Theme.of(context).colorScheme.background,
           border: Border.symmetric(
-              horizontal: BorderSide(
-                  color: Theme.of(context).colorScheme.onBackground, width: 2)),
+              vertical: BorderSide(color: Colors.black, width: 2)),
         ),
         child: Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Transform.rotate(
-                angle: 3 * pi / 2,
-                child: ref.watch(showLetterNamesOnPianoProvider)
-                    ? PianoNoteHint(note: note).animate().fadeIn()
-                    : SizedBox.shrink(),
-              ),
+              padding: const EdgeInsets.only(bottom: 18.0),
+              child: ref.watch(showLetterNamesOnPianoProvider)
+                  ? PianoNoteHint(note: note).animate().fadeIn()
+                  : SizedBox.shrink(),
             )),
       ),
     );
@@ -301,6 +263,7 @@ class PianoControls extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),

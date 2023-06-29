@@ -12,7 +12,10 @@ import '../provider.dart';
 
 double whiteKeyWidth = 100;
 double blackKeyWidth = whiteKeyWidth / 2;
-ScrollController scrollController = ScrollController();
+double minScroll = 0;
+double maxScroll = 100;
+ScrollController scrollController =
+    ScrollController(initialScrollOffset: whiteKeyWidth * 10);
 final player = AudioPlayer();
 
 class PianoLabPage extends HookConsumerWidget {
@@ -20,9 +23,31 @@ class PianoLabPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ValueNotifier<double> scrollPercentage = useState(50);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 50,
+          title: Row(
+            children: [
+              Expanded(
+                  child: SizedBox(
+                height: 50,
+                child: Slider(
+                  value: scrollPercentage.value,
+                  onChanged: (value) => {
+                    scrollPercentage.value = value,
+                    print(scrollPercentage.value),
+                    scrollController.jumpTo(
+                        scrollController.position.maxScrollExtent *
+                            (1 - (scrollPercentage.value / maxScroll)))
+                  },
+                  min: minScroll,
+                  max: maxScroll,
+                ),
+              )),
+            ],
+          ),
           backgroundColor: Colors.orange,
           actions: [PianoControls()],
           shape: Border(
@@ -51,6 +76,7 @@ class PianoLabPage extends HookConsumerWidget {
                     child: AnimatedContainer(
                       duration: 400.ms,
                       child: ListView(
+                        physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         controller: scrollController,
                         children: [PianoUI()],
@@ -90,22 +116,6 @@ class PianoUI extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final initFunction = useCallback((_) async {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        scrollController.position.isScrollingNotifier.addListener(() {
-          if (!scrollController.position.isScrollingNotifier.value) {
-            ref.read(pianoIsScrollingProvider.notifier).state = false;
-          } else {
-            ref.read(pianoIsScrollingProvider.notifier).state = true;
-          }
-        });
-      });
-    }, []);
-
-    useEffect(() {
-      initFunction(null);
-    }, []);
-
     return Stack(
       children: [
         Row(
@@ -159,13 +169,6 @@ class BlackPianoKey extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
-
-    useEffect(() {
-      final pianoScrolling = ref.watch(pianoIsScrollingProvider);
-      if (!pianoScrolling) {
-        isPressed.value = false;
-      }
-    }, [ref.watch(pianoIsScrollingProvider)]);
 
     return GestureDetector(
       onPanDown: (details) async {
@@ -234,13 +237,6 @@ class WhitePianoKey extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var isPressed = useState(false);
-
-    useEffect(() {
-      final pianoScrolling = ref.watch(pianoIsScrollingProvider);
-      if (!pianoScrolling) {
-        isPressed.value = false;
-      }
-    }, [ref.watch(pianoIsScrollingProvider)]);
 
     return GestureDetector(
       onPanDown: (details) async {
@@ -318,7 +314,6 @@ class PianoControls extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
@@ -329,21 +324,6 @@ class PianoControls extends ConsumerWidget {
               Icons.key,
               size: 45,
               color: ref.watch(showStaffOnPianoProvider)
-                  ? Colors.white
-                  : Colors.black.withOpacity(.5),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: GestureDetector(
-            onTap: () => ref
-                .read(showLetterNamesOnPianoProvider.notifier)
-                .state = !ref.read(showLetterNamesOnPianoProvider),
-            child: Icon(
-              Icons.abc,
-              size: 60,
-              color: ref.watch(showLetterNamesOnPianoProvider)
                   ? Colors.white
                   : Colors.black.withOpacity(.5),
             ),

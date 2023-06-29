@@ -36,10 +36,6 @@ final noteOnPianoStaffProvider = StateProvider<int>((ref) {
   return TrebleClefNotes.C4.index;
 });
 
-final pianoIsScrollingProvider = StateProvider<bool>((ref) {
-  return false;
-});
-
 final stopwatchProvider =
     StateNotifierProvider<StopwatchNotifier, Stopwatch>((ref) {
   return StopwatchNotifier();

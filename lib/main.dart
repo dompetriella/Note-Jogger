@@ -5,10 +5,6 @@ import 'package:note_jogger/routes.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -22,10 +18,14 @@ class MyApp extends ConsumerWidget {
       title: 'Note Jogger',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
-        fontFamily: 'LondrinaSolid',
-        useMaterial3: true,
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+          fontFamily: 'LondrinaSolid',
+          useMaterial3: true,
+          sliderTheme: SliderTheme.of(context).copyWith(
+            trackHeight: 32,
+            thumbShape:
+                RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
+          )),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             brightness: Brightness.dark, seedColor: Colors.blue),

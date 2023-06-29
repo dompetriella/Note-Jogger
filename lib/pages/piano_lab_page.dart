@@ -58,7 +58,7 @@ class PianoLabPage extends HookConsumerWidget {
                 ),
                 if (ref.watch(showStaffOnPianoProvider))
                   Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: SizedBox(
                       height: 350,
                       child: Center(
@@ -191,18 +191,28 @@ class BlackPianoKey extends HookConsumerWidget {
                   bottomRight: Radius.circular(5))),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: ref.watch(showLetterNamesOnPianoProvider)
-                  ? Text(
-                      '${note.name[0]}b',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.background,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ).animate().fadeIn()
-                  : SizedBox.shrink(),
-            ),
+            child: ref.watch(showLetterNamesOnPianoProvider)
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        '${TrebleClefNotes.values[note.index - 1].name[0]}#',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400),
+                      ).animate().fadeIn(),
+                      Divider(),
+                      Text(
+                        '${note.name[0]}b',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400),
+                      ).animate().fadeIn(),
+                    ],
+                  )
+                : SizedBox.shrink(),
           ),
         );
       }),

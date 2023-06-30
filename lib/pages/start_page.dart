@@ -5,6 +5,7 @@ import 'package:note_jogger/pages/piano_lab_page.dart';
 import 'package:note_jogger/pages/select_mode_page.dart';
 import '../components/generic_button.dart';
 import '../provider.dart';
+import 'experiment_page.dart';
 
 class StartPage extends ConsumerWidget {
   const StartPage({super.key});
@@ -86,6 +87,16 @@ class StartPage extends ConsumerWidget {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => const PianoLabPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          GenericPageButton(
+                            text: 'Testing Page',
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const ExperimentPage(),
                                 ),
                               );
                             },

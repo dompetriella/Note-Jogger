@@ -112,38 +112,120 @@ class StaffContainer extends HookConsumerWidget {
                   )
                 ],
               ),
+
+              // if (isTrebleClef
+              //             ? value.index > TrebleClefNotes.F6.index
+              //             : value.index > BassClefNotes.A5.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 290,
+              //               child: FloatingStaffWidget()),
+              //         if (isTrebleClef
+              //             ? value.index > TrebleClefNotes.D6.index
+              //             : value.index > BassClefNotes.F5.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 270,
+              //               child: FloatingStaffWidget()),
+              //         if (isTrebleClef
+              //             ? value.index > TrebleClefNotes.B5.index
+              //             : value.index > BassClefNotes.D4.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 250,
+              //               child: FloatingStaffWidget()),
+              //         if (isTrebleClef
+              //             ? value.index > TrebleClefNotes.G5.index
+              //             : value.index > BassClefNotes.B4.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 230,
+              //               child: FloatingStaffWidget()),
+              //         // below the staff
+              //         if (isTrebleClef
+              //             ? value.index < TrebleClefNotes.D4_flat.index
+              //             : value.index < BassClefNotes.F3.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 110,
+              //               child: FloatingStaffWidget()),
+              //         if (isTrebleClef
+              //             ? value.index < TrebleClefNotes.B3_flat.index
+              //             : value.index < BassClefNotes.D2_flat.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 90,
+              //               child: FloatingStaffWidget()),
+              //         if (isTrebleClef
+              //             ? value.index < TrebleClefNotes.G3_flat.index
+              //             : value.index < BassClefNotes.B2_flat.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 70,
+              //               child: FloatingStaffWidget()),
+              //         if (isTrebleClef
+              //             ? value.index < TrebleClefNotes.E3_flat.index
+              //             : value.index < BassClefNotes.G2_flat.index)
+              //           const Positioned(
+              //               left: 150,
+              //               bottom: 50,
+              //               child: FloatingStaffWidget()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Stack(
                     alignment: AlignmentDirectional.bottomCenter,
                     children: [
-                      FloatingStaff(
-                        yOffset: -320,
-                      ),
-
-                      FloatingStaff(
-                        yOffset: -295,
-                      ),
-                      FloatingStaff(
-                        yOffset: -270,
-                      ),
-                      FloatingStaff(
-                        yOffset: -245,
-                      ),
+                      if (isTrebleClef
+                          ? noteValue.value > TrebleClefNotes.F6.index
+                          : noteValue.value > BassClefNotes.A5.index)
+                        FloatingStaff(
+                          yOffset: -320,
+                        ),
+                      if (isTrebleClef
+                          ? noteValue.value > TrebleClefNotes.D6.index
+                          : noteValue.value > BassClefNotes.F5.index)
+                        FloatingStaff(
+                          yOffset: -295,
+                        ),
+                      if (isTrebleClef
+                          ? noteValue.value > TrebleClefNotes.B5.index
+                          : noteValue.value > BassClefNotes.D4.index)
+                        FloatingStaff(
+                          yOffset: -270,
+                        ),
+                      if (isTrebleClef
+                          ? noteValue.value > TrebleClefNotes.G5.index
+                          : noteValue.value > BassClefNotes.B4.index)
+                        FloatingStaff(
+                          yOffset: -245,
+                        ),
                       // below the staff
-                      FloatingStaff(
-                        yOffset: -94,
-                      ),
-                      FloatingStaff(
-                        yOffset: -69,
-                      ),
-                      FloatingStaff(
-                        yOffset: -44,
-                      ),
-                      FloatingStaff(
-                        yOffset: -19,
-                      ),
+
+                      if (isTrebleClef
+                          ? noteValue.value < TrebleClefNotes.D4_flat.index
+                          : noteValue.value < BassClefNotes.F3.index)
+                        FloatingStaff(
+                          yOffset: -94,
+                        ),
+                      if (isTrebleClef
+                          ? noteValue.value < TrebleClefNotes.B3_flat.index
+                          : noteValue.value < BassClefNotes.D2_flat.index)
+                        FloatingStaff(
+                          yOffset: -69,
+                        ),
+                      if (isTrebleClef
+                          ? noteValue.value < TrebleClefNotes.G3_flat.index
+                          : noteValue.value < BassClefNotes.B2_flat.index)
+                        FloatingStaff(
+                          yOffset: -44,
+                        ),
+                      if (isTrebleClef
+                          ? noteValue.value < TrebleClefNotes.E3_flat.index
+                          : noteValue.value < BassClefNotes.G2_flat.index)
+                        FloatingStaff(
+                          yOffset: -19,
+                        ),
                       Note(noteValue: noteValue.value, size: size),
                     ],
                   ),

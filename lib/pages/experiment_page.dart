@@ -39,6 +39,7 @@ class ExperimentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: NoteStaff(
         size: 1,
       ),
@@ -114,7 +115,38 @@ class StaffContainer extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Note(noteValue: noteValue.value, size: size),
+                  Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      FloatingStaff(
+                        yOffset: -320,
+                      ),
+
+                      FloatingStaff(
+                        yOffset: -295,
+                      ),
+                      FloatingStaff(
+                        yOffset: -270,
+                      ),
+                      FloatingStaff(
+                        yOffset: -245,
+                      ),
+                      // below the staff
+                      FloatingStaff(
+                        yOffset: -94,
+                      ),
+                      FloatingStaff(
+                        yOffset: -69,
+                      ),
+                      FloatingStaff(
+                        yOffset: -44,
+                      ),
+                      FloatingStaff(
+                        yOffset: -19,
+                      ),
+                      Note(noteValue: noteValue.value, size: size),
+                    ],
+                  ),
                 ],
               ),
             ],
@@ -140,6 +172,22 @@ class StaffContainer extends HookConsumerWidget {
   }
 }
 
+class FloatingStaff extends StatelessWidget {
+  final double yOffset;
+  const FloatingStaff({
+    required this.yOffset,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.translate(
+        offset: Offset(0, yOffset),
+        child: Container(
+            height: 3, width: 50, color: Colors.black.withOpacity(.7)));
+  }
+}
+
 class Note extends StatelessWidget {
   final double size;
   final int noteValue;
@@ -160,20 +208,24 @@ class Note extends StatelessWidget {
       }
     }
 
+    double noteSize = 77;
     bool flagIsUp = noteValue < 24 ? true : false;
     // -25 / 2 is the staff height divided by 2
     double offset = 5 + (noteValue - previousFlats) * -25 / 2;
     double flagOffset = flagIsUp ? offset : offset + 50;
 
-    // flag down needs to be 50px less
     return Transform.translate(
       offset: Offset(0, flagOffset * size),
       child: Align(
         alignment: Alignment.bottomCenter,
         child: flagIsUp
-            ? SvgPicture.asset(
-                'assets/quarter_note.svg',
-                height: 77 * size,
+            ? Stack(
+                children: [
+                  SvgPicture.asset(
+                    'assets/quarter_note.svg',
+                    height: 77 * size,
+                  ),
+                ],
               )
             : Transform.flip(
                 flipX: true,

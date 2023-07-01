@@ -6,50 +6,82 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/components/notestaff/note.dart';
 import 'package:note_jogger/models/notes.dart';
 
-moveNoteValueToNextNaturalNote(ValueNotifier<int> noteState,
+moveNoteValueToNextNaturalNote(ValueNotifier<Enum> noteState,
     List<Enum> clefValues, bool increase, bool twoSteps) {
   switch (increase) {
     case true:
-      var nextNote = twoSteps ? noteState.value + 3 : noteState.value + 1;
+      var nextNote =
+          twoSteps ? noteState.value.index + 3 : noteState.value.index + 1;
       if (nextNote < clefValues.length &&
           clefValues[nextNote].name.contains('flat')) {
         nextNote++;
       }
       if (nextNote < clefValues.length) {
-        noteState.value = nextNote;
+        noteState.value = clefValues[nextNote];
       }
 
       break;
 
     case false:
-      var nextNote = twoSteps ? noteState.value - 3 : noteState.value - 1;
+      var nextNote =
+          twoSteps ? noteState.value.index - 3 : noteState.value.index - 1;
       if (nextNote > 0 && clefValues[nextNote].name.contains('flat')) {
         nextNote--;
       }
       if (nextNote > 0) {
-        noteState.value = nextNote;
+        noteState.value = clefValues[nextNote];
       }
       break;
   }
 }
 
-class ExperimentPage extends StatelessWidget {
-  const ExperimentPage({super.key});
+class ExperimentPage extends HookConsumerWidget {
+  final double size;
+  final List<Enum> clefValues;
+  const ExperimentPage(
+      {super.key, this.size = 1, this.clefValues = TrebleClefNotes.values});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var noteState = useState(TrebleClefNotes.C4);
     return Scaffold(
       appBar: AppBar(),
-      body: NoteStaff(
-        size: 1,
+      body: Column(
+        children: [
+          Text(
+            'Note Value: ${TrebleClefNotes.values[noteState.value.index].name}',
+            style: TextStyle(fontSize: 32 * size, fontWeight: FontWeight.w500),
+          ),
+          NoteStaff(
+            note: noteState.value,
+            size: size,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ToggleButton(
+                onPressed: () => moveNoteValueToNextNaturalNote(
+                    noteState, clefValues, false, false),
+                icon: Icons.arrow_downward,
+              ),
+              ToggleButton(
+                onPressed: () => moveNoteValueToNextNaturalNote(
+                    noteState, clefValues, true, false),
+                icon: Icons.arrow_upward,
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
 }
 
 class NoteStaff extends StatelessWidget {
+  final Enum note;
   final double size;
   const NoteStaff({
+    required this.note,
     this.size = 1,
     super.key,
   });
@@ -58,32 +90,34 @@ class NoteStaff extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).colorScheme.background,
-      child: Center(child: StaffContainer(size: size)),
+      child: Center(
+          child: StaffContainer(
+        size: size,
+        note: note,
+      )),
     );
   }
 }
 
 class StaffContainer extends HookConsumerWidget {
+  final Enum note;
   final double size;
   const StaffContainer({
     super.key,
+    required this.note,
     required this.size,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var isTrebleClef = true;
+    var endPadding = 100;
 
     var clefValues =
         isTrebleClef ? TrebleClefNotes.values : BassClefNotes.values;
-    var noteValue = useState(TrebleClefNotes.C4.index);
 
     return Column(
       children: [
-        Text(
-          'Note Value: ${clefValues[noteValue.value].name}',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-        ),
         Container(
           height: 350 * size,
           decoration: BoxDecoration(
@@ -113,83 +147,85 @@ class StaffContainer extends HookConsumerWidget {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      if (isTrebleClef
-                          ? noteValue.value > TrebleClefNotes.F6.index
-                          : noteValue.value > BassClefNotes.A5.index)
-                        FloatingStaff(
-                          yOffset: -320,
-                        ),
-                      if (isTrebleClef
-                          ? noteValue.value > TrebleClefNotes.D6.index
-                          : noteValue.value > BassClefNotes.F5.index)
-                        FloatingStaff(
-                          yOffset: -295,
-                        ),
-                      if (isTrebleClef
-                          ? noteValue.value > TrebleClefNotes.B5.index
-                          : noteValue.value > BassClefNotes.D4.index)
-                        FloatingStaff(
-                          yOffset: -270,
-                        ),
-                      if (isTrebleClef
-                          ? noteValue.value > TrebleClefNotes.G5.index
-                          : noteValue.value > BassClefNotes.B4.index)
-                        FloatingStaff(
-                          yOffset: -245,
-                        ),
-                      // below the staff
-
-                      if (isTrebleClef
-                          ? noteValue.value < TrebleClefNotes.D4_flat.index
-                          : noteValue.value < BassClefNotes.F3.index)
-                        FloatingStaff(
-                          yOffset: -94,
-                        ),
-                      if (isTrebleClef
-                          ? noteValue.value < TrebleClefNotes.B3_flat.index
-                          : noteValue.value < BassClefNotes.D2_flat.index)
-                        FloatingStaff(
-                          yOffset: -69,
-                        ),
-                      if (isTrebleClef
-                          ? noteValue.value < TrebleClefNotes.G3_flat.index
-                          : noteValue.value < BassClefNotes.B2_flat.index)
-                        FloatingStaff(
-                          yOffset: -44,
-                        ),
-                      if (isTrebleClef
-                          ? noteValue.value < TrebleClefNotes.E3_flat.index
-                          : noteValue.value < BassClefNotes.G2_flat.index)
-                        FloatingStaff(
-                          yOffset: -19,
-                        ),
-                      Note(noteValue: noteValue.value, size: size),
-                    ],
+                  Container(
+                    height: 150 * size,
+                    width: 100 * size,
+                    color: Colors.black,
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(right: (endPadding * .75) * size),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          children: [
+                            if (isTrebleClef
+                                ? note.index > TrebleClefNotes.F6.index
+                                : note.index > BassClefNotes.A5.index)
+                              FloatingStaff(
+                                yOffset: -320,
+                              ),
+                            if (isTrebleClef
+                                ? note.index > TrebleClefNotes.D6.index
+                                : note.index > BassClefNotes.F5.index)
+                              FloatingStaff(
+                                yOffset: -295,
+                              ),
+                            if (isTrebleClef
+                                ? note.index > TrebleClefNotes.B5.index
+                                : note.index > BassClefNotes.D4.index)
+                              FloatingStaff(
+                                yOffset: -270,
+                              ),
+                            if (isTrebleClef
+                                ? note.index > TrebleClefNotes.G5.index
+                                : note.index > BassClefNotes.B4.index)
+                              FloatingStaff(
+                                yOffset: -245,
+                              ),
+                            // below the staff
+
+                            if (isTrebleClef
+                                ? note.index < TrebleClefNotes.D4_flat.index
+                                : note.index < BassClefNotes.F3.index)
+                              FloatingStaff(
+                                yOffset: -94,
+                              ),
+                            if (isTrebleClef
+                                ? note.index < TrebleClefNotes.B3_flat.index
+                                : note.index < BassClefNotes.D2_flat.index)
+                              FloatingStaff(
+                                yOffset: -69,
+                              ),
+                            if (isTrebleClef
+                                ? note.index < TrebleClefNotes.G3_flat.index
+                                : note.index < BassClefNotes.B2_flat.index)
+                              FloatingStaff(
+                                yOffset: -44,
+                              ),
+                            if (isTrebleClef
+                                ? note.index < TrebleClefNotes.E3_flat.index
+                                : note.index < BassClefNotes.G2_flat.index)
+                              FloatingStaff(
+                                yOffset: -19,
+                              ),
+                            Note(noteValue: note.index, size: size),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 150 * size,
+                    width: (endPadding * .25) * size,
+                  )
                 ],
               ),
             ],
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ToggleButton(
-              onPressed: () => moveNoteValueToNextNaturalNote(
-                  noteValue, clefValues, false, false),
-              icon: Icons.arrow_downward,
-            ),
-            ToggleButton(
-              onPressed: () => moveNoteValueToNextNaturalNote(
-                  noteValue, clefValues, true, false),
-              icon: Icons.arrow_upward,
-            )
-          ],
         ),
       ],
     );

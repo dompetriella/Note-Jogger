@@ -60,86 +60,82 @@ class StaffContainer extends HookConsumerWidget {
     List<String> hintList =
         isTrebleClef ? [' ', 'E', 'C', 'A', 'F'] : [' ', 'G', 'E', 'C', 'A'];
 
-    return Column(
-      children: [
-        Container(
-          height: 350 * size,
-          decoration: BoxDecoration(
-              border: Border.all(
-                width: 4 * size,
-                color: Colors.black,
-              ),
-              borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            clipBehavior: Clip.none,
+    return Container(
+      height: 350 * size,
+      width: 350 * size,
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 4 * size,
+            color: Colors.black,
+          ),
+          borderRadius: BorderRadius.circular(20 * size)),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (var i = 0; i < 5; i++)
-                    Container(
-                      height: 25 * size,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: 3 * size,
-                                  color: Colors.black.withOpacity(.7)))),
-                      child: showHints
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  left: (clefImageWidth + 20) * size),
-                              child: Transform.translate(
-                                offset: Offset(0, -2 * size),
-                                child: Text(
-                                  hintList[i],
-                                  style: TextStyle(
-                                      fontSize: 18 * size,
-                                      color: Colors.black.withOpacity(.80),
-                                      fontWeight: FontWeight.w700),
-                                ).animate().fadeIn(delay: 200.ms * i),
-                              ),
-                            )
-                          : SizedBox.shrink(),
-                    ),
-                  SizedBox(
-                    height: 20 * size,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 200 * size,
-                    width: clefImageWidth * size,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 16 * size, bottom: 25 * size),
-                      child: note.index < 0
-                          ? SizedBox.shrink()
-                          : SvgPicture.asset(isTrebleClef
-                              ? GLOBAL_treble_clef_path
-                              : GLOBAL_bass_clef_path),
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      NoteAndFloatingStaff(
-                          isTrebleClef: isTrebleClef, note: note, size: size),
-                    ],
-                  ),
-                  SizedBox(
-                    width: clefImageWidth * size,
-                  )
-                ],
-              ),
+              for (var i = 0; i < 5; i++)
+                Container(
+                  height: 25 * size,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              width: 3 * size,
+                              color: Colors.black.withOpacity(.7)))),
+                  child: showHints
+                      ? Padding(
+                          padding: EdgeInsets.only(
+                              left: (clefImageWidth + 20) * size),
+                          child: Transform.translate(
+                            offset: Offset(0, -2 * size),
+                            child: Text(
+                              hintList[i],
+                              style: TextStyle(
+                                  fontSize: 18 * size,
+                                  color: Colors.black.withOpacity(.80),
+                                  fontWeight: FontWeight.w700),
+                            ).animate().fadeIn(delay: 200.ms * i),
+                          ),
+                        )
+                      : SizedBox.shrink(),
+                ),
+              SizedBox(
+                height: 20 * size,
+              )
             ],
           ),
-        ),
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 200 * size,
+                width: clefImageWidth * size,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16 * size, bottom: 25 * size),
+                  child: note.index < 0
+                      ? SizedBox.shrink()
+                      : SvgPicture.asset(isTrebleClef
+                          ? GLOBAL_treble_clef_path
+                          : GLOBAL_bass_clef_path),
+                ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  NoteAndFloatingStaff(
+                      isTrebleClef: isTrebleClef, note: note, size: size),
+                ],
+              ),
+              SizedBox(
+                width: clefImageWidth * size,
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

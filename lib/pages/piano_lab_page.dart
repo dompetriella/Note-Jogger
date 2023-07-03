@@ -85,16 +85,12 @@ class PianoLabPage extends HookConsumerWidget {
                   if (ref.watch(showStaffOnPianoProvider))
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SizedBox(
-                        height: 350,
-                        child: Center(
-                          child: Builder(builder: (context) {
-                            return NoteStaff(
-                              size: .8,
-                              note: TrebleClefNotes
-                                  .values[ref.watch(noteOnPianoStaffProvider)],
-                            );
-                          }),
+                      child: Center(
+                        child: NoteStaff(
+                          showHints: true,
+                          size: .8,
+                          note: TrebleClefNotes
+                              .values[ref.watch(noteOnPianoStaffProvider)],
                         ),
                       ),
                     ),

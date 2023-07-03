@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/components/notestaff/interactive_note_staff.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
+import '../../components/notestaff/interactive_notestaff.dart';
+import '../../components/notestaff/notestaff.dart';
 import '../common_widget.dart';
 
 List<List<Widget>> introTrebleClefContent = [
   [
     const InformationWindowTitle(text: 'Treble Clef'),
-    SizedBox(height: 100, child: SvgPicture.asset(GLOBAL_treble_clef_path)),
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: SizedBox(
+          height: 300, child: SvgPicture.asset(GLOBAL_treble_clef_path)),
+    ),
     const InformationWindowText(
         text:
             'The treble clef notates music notes above middle C, and is traditionally used for the right hand when playing piano.'),
@@ -26,8 +31,7 @@ List<List<Widget>> introTrebleClefContent = [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InteractiveNoteStaff(
-        startingValue: TrebleClefNotes.F4.index,
-        isTrebleClef: true,
+        startingNote: TrebleClefNotes.F4,
         jumpTwoWholeSteps: true,
       ),
     ),
@@ -50,8 +54,7 @@ List<List<Widget>> introTrebleClefContent = [
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Builder(builder: (context) {
         return InteractiveNoteStaff(
-          startingValue: TrebleClefNotes.E4.index,
-          isTrebleClef: true,
+          startingNote: TrebleClefNotes.E4,
           jumpTwoWholeSteps: true,
         );
       }),

@@ -1,78 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:note_jogger/components/notestaff/note_staff.dart';
-import 'package:note_jogger/globals.dart';
-import 'package:note_jogger/models/notes.dart';
 
-moveNoteValueToNextNaturalNote(ValueNotifier<int> noteState,
+import '../../models/notes.dart';
+import 'notestaff.dart';
+
+moveNoteValueToNextNaturalNote(ValueNotifier<Enum> noteState,
     List<Enum> clefValues, bool increase, bool twoSteps) {
   switch (increase) {
     case true:
-      var nextNote = twoSteps ? noteState.value + 3 : noteState.value + 1;
+      var nextNote =
+          twoSteps ? noteState.value.index + 3 : noteState.value.index + 1;
       if (nextNote < clefValues.length &&
           clefValues[nextNote].name.contains('flat')) {
         nextNote++;
       }
       if (nextNote < clefValues.length) {
-        noteState.value = nextNote;
+        noteState.value = clefValues[nextNote];
       }
 
       break;
 
     case false:
-      var nextNote = twoSteps ? noteState.value - 3 : noteState.value - 1;
+      var nextNote =
+          twoSteps ? noteState.value.index - 3 : noteState.value.index - 1;
       if (nextNote > 0 && clefValues[nextNote].name.contains('flat')) {
         nextNote--;
       }
       if (nextNote > 0) {
-        noteState.value = nextNote;
+        noteState.value = clefValues[nextNote];
       }
       break;
   }
 }
 
 class InteractiveNoteStaff extends HookConsumerWidget {
-  final int startingValue;
-  final bool isTrebleClef;
+  final double size;
+  final Enum startingNote;
+  final double horizontalPadding;
   final bool jumpTwoWholeSteps;
-  const InteractiveNoteStaff(
-      {super.key,
-      required this.startingValue,
-      this.isTrebleClef = true,
-      this.jumpTwoWholeSteps = false});
+  const InteractiveNoteStaff({
+    super.key,
+    required this.startingNote,
+    this.size = 1,
+    this.horizontalPadding = 32,
+    this.jumpTwoWholeSteps = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool isTrebleClef = startingNote.runtimeType == TrebleClefNotes;
     var clefValues =
         isTrebleClef ? TrebleClefNotes.values : BassClefNotes.values;
-    ValueNotifier<int> noteValue = useState(clefValues[startingValue].index);
-
+    var noteState = useState(startingNote);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Note Value: ${clefValues[noteValue.value].name[0]}',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          'Note Value: ${clefValues[noteState.value.index].name[0]}',
+          style: TextStyle(fontSize: 32 * size, fontWeight: FontWeight.w500),
         ),
-        NoteStaff(
+        Builder(builder: (context) {
+          return NoteStaff(
+            note: noteState.value,
+            size: size,
+            horizontalPadding: horizontalPadding,
             showHints: true,
-            value: clefValues[noteValue.value],
-            imagePath:
-                isTrebleClef ? GLOBAL_treble_clef_path : GLOBAL_bass_clef_path),
+          );
+        }),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ToggleButton(
-                icon: Icons.arrow_downward,
-                onPressed: () => moveNoteValueToNextNaturalNote(
-                    noteValue, clefValues, false, jumpTwoWholeSteps)),
+              onPressed: () => moveNoteValueToNextNaturalNote(
+                  noteState, clefValues, false, jumpTwoWholeSteps),
+              icon: Icons.arrow_downward,
+            ),
             ToggleButton(
-                icon: Icons.arrow_upward,
-                onPressed: () => moveNoteValueToNextNaturalNote(
-                    noteValue, clefValues, true, jumpTwoWholeSteps)),
+              onPressed: () => moveNoteValueToNextNaturalNote(
+                  noteState, clefValues, true, jumpTwoWholeSteps),
+              icon: Icons.arrow_upward,
+            )
           ],
-        )
+        ),
       ],
     );
   }

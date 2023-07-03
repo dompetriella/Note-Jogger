@@ -1,13 +1,11 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:note_jogger/components/notestaff/note_staff.dart';
-import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 
+import '../components/notestaff/notestaff.dart';
 import '../provider.dart';
 
 double whiteKeyWidth = 100;
@@ -92,9 +90,10 @@ class PianoLabPage extends HookConsumerWidget {
                         child: Center(
                           child: Builder(builder: (context) {
                             return NoteStaff(
-                                value: TrebleClefNotes.values[
-                                    ref.watch(noteOnPianoStaffProvider)],
-                                imagePath: GLOBAL_treble_clef_path);
+                              size: .8,
+                              note: TrebleClefNotes
+                                  .values[ref.watch(noteOnPianoStaffProvider)],
+                            );
                           }),
                         ),
                       ),

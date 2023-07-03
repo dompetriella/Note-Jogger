@@ -21,7 +21,7 @@ final quizGenerateIndexStagingProvider = StateProvider<int>((ref) {
 });
 
 final showHintsProvider = StateProvider<bool>((ref) {
-  return false;
+  return true;
 });
 
 final showLetterNamesOnPianoProvider = StateProvider<bool>((ref) {

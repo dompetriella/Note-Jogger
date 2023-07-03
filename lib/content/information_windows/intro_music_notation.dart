@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/components/notestaff/interactive_note_staff.dart';
 import 'package:note_jogger/components/notestaff/note.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
+import '../../components/notestaff/interactive_notestaff.dart';
 import '../common_widget.dart';
 
 List<List<Widget>> introMusicNotation = [
   [
     const InformationWindowTitle(text: 'Music Notation'),
     const InformationWindowSubtitle(text: 'The Note'),
-    SizedBox(
-      height: 150,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 32.0),
-          child: QuarterNoteWidget(
-            value: TrebleClefNotes.C5.index,
-          ),
+    Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: SizedBox(
+        height: 150,
+        child: Center(
+          child: SvgPicture.asset(GLOBAL_quarter_note_path),
         ),
       ),
     ),
@@ -42,8 +40,7 @@ List<List<Widget>> introMusicNotation = [
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: InteractiveNoteStaff(
-            isTrebleClef: true,
-            startingValue: TrebleClefNotes.C4.index,
+            startingNote: TrebleClefNotes.C4,
           )),
     ),
     const InformationWindowText(
@@ -56,18 +53,21 @@ List<List<Widget>> introMusicNotation = [
   [
     const InformationWindowTitle(text: 'Music Notation (Cont.)'),
     const InformationWindowSubtitle(text: 'The Clef'),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        SizedBox(
-            height: 100,
-            width: 100,
-            child: SvgPicture.asset(GLOBAL_treble_clef_path)),
-        SizedBox(
-            height: 100,
-            width: 100,
-            child: SvgPicture.asset(GLOBAL_bass_clef_path)),
-      ],
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 32.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+              height: 100,
+              width: 100,
+              child: SvgPicture.asset(GLOBAL_treble_clef_path)),
+          SizedBox(
+              height: 65,
+              width: 100,
+              child: SvgPicture.asset(GLOBAL_bass_clef_path)),
+        ],
+      ),
     ),
     const InformationWindowText(
         text:

@@ -1,46 +1,105 @@
 import 'package:flutter/material.dart';
 
-class FloatingStaffWidget extends StatelessWidget {
-  const FloatingStaffWidget({super.key});
+import '../../models/notes.dart';
+import 'note.dart';
+
+class FloatingStaff extends StatelessWidget {
+  final double size;
+  final double yOffset;
+  const FloatingStaff({
+    required this.yOffset,
+    required this.size,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: FloatingStaffPainter(
-        staffColor: Theme.of(context).colorScheme.secondary.withOpacity(.60),
-      ),
-    );
+    return Transform.translate(
+        offset: Offset(0, yOffset * size),
+        child: Container(
+            height: 3 * size,
+            width: 50 * size,
+            color: Colors.black.withOpacity(.7)));
   }
 }
 
-class FloatingStaffPainter extends CustomPainter {
-  final Color staffColor;
-  FloatingStaffPainter({
-    required this.staffColor,
+class NoteAndFloatingStaff extends StatelessWidget {
+  const NoteAndFloatingStaff({
+    super.key,
+    required this.isTrebleClef,
+    required this.note,
+    required this.size,
   });
+
+  final bool isTrebleClef;
+  final Enum note;
+  final double size;
+
   @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        if (isTrebleClef
+            ? note.index > TrebleClefNotes.F6.index
+            : note.index > BassClefNotes.A5.index)
+          FloatingStaff(
+            yOffset: -320,
+            size: size,
+          ),
+        if (isTrebleClef
+            ? note.index > TrebleClefNotes.D6.index
+            : note.index > BassClefNotes.F5.index)
+          FloatingStaff(
+            yOffset: -295,
+            size: size,
+          ),
+        if (isTrebleClef
+            ? note.index > TrebleClefNotes.B5.index
+            : note.index > BassClefNotes.D4.index)
+          FloatingStaff(
+            yOffset: -270,
+            size: size,
+          ),
+        if (isTrebleClef
+            ? note.index > TrebleClefNotes.G5.index
+            : note.index > BassClefNotes.B4.index)
+          FloatingStaff(
+            yOffset: -245,
+            size: size,
+          ),
+        // below the staff
 
-    final floatingStaffPaint = Paint()
-      ..color = staffColor
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 3.0;
-
-    canvas.translate(0, 11);
-
-    canvas.drawLine(
-      Offset(-20, center.dy),
-      Offset(center.dx + 20, center.dy),
-      floatingStaffPaint,
+        if (isTrebleClef
+            ? note.index < TrebleClefNotes.D4_flat.index
+            : note.index < BassClefNotes.F3.index)
+          FloatingStaff(
+            yOffset: -94,
+            size: size,
+          ),
+        if (isTrebleClef
+            ? note.index < TrebleClefNotes.B3_flat.index
+            : note.index < BassClefNotes.D2_flat.index)
+          FloatingStaff(
+            yOffset: -69,
+            size: size,
+          ),
+        if (isTrebleClef
+            ? note.index < TrebleClefNotes.G3_flat.index
+            : note.index < BassClefNotes.B2_flat.index)
+          FloatingStaff(
+            yOffset: -44,
+            size: size,
+          ),
+        if (isTrebleClef
+            ? note.index < TrebleClefNotes.E3_flat.index
+            : note.index < BassClefNotes.G2_flat.index)
+          FloatingStaff(
+            yOffset: -19,
+            size: size,
+          ),
+        Note(noteValue: note.index, size: size),
+      ],
     );
-
-    canvas.save();
-    canvas.restore();
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

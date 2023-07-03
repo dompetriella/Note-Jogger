@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/components/notestaff/interactive_note_staff.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
+import '../../components/notestaff/interactive_notestaff.dart';
 import '../common_widget.dart';
 
 List<List<Widget>> introBassClefContent = [
   [
     const InformationWindowTitle(text: 'Bass Clef'),
-    SizedBox(height: 100, child: SvgPicture.asset(GLOBAL_bass_clef_path)),
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child:
+          SizedBox(height: 250, child: SvgPicture.asset(GLOBAL_bass_clef_path)),
+    ),
     const InformationWindowText(
         text:
             'The bass clef notates music for lower pitches below below middle C, and is traditionally used for the left hand when playing piano.  It also sometimes called "F Clef" because the two dots point to the note F on the staff.'),
@@ -23,8 +27,7 @@ List<List<Widget>> introBassClefContent = [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InteractiveNoteStaff(
-        startingValue: BassClefNotes.A3.index,
-        isTrebleClef: false,
+        startingNote: BassClefNotes.A3,
         jumpTwoWholeSteps: true,
       ),
     ),
@@ -42,8 +45,7 @@ List<List<Widget>> introBassClefContent = [
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Builder(builder: (context) {
         return InteractiveNoteStaff(
-          startingValue: BassClefNotes.G3.index,
-          isTrebleClef: false,
+          startingNote: BassClefNotes.G3,
           jumpTwoWholeSteps: true,
         );
       }),

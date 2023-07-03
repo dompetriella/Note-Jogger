@@ -11,3 +11,4 @@ double GLOBAL_heartBonus = 150;
 
 String GLOBAL_treble_clef_path = 'assets/treble_clef.svg';
 String GLOBAL_bass_clef_path = 'assets/bass_clef.svg';
+String GLOBAL_quarter_note_path = 'assets/quarter_note.svg';

@@ -83,11 +83,11 @@ class StaffContainer extends HookConsumerWidget {
                       border: Border(
                           bottom: BorderSide(
                               width: 3 * size,
-                              color: Colors.black.withOpacity(.7)))),
+                              color: Colors.black.withOpacity(.4)))),
                   child: showHints
                       ? Padding(
                           padding: EdgeInsets.only(
-                              left: (clefImageWidth + 20) * size),
+                              left: (clefImageWidth + 12) * size),
                           child: Transform.translate(
                             offset: Offset(0, -2 * size),
                             child: Text(

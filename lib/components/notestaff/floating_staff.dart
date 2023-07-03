@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../models/notes.dart';
 import 'note.dart';
@@ -37,6 +38,22 @@ class NoteAndFloatingStaff extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var clefValues =
+        isTrebleClef ? TrebleClefNotes.values : BassClefNotes.values;
+
+    double offset = 0;
+    bool isFlat = note.name.contains('flat');
+    if (isFlat) {
+      int previousFlats = 0;
+      for (var i = 0; i < clefValues[note.index].index; i++) {
+        if (clefValues[i].name.contains('flat')) {
+          previousFlats++;
+        }
+      }
+
+      offset = 5 + (note.index - previousFlats) * -20 / 2;
+    }
+
     return Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [
@@ -97,6 +114,18 @@ class NoteAndFloatingStaff extends StatelessWidget {
           FloatingStaff(
             yOffset: -19,
             size: size,
+          ),
+        if (isFlat)
+          Transform.translate(
+            offset: Offset(-25, offset),
+            child: SizedBox(
+              height: 30,
+              width: 20,
+              child: SvgPicture.asset(
+                'assets/flat.svg',
+                // colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+              ),
+            ),
           ),
         Note(noteValue: note.index, size: size),
       ],

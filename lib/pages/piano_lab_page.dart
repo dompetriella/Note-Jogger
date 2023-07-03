@@ -28,24 +28,22 @@ class PianoLabPage extends HookConsumerWidget {
           title: Row(
             children: [
               Expanded(
-                  child: SizedBox(
-                height: 50,
-                child: Slider(
-                  value: scrollPercentage.value,
-                  onChanged: (value) => {
-                    scrollPercentage.value = value,
-                    print(scrollPercentage.value),
-                    scrollController.jumpTo(
-                        scrollController.position.maxScrollExtent *
-                            (1 - (scrollPercentage.value / maxScroll)))
-                  },
-                  min: minScroll,
-                  max: maxScroll,
-                ),
+                  child: Slider(
+                activeColor: Theme.of(context).colorScheme.primary,
+                value: scrollPercentage.value,
+                onChanged: (value) => {
+                  scrollPercentage.value = value,
+                  print(scrollPercentage.value),
+                  scrollController.jumpTo(
+                      scrollController.position.maxScrollExtent *
+                          (1 - (scrollPercentage.value / maxScroll)))
+                },
+                min: minScroll,
+                max: maxScroll,
               )),
             ],
           ),
-          backgroundColor: Colors.orange,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           actions: [PianoControls()],
           shape: Border(
               bottom: BorderSide(
@@ -82,9 +80,23 @@ class PianoLabPage extends HookConsumerWidget {
                     ),
                   ),
                   if (ref.watch(showStaffOnPianoProvider))
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Center(
+                    Container(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Theme.of(context).colorScheme.background,
+                                Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(.15)
+                              ]),
+                          border: Border(
+                              bottom: BorderSide(width: 3),
+                              left: BorderSide(width: 4))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: NoteStaff(
                           showHints: true,
                           size: .8,
@@ -203,7 +215,9 @@ class BlackPianoKey extends HookConsumerWidget {
                             fontSize: 22,
                             fontWeight: FontWeight.w400),
                       ).animate().fadeIn(),
-                      Divider(),
+                      Divider(
+                        color: Colors.white,
+                      ),
                       Text(
                         '${note.name[0]}b',
                         style: TextStyle(
@@ -248,7 +262,7 @@ class WhitePianoKey extends HookConsumerWidget {
         width: whiteKeyWidth,
         decoration: BoxDecoration(
             color: isPressed.value
-                ? Theme.of(context).colorScheme.tertiary.withOpacity(.25)
+                ? Theme.of(context).colorScheme.secondary.withOpacity(.25)
                 : Theme.of(context).colorScheme.background,
             border: Border(
                 left: BorderSide(width: 3, color: Colors.black),
@@ -318,8 +332,8 @@ class PianoControls extends ConsumerWidget {
               Icons.key,
               size: 45,
               color: ref.watch(showStaffOnPianoProvider)
-                  ? Colors.white
-                  : Colors.black.withOpacity(.5),
+                  ? Theme.of(context).colorScheme.tertiary
+                  : Theme.of(context).colorScheme.onPrimary.withOpacity(.15),
             ),
           ),
         ),

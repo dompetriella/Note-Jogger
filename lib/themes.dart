@@ -24,7 +24,8 @@ var redJoggers = ThemeData(
         toolbarHeight: 50,
         shape:
             Border(bottom: BorderSide(color: HexColor('#251605'), width: 4))),
-    sliderTheme: const SliderThemeData(
+    sliderTheme: SliderThemeData(
+      inactiveTrackColor: HexColor('#251605'),
       trackHeight: 32,
       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
     ));

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_jogger/models/modes.dart';
 import 'package:note_jogger/models/notes.dart';
 import 'package:note_jogger/pages/piano_lab_page.dart';
+import 'package:note_jogger/pages/select_mode_page.dart';
 import 'package:note_jogger/pages/select_play_page.dart';
 import '../components/attention_button.dart';
 import '../provider.dart';
-import 'select_mode_page.dart';
+import 'select_play_page.dart';
 
 class StartPage extends ConsumerWidget {
   const StartPage({super.key});
@@ -16,25 +19,26 @@ class StartPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => {
-            if (ref.watch(lightModeProvider) == ThemeMode.light)
-              {ref.watch(lightModeProvider.notifier).state = ThemeMode.dark}
-            else
-              {ref.watch(lightModeProvider.notifier).state = ThemeMode.light}
-          },
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  color: Theme.of(context).colorScheme.onPrimary, width: 4),
-              borderRadius: BorderRadius.circular(100)),
-          backgroundColor: Theme.of(context).colorScheme.tertiary,
-          child: Icon(
-            Icons.settings,
-            color: Theme.of(context).colorScheme.onTertiary,
-            size: 30,
-          ),
-        ),
+        // TODO: Add back in floating action button
+        // floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () => {
+        //     if (ref.watch(lightModeProvider) == ThemeMode.light)
+        //       {ref.watch(lightModeProvider.notifier).state = ThemeMode.dark}
+        //     else
+        //       {ref.watch(lightModeProvider.notifier).state = ThemeMode.light}
+        //   },
+        //   shape: RoundedRectangleBorder(
+        //       side: BorderSide(
+        //           color: Theme.of(context).colorScheme.onPrimary, width: 4),
+        //       borderRadius: BorderRadius.circular(100)),
+        //   backgroundColor: Theme.of(context).colorScheme.tertiary,
+        //   child: Icon(
+        //     Icons.settings,
+        //     color: Theme.of(context).colorScheme.onTertiary,
+        //     size: 30,
+        //   ),
+        // ),
         body: Stack(
           children: [
             Padding(
@@ -46,6 +50,10 @@ class StartPage extends ConsumerWidget {
                         top: BorderSide(
                             color: Theme.of(context).colorScheme.onPrimary,
                             width: 4))),
+                child: Center(
+                    child: SizedBox(
+                        width: 135,
+                        child: SvgPicture.asset('assets/road_divider.svg'))),
               ),
             ),
             Column(
@@ -79,11 +87,7 @@ class StartPage extends ConsumerWidget {
                               ref
                                   .watch(quizStagingProvider.notifier)
                                   .resetQuizGenerate(ref);
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const SelectModePage(),
-                                ),
-                              );
+                              context.goNamed('select_mode_page');
                             },
                           ),
                           // Transform.translate(

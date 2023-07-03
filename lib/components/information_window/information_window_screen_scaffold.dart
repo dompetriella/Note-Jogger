@@ -24,31 +24,32 @@ class InformationWindowScreenScaffold extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
-        automaticallyImplyLeading: false,
-        title: Align(
-          alignment: Alignment.centerLeft,
-          child: GestureDetector(
-              onTap: () {
-                context.go('/');
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.close,
-                size: 42,
-                color: Theme.of(context).colorScheme.error.withOpacity(.50),
-              )),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+                onTap: () {
+                  context.go('/');
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.close,
+                  size: 42,
+                  color: Theme.of(context).colorScheme.error,
+                )),
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          screens[ref.watch(informationWindowIndexProvider)],
-          InformationWindowStaging(
-            numberOfPages: screens.length,
-          )
-        ],
+        body: Column(
+          children: [
+            screens[ref.watch(informationWindowIndexProvider)],
+            InformationWindowStaging(
+              numberOfPages: screens.length,
+            )
+          ],
+        ),
       ),
     );
   }

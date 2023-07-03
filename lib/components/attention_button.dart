@@ -27,12 +27,15 @@ class AttentionButton extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onPrimary)),
               fixedSize: Size(width, height)),
           onPressed: onPressed,
-          child: Text(
-            text,
-            style: TextStyle(
-                fontSize: 22,
-                letterSpacing: 1,
-                color: Theme.of(context).colorScheme.onTertiary),
+          child: Center(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 22,
+                  letterSpacing: 1,
+                  color: Theme.of(context).colorScheme.onTertiary),
+            ),
           )),
     );
   }

@@ -33,7 +33,6 @@ class PianoLabPage extends HookConsumerWidget {
                 value: scrollPercentage.value,
                 onChanged: (value) => {
                   scrollPercentage.value = value,
-                  print(scrollPercentage.value),
                   scrollController.jumpTo(
                       scrollController.position.maxScrollExtent *
                           (1 - (scrollPercentage.value / maxScroll)))

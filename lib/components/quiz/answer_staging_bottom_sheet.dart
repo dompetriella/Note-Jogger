@@ -34,13 +34,13 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            correct ? '$givenNote is Correct!' : '$givenNote is Incorrect',
+            correct ? 'Correct!' : '$givenNote is Incorrect',
             style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 2,
+                fontSize: 32,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 4,
                 color: correct
-                    ? Theme.of(context).colorScheme.tertiary
+                    ? Theme.of(context).colorScheme.onSecondary
                     : Theme.of(context).colorScheme.error),
           ),
           if (!correct)
@@ -49,7 +49,7 @@ class AnswerStagingBottomSheet extends ConsumerWidget {
               style: TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.w400,
-                  color: Theme.of(context).colorScheme.secondary),
+                  color: Theme.of(context).colorScheme.onSecondary),
             ),
           NextQuestionButton(
             gameMode: gameMode,

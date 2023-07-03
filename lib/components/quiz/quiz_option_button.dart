@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/provider.dart';
+import 'package:note_jogger/utility.dart';
 import 'answer_staging_bottom_sheet.dart';
 
 class QuizOptionButton extends ConsumerWidget {
@@ -21,10 +22,11 @@ class QuizOptionButton extends ConsumerWidget {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary)),
-                fixedSize: const Size(80, 40)),
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 3)),
+                fixedSize: const Size(80, 45)),
             onPressed: () {
               var timeElapsed = ref
                   .watch(stopwatchProvider.notifier)
@@ -37,6 +39,15 @@ class QuizOptionButton extends ConsumerWidget {
                 ref.read(livesProvider.notifier).loseLife(context);
               }
               Scaffold.of(context).showBottomSheet<void>(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                constraints: const BoxConstraints(maxWidth: 350),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10)),
+                    side: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 4)),
                 (BuildContext context) {
                   return AnswerStagingBottomSheet(
                     gameMode: gameMode,
@@ -49,7 +60,10 @@ class QuizOptionButton extends ConsumerWidget {
             },
             child: Text(
               givenNote,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: Theme.of(context).colorScheme.onSecondary),
             )));
   }
 }

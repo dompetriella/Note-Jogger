@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_jogger/components/select_mode/select_mode_button.dart';
 import 'package:note_jogger/models/modes.dart';
 import 'package:note_jogger/pages/piano_lab_page.dart';
 import 'package:note_jogger/pages/select_play_page.dart';
+import '../components/navigation_app_bar_title.dart';
 import '../provider.dart';
 
 class SelectModePage extends ConsumerWidget {
@@ -16,12 +18,10 @@ class SelectModePage extends ConsumerWidget {
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
-            'SELECT MODE',
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 4),
+          automaticallyImplyLeading: false,
+          title: NavigationAppBarTitle(
+            title: 'Select Mode',
+            routeName: 'start_page',
           ),
         ),
         body: ListView(
@@ -37,13 +37,8 @@ class SelectModePage extends ConsumerWidget {
                       ref
                           .watch(quizStagingProvider.notifier)
                           .resetQuizGenerate(ref);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const SelectPlayPage(
-                            gameMode: GameMode.training,
-                          ),
-                        ),
-                      );
+                      context.goNamed('select_play_page',
+                          extra: GameMode.training);
                     },
                   ),
                 ),
@@ -53,13 +48,7 @@ class SelectModePage extends ConsumerWidget {
                     ref
                         .watch(quizStagingProvider.notifier)
                         .resetQuizGenerate(ref);
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SelectPlayPage(
-                          gameMode: GameMode.ranked,
-                        ),
-                      ),
-                    );
+                    context.goNamed('select_play_page', extra: GameMode.ranked);
                   },
                 ),
                 SelectModeButton(

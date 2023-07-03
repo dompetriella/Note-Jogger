@@ -46,7 +46,10 @@ class InformationWindowSubtitle extends StatelessWidget {
                   fontWeight: FontWeight.w400),
             ),
           ),
-          const Divider()
+          Divider(
+            thickness: 4,
+            color: Theme.of(context).colorScheme.secondary,
+          )
         ],
       ),
     );

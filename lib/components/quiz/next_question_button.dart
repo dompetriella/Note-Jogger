@@ -11,10 +11,12 @@ class NextQuestionButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: const Size(200, 50),
+          fixedSize: const Size(250, 62),
           backgroundColor: Theme.of(context).colorScheme.tertiary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
+            side: BorderSide(
+                color: Theme.of(context).colorScheme.onPrimary, width: 4),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         onPressed: () {
@@ -32,7 +34,8 @@ class NextQuestionButton extends ConsumerWidget {
           style: TextStyle(
               color: Theme.of(context).colorScheme.onTertiary,
               fontSize: 24,
-              fontWeight: FontWeight.w300),
+              fontWeight: FontWeight.w400,
+              letterSpacing: 2),
         ));
   }
 }

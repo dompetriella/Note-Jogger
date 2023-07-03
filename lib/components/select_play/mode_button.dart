@@ -26,55 +26,61 @@ class ModeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  side: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary)),
-              fixedSize: const Size(300, 100)),
-          onPressed: () {
-            if (gameMode == GameMode.intro) {
-              ref
-                  .read(informationWindowStagingProvider.notifier)
-                  .addInformationWindowsToState(
-                      ref, listOfInformationWindowScreen);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => InformationWindowPage()));
-              return;
-            }
-            createNewQuizGenerateList(ref, modeNotes, gameMode,
-                hintsEnabled: enableHintsOnStartup);
-            context.go('/quiz_page', extra: gameMode);
-            ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
-            ref.read(stopwatchProvider.notifier).startStopwatch(ref);
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 20,
-                    letterSpacing: 2.5,
-                    fontWeight: FontWeight.w500),
-              ),
-              if (subText != '')
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 4)),
+                fixedSize: const Size(275, 100)),
+            onPressed: () {
+              if (gameMode == GameMode.intro) {
+                ref
+                    .read(informationWindowStagingProvider.notifier)
+                    .addInformationWindowsToState(
+                        ref, listOfInformationWindowScreen);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => InformationWindowPage()));
+                return;
+              }
+              createNewQuizGenerateList(ref, modeNotes, gameMode,
+                  hintsEnabled: enableHintsOnStartup);
+              context.go('/quiz_page', extra: gameMode);
+              ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
+              ref.read(stopwatchProvider.notifier).startStopwatch(ref);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Text(
-                  subText,
+                  title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      letterSpacing: 2,
-                      fontWeight: FontWeight.w300),
+                  style: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 2.5,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.onPrimary),
                 ),
-            ],
-          )),
+                if (subText != '')
+                  Text(
+                    subText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  ),
+              ],
+            )),
+      ),
     );
   }
 }

@@ -52,7 +52,7 @@ class InformationWindowStaging extends ConsumerWidget {
     return Container(
       height: 75,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+          color: Theme.of(context).colorScheme.secondary,
           border: Border(
               top: BorderSide(
                   color: Theme.of(context).colorScheme.secondary, width: 4))),
@@ -68,16 +68,14 @@ class InformationWindowStaging extends ConsumerWidget {
                           .read(informationWindowStagingProvider.notifier)
                           .goToPreviousPage(ref);
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              width: 2,
-                              color: Theme.of(context).colorScheme.background)),
+                    child: SizedBox(
                       height: 50,
                       width: 75,
-                      child: Icon(Icons.arrow_back_ios_outlined,
-                          color: Theme.of(context).colorScheme.primary),
+                      child: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        size: 45,
+                      ),
                     ),
                   )
                     .animate()
@@ -88,7 +86,7 @@ class InformationWindowStaging extends ConsumerWidget {
                     width: 75,
                   ),
             SizedBox(
-              height: 50,
+              height: 70,
               width: MediaQuery.of(context).size.width * .5,
               child: Wrap(
                 runAlignment: WrapAlignment.center,
@@ -106,8 +104,8 @@ class InformationWindowStaging extends ConsumerWidget {
                                 .state = i
                           },
                           child: Container(
-                            height: 14,
-                            width: 14,
+                            height: 18,
+                            width: 18,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
@@ -138,17 +136,13 @@ class InformationWindowStaging extends ConsumerWidget {
                     .read(informationWindowStagingProvider.notifier)
                     .goToNextPage(ref, context);
               },
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                        width: 2,
-                        color: Theme.of(context).colorScheme.background)),
+              child: SizedBox(
                 height: 50,
                 width: 75,
                 child: Icon(
                   Icons.arrow_forward_ios_outlined,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  size: 45,
                 ),
               ),
             ),

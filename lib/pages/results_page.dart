@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:note_jogger/components/attention_button.dart';
 import 'package:note_jogger/game_logic/results.dart';
 import 'package:note_jogger/provider.dart';
 import 'package:note_jogger/utility.dart';
@@ -92,8 +94,7 @@ class TrainingResult extends ConsumerWidget {
               height:
                   MediaQuery.of(context).size.height * (percentCorrect / 100),
               color: ref.read(lightModeProvider) == ThemeMode.light
-                  ? darkenColor(Theme.of(context).colorScheme.background,
-                      percent: 5)
+                  ? Theme.of(context).colorScheme.secondary.withOpacity(.25)
                   : lightenColor(Theme.of(context).colorScheme.background,
                       percent: 5),
             ).animate().scaleY(
@@ -112,7 +113,7 @@ class TrainingResult extends ConsumerWidget {
                     "Results",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.w900,
                         fontSize: 48,
                         letterSpacing: 2),
@@ -128,7 +129,7 @@ class TrainingResult extends ConsumerWidget {
                     style: TextStyle(
                         color: Theme.of(context)
                             .colorScheme
-                            .primary
+                            .onPrimary
                             .withOpacity(.65),
                         fontWeight: FontWeight.w700,
                         fontSize: 60,
@@ -140,7 +141,7 @@ class TrainingResult extends ConsumerWidget {
                     style: TextStyle(
                       color: Theme.of(context)
                           .colorScheme
-                          .primary
+                          .onPrimary
                           .withOpacity(.65),
                       fontWeight: FontWeight.w500,
                       fontSize: 36,
@@ -149,10 +150,16 @@ class TrainingResult extends ConsumerWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: EdgeInsets.only(bottom: 16.0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: const NavigationButton(text: 'Return Home'),
+                  child: AttentionButton(
+                    text: 'RETURN TO TRAINING',
+                    onPressed: () => context.goNamed('select_play_page',
+                        extra: GameMode.training),
+                    height: 85,
+                    width: 220,
+                  ),
                 ),
               )
             ],

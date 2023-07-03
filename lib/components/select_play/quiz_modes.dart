@@ -8,6 +8,7 @@ import '../../game_logic/quiz_generate.dart';
 import '../../models/notes.dart';
 import 'expandable_category.dart';
 import 'mode_button.dart';
+import 'play_mode_chapter_title.dart';
 
 class QuizModes extends StatelessWidget {
   final Enum gameMode;
@@ -38,22 +39,9 @@ class Training extends StatelessWidget {
     Enum gameMode = GameMode.training;
     return Column(
       children: [
-        Align(
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Text(
-                  'Session 1: The Basics',
-                  style: TextStyle(
-                      height: 0.9,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 2,
-                      color: Theme.of(context).colorScheme.primary),
-                ),
-                Divider()
-              ],
-            )),
+        const PlayModeChapterTitle(
+          titleText: 'Session 1: The Basics',
+        ),
         ExpandableCatergory(
           title: 'Intro',
           modeButtonTree: [
@@ -243,16 +231,9 @@ class Ranked extends StatelessWidget {
     Enum gameMode = GameMode.ranked;
     return Column(
       children: [
-        Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Marathon #1 - Notes Circuit',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
-            )),
-        Divider(),
+        PlayModeChapterTitle(
+          titleText: 'Marathon #1 - Notes Circuit',
+        ),
         ExpandableCatergory(title: 'Treble Clef', modeButtonTree: [
           ModeButton(
             title: 'Treble Clef (Easy)',

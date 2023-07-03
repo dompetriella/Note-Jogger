@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/provider.dart';
 import 'package:note_jogger/routes.dart';
+import 'package:note_jogger/themes.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -16,15 +17,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Note Jogger',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
-          fontFamily: 'LondrinaSolid',
-          useMaterial3: true,
-          sliderTheme: SliderTheme.of(context).copyWith(
-            trackHeight: 32,
-            thumbShape:
-                RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
-          )),
+      theme: redJoggers,
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             brightness: Brightness.dark, seedColor: Colors.blue),

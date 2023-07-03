@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../pages/start_page.dart';
 import '../provider.dart';
-import 'generic_button.dart';
+import 'attention_button.dart';
 
 class NavigationButton extends ConsumerWidget {
   final Widget pageWidget;
@@ -32,7 +32,7 @@ class NavigationButton extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          GenericPageButton(
+          AttentionButton(
               text: text,
               height: height,
               width: width,

@@ -25,7 +25,6 @@ class PianoLabPage extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 50,
           title: Row(
             children: [
               Expanded(

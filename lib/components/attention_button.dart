@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class GenericPageButton extends StatelessWidget {
+class AttentionButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double height;
   final double width;
-  const GenericPageButton(
+  const AttentionButton(
       {super.key,
       required this.text,
       required this.onPressed,
@@ -18,15 +18,21 @@ class GenericPageButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
+              elevation: 0,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                   side: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary)),
+                      width: 4,
+                      color: Theme.of(context).colorScheme.onPrimary)),
               fixedSize: Size(width, height)),
           onPressed: onPressed,
           child: Text(
             text,
-            style: TextStyle(fontSize: 20, letterSpacing: 1),
+            style: TextStyle(
+                fontSize: 22,
+                letterSpacing: 1,
+                color: Theme.of(context).colorScheme.onTertiary),
           )),
     );
   }

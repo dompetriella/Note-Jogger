@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/pages/quiz_page.dart';
 import 'package:note_jogger/pages/results_page.dart';
-import 'package:note_jogger/pages/select_mode_page.dart';
+import 'package:note_jogger/pages/select_play_page.dart';
 import 'package:note_jogger/pages/start_page.dart';
 
 final GoRouter router = GoRouter(
@@ -20,7 +20,7 @@ final GoRouter router = GoRouter(
       name: 'select_mode_page',
       builder: (context, state) {
         Enum gameMode = state.extra as Enum;
-        return SelectModePage(gameMode: gameMode);
+        return SelectPlayPage(gameMode: gameMode);
       },
     ),
     GoRoute(

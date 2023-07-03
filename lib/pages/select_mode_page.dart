@@ -1,34 +1,82 @@
 import 'package:flutter/material.dart';
-import '../components/select_mode/quiz_modes.dart';
-import '../utility.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/components/select_mode/select_mode_button.dart';
+import 'package:note_jogger/models/modes.dart';
+import 'package:note_jogger/pages/piano_lab_page.dart';
+import 'package:note_jogger/pages/select_play_page.dart';
+import '../provider.dart';
 
-class SelectModePage extends StatelessWidget {
-  final Enum gameMode;
-  const SelectModePage({super.key, required this.gameMode});
+class SelectModePage extends ConsumerWidget {
+  const SelectModePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-          backgroundColor:
-              Theme.of(context).colorScheme.primary.withOpacity(.1),
-          foregroundColor: Theme.of(context).colorScheme.primary,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
           centerTitle: true,
           title: Text(
-            capitalizeString(gameMode.name),
+            'SELECT MODE',
             style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 2),
-          )),
-      body: ListView(
-        children: [
-          Padding(
-              padding: EdgeInsets.all(32.0),
-              child: QuizModes(gameMode: gameMode)),
-        ],
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 4),
+          ),
+        ),
+        body: ListView(
+          children: [
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 32.0),
+                  child: SelectModeButton(
+                    text: 'Training',
+                    onPressed: () {
+                      ref
+                          .watch(quizStagingProvider.notifier)
+                          .resetQuizGenerate(ref);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SelectPlayPage(
+                            gameMode: GameMode.training,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SelectModeButton(
+                  text: 'Ranked \nMode',
+                  onPressed: () {
+                    ref
+                        .watch(quizStagingProvider.notifier)
+                        .resetQuizGenerate(ref);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SelectPlayPage(
+                          gameMode: GameMode.ranked,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                SelectModeButton(
+                  text: 'Piano Lab',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PianoLabPage(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

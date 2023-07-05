@@ -35,7 +35,7 @@ class SelectModePage extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 32.0),
                   child: SelectModeButton(
                     backgroundImageWidget:
-                        TrainingSelectModeBackground(text: 'Training \nMode'),
+                        const TrainingSelectModeBackground(text: 'Training \nMode'),
                     onPressed: () {
                       ref
                           .watch(quizStagingProvider.notifier)
@@ -47,7 +47,7 @@ class SelectModePage extends ConsumerWidget {
                 ),
                 SelectModeButton(
                   backgroundImageWidget:
-                      RankedSelectModeBackground(text: 'Ranked \nMode'),
+                      const RankedSelectModeBackground(text: 'Ranked \nMode'),
                   onPressed: () {
                     ref
                         .watch(quizStagingProvider.notifier)
@@ -57,7 +57,7 @@ class SelectModePage extends ConsumerWidget {
                 ),
                 SelectModeButton(
                   backgroundImageWidget:
-                      PianoLabSelectModeBackground(text: 'Piano Lab'),
+                      const PianoLabSelectModeBackground(text: 'Piano Lab'),
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:note_jogger/components/intermission_widget/intermission_widget.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 import 'package:note_jogger/models/quiz_answer.dart';
@@ -93,13 +94,15 @@ final quizStagingProvider =
 class QuizStagingNotifier extends StateNotifier<List<QuizGenerate>> {
   QuizStagingNotifier() : super([]);
 
-  nextQuestionAction(WidgetRef ref, BuildContext context, Enum gameMode) {
+  nextQuestionAction(WidgetRef ref, BuildContext context, Enum gameMode,
+      {Widget intermissionWidget = const SizedBox()}) {
     if (ref.watch(quizGenerateIndexStagingProvider) <
         ref.watch(quizStagingProvider).length - 1) {
       ref.watch(quizGenerateIndexStagingProvider.notifier).state++;
     } else {
       ref.read(stopwatchProvider.notifier).stopStopwatchAndReturnTime(ref);
-      context.go('/results_page', extra: gameMode);
+      showIntermissionWidget(
+          context, 3000, 'results_page', intermissionWidget, gameMode);
     }
   }
 

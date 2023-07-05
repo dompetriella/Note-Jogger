@@ -31,7 +31,7 @@ class TrainingSelectModeBackground extends StatelessWidget {
             .animate()
             .scale(duration: 800.ms, begin: Offset(1.2, 1.2))
             .slideY(duration: 1000.ms, begin: 0.3, curve: Curves.easeOut)
-            .fadeIn(duration: 600.ms),
+            .fadeIn(duration: 200.ms),
         Align(
           alignment: Alignment.center,
           child: Text(

@@ -18,7 +18,7 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes, Enum gameMode,
       preliminaryNoteList.add(note);
     }
     for (var i = 0; i < fillAmount; i++) {
-      final random = new Random();
+      final random = Random();
       var index = random.nextInt(clefNotes.length);
       var note = clefNotes[index];
       preliminaryNoteList.add(note);
@@ -27,7 +27,7 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes, Enum gameMode,
     // more than normal quiz amount
   } else {
     for (var i = 0; i < GLOBAL_normal_quiz_amount; i++) {
-      final random = new Random();
+      final random = Random();
       var index = random.nextInt(clefNotes.length);
       var note = clefNotes[index];
       if (!preliminaryNoteList.contains(note)) {

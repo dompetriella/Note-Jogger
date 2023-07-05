@@ -102,10 +102,11 @@ class ToggleButton extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
-                side:
-                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+                side: BorderSide(
+                    color: Theme.of(context).colorScheme.onPrimary, width: 3)),
           ),
           onPressed: onPressed,
           child: Padding(
@@ -113,6 +114,7 @@ class ToggleButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 32,
+              color: Theme.of(context).colorScheme.onTertiary,
             ),
           )),
     );

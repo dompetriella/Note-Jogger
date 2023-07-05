@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_jogger/provider.dart';
-import 'package:note_jogger/utility.dart';
 import 'answer_staging_bottom_sheet.dart';
 
 class QuizOptionButton extends ConsumerWidget {
@@ -42,7 +41,7 @@ class QuizOptionButton extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 constraints: const BoxConstraints(maxWidth: 350),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10)),
                     side: BorderSide(

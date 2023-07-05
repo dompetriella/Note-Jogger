@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 import '../../components/notestaff/interactive_notestaff.dart';
-import '../../components/notestaff/notestaff.dart';
 import '../common_widget.dart';
 
 List<List<Widget>> introTrebleClefContent = [
@@ -28,8 +27,8 @@ List<List<Widget>> introTrebleClefContent = [
       text:
           'When memorizing notes, it often helps to come up with a mnemonic device for the notes until their names and positions become second nature.',
     ),
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
+    const Padding(
+      padding: EdgeInsets.symmetric(vertical: 12.0),
       child: InteractiveNoteStaff(
         startingNote: TrebleClefNotes.F4,
         jumpTwoWholeSteps: true,
@@ -53,7 +52,7 @@ List<List<Widget>> introTrebleClefContent = [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Builder(builder: (context) {
-        return InteractiveNoteStaff(
+        return const InteractiveNoteStaff(
           startingNote: TrebleClefNotes.E4,
           jumpTwoWholeSteps: true,
         );

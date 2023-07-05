@@ -24,37 +24,40 @@ class PianoLabPage extends HookConsumerWidget {
     ValueNotifier<double> scrollPercentage = useState(50);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Expanded(
-                  child: Slider(
-                activeColor: Theme.of(context).colorScheme.primary,
-                value: scrollPercentage.value,
-                onChanged: (value) => {
-                  scrollPercentage.value = value,
-                  scrollController.jumpTo(
-                      scrollController.position.maxScrollExtent *
-                          (1 - (scrollPercentage.value / maxScroll)))
-                },
-                min: minScroll,
-                max: maxScroll,
-              )),
-            ],
-          ),
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          actions: [PianoControls()],
-          shape: Border(
-              bottom: BorderSide(
-                  color: Theme.of(context).colorScheme.onBackground, width: 4)),
-          elevation: 20,
-          shadowColor: Colors.black,
-        ),
+        appBar: MediaQuery.of(context).orientation == Orientation.landscape
+            ? AppBar(
+                title: Row(
+                  children: [
+                    Expanded(
+                        child: Slider(
+                      activeColor: Theme.of(context).colorScheme.primary,
+                      value: scrollPercentage.value,
+                      onChanged: (value) => {
+                        scrollPercentage.value = value,
+                        scrollController.jumpTo(
+                            scrollController.position.maxScrollExtent *
+                                (1 - (scrollPercentage.value / maxScroll)))
+                      },
+                      min: minScroll,
+                      max: maxScroll,
+                    )),
+                  ],
+                ),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                actions: const [PianoControls()],
+                shape: Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        width: 4)),
+                elevation: 20,
+                shadowColor: Colors.black,
+              )
+            : AppBar(),
         body: Builder(builder: (context) {
           if (MediaQuery.of(context).orientation == Orientation.portrait) {
             return Container(
               color: Theme.of(context).colorScheme.background,
-              child: Center(
+              child: const Center(
                   child: Text(
                 'Try Rotating the Device!',
                 textAlign: TextAlign.center,
@@ -63,18 +66,18 @@ class PianoLabPage extends HookConsumerWidget {
             );
           } else {
             return ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 500),
+              constraints: const BoxConstraints(maxHeight: 500),
               child: Row(
                 children: [
                   Expanded(
                     child: AnimatedContainer(
                       duration: 400.ms,
                       child: ListView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         controller: scrollController,
-                        children: [PianoUI()],
                         reverse: true,
+                        children: const [PianoUI()],
                       ),
                     ),
                   ),
@@ -91,7 +94,7 @@ class PianoLabPage extends HookConsumerWidget {
                                     .secondary
                                     .withOpacity(.15)
                               ]),
-                          border: Border(
+                          border: const Border(
                               bottom: BorderSide(width: 3),
                               left: BorderSide(width: 4))),
                       child: Padding(
@@ -103,7 +106,7 @@ class PianoLabPage extends HookConsumerWidget {
                               .values[ref.watch(noteOnPianoStaffProvider)],
                         ),
                       ),
-                    ),
+                    ).animate().fadeIn(duration: 800.ms),
                 ],
               ),
             );
@@ -198,7 +201,7 @@ class BlackPianoKey extends HookConsumerWidget {
               color: isPressed.value
                   ? Colors.lightBlue
                   : Theme.of(context).colorScheme.onBackground,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(5),
                   bottomRight: Radius.circular(5))),
           child: Padding(
@@ -214,7 +217,7 @@ class BlackPianoKey extends HookConsumerWidget {
                             fontSize: 22,
                             fontWeight: FontWeight.w400),
                       ).animate().fadeIn(),
-                      Divider(
+                      const Divider(
                         color: Colors.white,
                       ),
                       Text(
@@ -226,7 +229,7 @@ class BlackPianoKey extends HookConsumerWidget {
                       ).animate().fadeIn(),
                     ],
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           ),
         );
       }),
@@ -264,16 +267,19 @@ class WhitePianoKey extends HookConsumerWidget {
                 ? Theme.of(context).colorScheme.secondary.withOpacity(.25)
                 : Theme.of(context).colorScheme.background,
             border: Border(
-                left: BorderSide(width: 3, color: Colors.black),
-                right: BorderSide(width: 3, color: Colors.black),
-                bottom: BorderSide(width: 3, color: Colors.black))),
+                left: BorderSide(
+                    width: 3, color: Theme.of(context).colorScheme.onPrimary),
+                right: BorderSide(
+                    width: 3, color: Theme.of(context).colorScheme.onPrimary),
+                bottom: BorderSide(
+                    width: 3, color: Theme.of(context).colorScheme.onPrimary))),
         child: Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 18.0),
               child: ref.watch(showLetterNamesOnPianoProvider)
                   ? PianoNoteHint(note: note).animate().fadeIn()
-                  : SizedBox.shrink(),
+                  : const SizedBox.shrink(),
             )),
       ),
     );
@@ -298,13 +304,13 @@ class PianoNoteHint extends StatelessWidget {
         children: [
           Text(
             note.name[0],
-            style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
+            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Text(
               note.name[1],
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ],

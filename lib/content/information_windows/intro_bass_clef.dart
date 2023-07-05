@@ -24,8 +24,8 @@ List<List<Widget>> introBassClefContent = [
       text:
           'A common mnemonic device for the notes between the staff on the bass clef is "All Cows Eat Grass", with the first letter of each word corresponding to the notes in the open space.',
     ),
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
+    const Padding(
+      padding: EdgeInsets.symmetric(vertical: 12.0),
       child: InteractiveNoteStaff(
         startingNote: BassClefNotes.A3,
         jumpTwoWholeSteps: true,
@@ -44,7 +44,7 @@ List<List<Widget>> introBassClefContent = [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Builder(builder: (context) {
-        return InteractiveNoteStaff(
+        return const InteractiveNoteStaff(
           startingNote: BassClefNotes.G3,
           jumpTwoWholeSteps: true,
         );

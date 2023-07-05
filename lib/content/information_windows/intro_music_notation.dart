@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:note_jogger/components/notestaff/note.dart';
 import 'package:note_jogger/globals.dart';
 import 'package:note_jogger/models/notes.dart';
 import '../../components/notestaff/interactive_notestaff.dart';
@@ -19,9 +18,9 @@ List<List<Widget>> introMusicNotation = [
         ),
       ),
     ),
-    Padding(
-      padding: const EdgeInsets.only(top: 48.0),
-      child: const InformationWindowText(
+    const Padding(
+      padding: EdgeInsets.only(top: 48.0),
+      child: InformationWindowText(
           text:
               "The first thing to learn in music is the note.  Above is a note (a quarter note specifically).  Notes represent a specific tone played on an instrument and how long to hold the pitch."),
     ),
@@ -35,10 +34,10 @@ List<List<Widget>> introMusicNotation = [
     const InformationWindowText(
         text:
             'The staff gives context to the note as to what pitch should be played.  Notes higher on the staff are higher pitched, and notes lower on the staff are lower pitched.'),
-    Align(
+    const Align(
       alignment: Alignment.center,
       child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 8.0),
           child: InteractiveNoteStaff(
             startingNote: TrebleClefNotes.C4,
           )),

@@ -23,13 +23,13 @@ class ResultsPage extends ConsumerWidget {
         body: Builder(builder: (context) {
           switch (gameMode) {
             case GameMode.intro:
-              return IntroResult();
+              return const IntroResult();
             case GameMode.training:
-              return TrainingResult();
+              return const TrainingResult();
             case GameMode.ranked:
-              return RankedResult();
+              return const RankedResult();
             default:
-              return TrainingResult();
+              return const TrainingResult();
           }
         }),
       ),
@@ -63,11 +63,11 @@ class IntroResult extends ConsumerWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 16.0),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: const NavigationButton(text: 'Return Home'),
+              child: NavigationButton(text: 'Return Home'),
             ),
           ),
         ],
@@ -117,8 +117,8 @@ class TrainingResult extends ConsumerWidget {
                         fontWeight: FontWeight.w900,
                         fontSize: 48,
                         letterSpacing: 2),
-                  ).animate().fadeIn().scale(begin: Offset(2, 2)).then().scale(
-                      begin: Offset(
+                  ).animate().fadeIn().scale(begin: const Offset(2, 2)).then().scale(
+                      begin: const Offset(
                         1.2,
                         1.2,
                       ),
@@ -150,7 +150,7 @@ class TrainingResult extends ConsumerWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16.0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: AttentionButton(

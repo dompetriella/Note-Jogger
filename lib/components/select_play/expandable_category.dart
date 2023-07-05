@@ -44,7 +44,7 @@ class ExpandableCatergory extends HookConsumerWidget {
                       : null,
                   borderRadius: isOpen.value
                       ? BorderRadius.circular(10)
-                      : BorderRadius.only(
+                      : const BorderRadius.only(
                           topRight: Radius.circular(10),
                           bottomRight: Radius.circular(10)),
                 ),

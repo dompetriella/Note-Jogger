@@ -26,7 +26,7 @@ class MyApp extends ConsumerWidget {
         sliderTheme: SliderTheme.of(context).copyWith(
           trackHeight: 32,
           thumbShape:
-              RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
+              const RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
         ),
       ),
       themeMode: ref.watch(lightModeProvider),

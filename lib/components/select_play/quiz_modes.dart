@@ -240,7 +240,7 @@ class Ranked extends StatelessWidget {
     Enum gameMode = GameMode.ranked;
     return Column(
       children: [
-        PlayModeChapterTitle(
+        const PlayModeChapterTitle(
           titleText: 'Marathon #1 - Notes Circuit',
         ),
         ExpandableCatergory(title: 'Treble Clef', modeButtonTree: [

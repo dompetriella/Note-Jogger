@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../globals.dart';
 import '../../models/notes.dart';
-import '../../provider.dart';
 import 'floating_staff.dart';
 
 class NoteStaff extends ConsumerWidget {
@@ -65,9 +64,7 @@ class StaffContainer extends HookConsumerWidget {
       width: 350 * size,
       decoration: BoxDecoration(
           border: Border.all(
-            width: 4 * size,
-            color: Colors.black,
-          ),
+              width: 4 * size, color: Theme.of(context).colorScheme.onPrimary),
           borderRadius: BorderRadius.circular(20 * size)),
       child: Stack(
         clipBehavior: Clip.none,
@@ -83,7 +80,10 @@ class StaffContainer extends HookConsumerWidget {
                       border: Border(
                           bottom: BorderSide(
                               width: 3 * size,
-                              color: Colors.black.withOpacity(.4)))),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimary
+                                  .withOpacity(.5)))),
                   child: showHints
                       ? Padding(
                           padding: EdgeInsets.only(
@@ -94,12 +94,15 @@ class StaffContainer extends HookConsumerWidget {
                               hintList[i],
                               style: TextStyle(
                                   fontSize: 18 * size,
-                                  color: Colors.black.withOpacity(.80),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimary
+                                      .withOpacity(.80),
                                   fontWeight: FontWeight.w700),
                             ).animate().fadeIn(delay: 200.ms * i),
                           ),
                         )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ),
               SizedBox(
                 height: 20 * size,
@@ -109,16 +112,21 @@ class StaffContainer extends HookConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 height: 200 * size,
                 width: clefImageWidth * size,
                 child: Padding(
                   padding: EdgeInsets.only(left: 16 * size, bottom: 25 * size),
                   child: note.index < 0
-                      ? SizedBox.shrink()
-                      : SvgPicture.asset(isTrebleClef
-                          ? GLOBAL_treble_clef_path
-                          : GLOBAL_bass_clef_path),
+                      ? const SizedBox.shrink()
+                      : SvgPicture.asset(
+                          isTrebleClef
+                              ? GLOBAL_treble_clef_path
+                              : GLOBAL_bass_clef_path,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onPrimary,
+                              BlendMode.srcIn),
+                        ),
                 ),
               ),
               Row(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:note_jogger/components/quiz/heart_container.dart';
 import 'package:note_jogger/components/quiz/quiz_generate.dart';
 import 'package:note_jogger/components/results/rank_card.dart';
@@ -119,7 +118,7 @@ List<List<Widget>> introBasicsContent = [
           )
       ],
     ),
-    FinalRankResult(text: 'S'),
+    const FinalRankResult(text: 'S'),
     const InformationWindowText(
       text: 'Shoot for the elusive S Rank!',
       textAlign: TextAlign.center,

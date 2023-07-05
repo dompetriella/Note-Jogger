@@ -21,7 +21,7 @@ class PlayModeChapterTitle extends StatelessWidget {
                     letterSpacing: 2,
                     color: Theme.of(context).colorScheme.onPrimary),
               ),
-              Divider(
+              const Divider(
                 thickness: 4,
               )
             ],

@@ -1,15 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_jogger/models/modes.dart';
-import 'package:note_jogger/models/notes.dart';
-import 'package:note_jogger/pages/piano_lab_page.dart';
-import 'package:note_jogger/pages/select_mode_page.dart';
-import 'package:note_jogger/pages/select_play_page.dart';
+import 'package:note_jogger/pages/intermission_page.dart';
 import '../components/attention_button.dart';
 import '../provider.dart';
-import 'select_play_page.dart';
 
 class StartPage extends ConsumerWidget {
   const StartPage({super.key});
@@ -78,7 +75,7 @@ class StartPage extends ConsumerWidget {
                     children: [
                       Stack(
                         children: [
-                          SignPost(),
+                          const SignPost(),
                           AttentionButton(
                             text: 'START',
                             width: 240,
@@ -90,24 +87,17 @@ class StartPage extends ConsumerWidget {
                               context.goNamed('select_mode_page');
                             },
                           ),
-                          // Transform.translate(
-                          //   offset: Offset(0, 85),
-                          //   child: AttentionButton(
-                          //     text: 'START',
-                          //     width: 240,
-                          //     height: 70,
-                          //     onPressed: () {
-                          //       ref
-                          //           .watch(quizStagingProvider.notifier)
-                          //           .resetQuizGenerate(ref);
-                          //       Navigator.of(context).push(
-                          //         MaterialPageRoute(
-                          //           builder: (context) => const SelectModePage(),
-                          //         ),
-                          //       );
-                          //     },
-                          //   ),
-                          // ),
+                          Transform.translate(
+                            offset: Offset(0, 85),
+                            child: AttentionButton(
+                              text: 'Intermission Widget',
+                              width: 240,
+                              height: 70,
+                              onPressed: () {
+                                showIntermissionWidget(context, 5000, []);
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -122,6 +112,19 @@ class StartPage extends ConsumerWidget {
   }
 }
 
+showIntermissionWidget(
+    BuildContext context, int duration, List<Widget> contents) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) =>
+          IntermissionWidget(duration: duration, contents: contents),
+    ),
+  );
+  Timer(Duration(milliseconds: duration), () {
+    Navigator.of(context).pop();
+  });
+}
+
 class SignPost extends StatelessWidget {
   const SignPost({
     super.key,
@@ -130,7 +133,7 @@ class SignPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(20, -5),
+      offset: const Offset(20, -5),
       child: Container(
         height: 300,
         width: 19,

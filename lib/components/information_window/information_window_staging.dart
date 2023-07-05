@@ -55,7 +55,7 @@ class InformationWindowStaging extends ConsumerWidget {
           color: Theme.of(context).colorScheme.secondary,
           border: Border(
               top: BorderSide(
-                  color: Theme.of(context).colorScheme.secondary, width: 4))),
+                  color: Theme.of(context).colorScheme.onPrimary, width: 4))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
@@ -81,7 +81,7 @@ class InformationWindowStaging extends ConsumerWidget {
                     .animate()
                     .fadeIn(curve: Curves.easeInOut, duration: 500.ms)
                     .slideX(curve: Curves.easeInOut, duration: 500.ms)
-                : SizedBox(
+                : const SizedBox(
                     height: 50,
                     width: 75,
                   ),
@@ -123,7 +123,7 @@ class InformationWindowStaging extends ConsumerWidget {
                                         ).animate().scale(
                                             duration: 400.ms,
                                           )
-                                      : SizedBox.shrink(),
+                                      : const SizedBox.shrink(),
                             ),
                           ),
                         )),

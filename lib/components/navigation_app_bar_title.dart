@@ -20,7 +20,7 @@ class NavigationAppBarTitle extends StatelessWidget {
           onTap: () {
             context.goNamed(routeName);
           },
-          child: Align(
+          child: const Align(
               alignment: Alignment.centerLeft,
               child: Icon(Icons.arrow_back_ios_new)),
         ),

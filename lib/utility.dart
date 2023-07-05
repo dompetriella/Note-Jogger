@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 String capitalizeString(String s) => s[0].toUpperCase() + s.substring(1);
 
 int getRandomInt(int max, {int min = 0}) {
-  Random random = new Random();
+  Random random = Random();
   return random.nextInt(max) + min;
 }
 

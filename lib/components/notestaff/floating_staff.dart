@@ -20,7 +20,7 @@ class FloatingStaff extends StatelessWidget {
         child: Container(
             height: 3 * size,
             width: 50 * size,
-            color: Colors.black.withOpacity(.7)));
+            color: Theme.of(context).colorScheme.onPrimary.withOpacity(.7)));
   }
 }
 

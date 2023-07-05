@@ -27,7 +27,7 @@ var redJoggers = ThemeData(
     sliderTheme: SliderThemeData(
       inactiveTrackColor: HexColor('#251605'),
       trackHeight: 32,
-      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
+      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
     ));
 
 var darkMode = ThemeData();

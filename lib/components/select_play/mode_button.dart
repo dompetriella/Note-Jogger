@@ -47,7 +47,7 @@ class ModeButton extends ConsumerWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => InformationWindowPage()));
+                        builder: (context) => const InformationWindowPage()));
                 return;
               }
               createNewQuizGenerateList(ref, modeNotes, gameMode,

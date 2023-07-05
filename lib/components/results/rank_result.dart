@@ -99,7 +99,7 @@ class FinalRankResult extends StatelessWidget {
             .animate(delay: 3000.ms)
             .rotate(begin: .25)
             .fadeIn()
-            .scale(begin: Offset(3, 3))
+            .scale(begin: const Offset(3, 3))
       ],
     );
   }

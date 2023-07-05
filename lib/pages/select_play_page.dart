@@ -21,7 +21,7 @@ class SelectPlayPage extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-              padding: EdgeInsets.only(top: 32.0),
+              padding: const EdgeInsets.only(top: 32.0),
               child: QuizModes(gameMode: gameMode)),
         ],
       ),

@@ -11,7 +11,6 @@ void main() {
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
@@ -25,8 +24,8 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
         sliderTheme: SliderTheme.of(context).copyWith(
           trackHeight: 32,
-          thumbShape:
-              const RoundSliderThumbShape(enabledThumbRadius: 17.0, elevation: 0),
+          thumbShape: const RoundSliderThumbShape(
+              enabledThumbRadius: 17.0, elevation: 0),
         ),
       ),
       themeMode: ref.watch(lightModeProvider),

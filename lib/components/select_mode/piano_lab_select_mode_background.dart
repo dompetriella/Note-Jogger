@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rive/rive.dart';
 
 class PianoLabSelectModeBackground extends StatelessWidget {
   final String text;
@@ -9,7 +10,10 @@ class PianoLabSelectModeBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Center(child: SvgPicture.asset('assets/piano_lab.svg')),
+        Center(
+            child: RiveAnimation.asset(
+          'assets/piano_animated.riv',
+        )),
         Transform.translate(
           offset: Offset(0, -60),
           child: Center(

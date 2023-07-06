@@ -45,6 +45,7 @@ dependencies:
   google_fonts: ^5.1.0
   just_audio: ^0.9.34
   just_audio_windows: ^0.2.0
+  rive: ^0.7.16
 
 dev_dependencies:
   flutter_test:

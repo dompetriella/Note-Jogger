@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rive/rive.dart';
 
 class RankedSelectModeBackground extends StatelessWidget {
   final String text;
@@ -9,7 +10,13 @@ class RankedSelectModeBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Center(child: SvgPicture.asset('assets/clock.svg')),
+        Center(
+            child: Padding(
+          padding: const EdgeInsets.only(left: 9.0),
+          child: RiveAnimation.asset(
+            'assets/stopwatch_animated.riv',
+          ),
+        )),
         Align(
           alignment: Alignment.center,
           child: Text(

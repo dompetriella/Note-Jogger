@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/provider.dart';
 import 'answer_staging_bottom_sheet.dart';
 
-class QuizOptionButton extends ConsumerWidget {
+class QuizOptionButton extends HookConsumerWidget {
   final Enum gameMode;
   final String correctNote;
   final String givenNote;

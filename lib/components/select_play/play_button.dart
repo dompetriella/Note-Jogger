@@ -6,7 +6,7 @@ import '../../game_logic/quiz_generate.dart';
 import '../../provider.dart';
 import '../information_window/information_window_screen_scaffold.dart';
 
-class ModeButton extends ConsumerWidget {
+class PlayButton extends ConsumerWidget {
   final String title;
   final String subText;
   final String imagePath;
@@ -14,7 +14,7 @@ class ModeButton extends ConsumerWidget {
   final bool enableHintsOnStartup;
   final Enum gameMode;
   final List<List<Widget>> listOfInformationWindowScreen;
-  const ModeButton(
+  const PlayButton(
       {super.key,
       required this.title,
       required this.modeNotes,

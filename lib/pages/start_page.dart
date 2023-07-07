@@ -87,18 +87,18 @@ class StartPage extends ConsumerWidget {
                               context.goNamed('select_mode_page');
                             },
                           ),
-                          Transform.translate(
-                            offset: Offset(0, 85),
-                            child: AttentionButton(
-                              text: 'Intermission Widget',
-                              width: 240,
-                              height: 70,
-                              onPressed: () {
-                                showIntermissionWidget(context, 5000,
-                                    'start_page', GameMode.intro);
-                              },
-                            ),
-                          ),
+                          // Transform.translate(
+                          //   offset: Offset(0, 85),
+                          //   child: AttentionButton(
+                          //     text: 'Intermission Widget',
+                          //     width: 240,
+                          //     height: 70,
+                          //     onPressed: () {
+                          //       showIntermissionWidget(context, 5000,
+                          //           'start_page', GameMode.intro);
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

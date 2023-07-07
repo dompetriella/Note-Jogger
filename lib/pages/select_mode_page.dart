@@ -34,8 +34,8 @@ class SelectModePage extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 32.0),
                   child: SelectModeButton(
-                    backgroundImageWidget:
-                        const TrainingSelectModeBackground(text: 'Training \nMode'),
+                    backgroundImageWidget: const TrainingSelectModeBackground(
+                        text: 'Training \nMode'),
                     onPressed: () {
                       ref
                           .watch(quizStagingProvider.notifier)

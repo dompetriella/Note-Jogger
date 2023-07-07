@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:note_jogger/components/intermission_widget/intermission_message.dart';
 import '../../models/modes.dart';
 import '../../provider.dart';
 

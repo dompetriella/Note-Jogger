@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_jogger/components/intermission_widget/intermission_types/intermission_message.dart';
+import 'package:note_jogger/components/intermission_widget/intermission_message.dart';
 import 'package:note_jogger/models/modes.dart';
 import '../components/attention_button.dart';
 import '../components/intermission_widget/intermission_widget.dart';
@@ -94,12 +94,8 @@ class StartPage extends ConsumerWidget {
                               width: 240,
                               height: 70,
                               onPressed: () {
-                                showIntermissionWidget(
-                                    context,
-                                    5000,
-                                    'start_page',
-                                    IntermissionMessage(duration: 5000),
-                                    GameMode.intro);
+                                showIntermissionWidget(context, 5000,
+                                    'start_page', GameMode.intro);
                               },
                             ),
                           ),

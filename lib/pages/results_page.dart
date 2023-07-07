@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/components/attention_button.dart';
 import 'package:note_jogger/game_logic/results.dart';
 import 'package:note_jogger/provider.dart';
 import 'package:note_jogger/utility.dart';
+import 'package:rive/rive.dart';
 import '../components/navigation_button.dart';
 import '../components/results/correct_count.dart';
 import '../components/results/rank_result.dart';
@@ -84,82 +86,95 @@ class TrainingResult extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     int percentCorrect = calculateCorrectAnswerPercentageAsInt(ref);
-    double animationDuration = 2000;
+    double animationDuration = 6000;
+
     return SizedBox.expand(
       child: Stack(
         children: [
+          Center(
+              child: SvgPicture.asset('assets/empty_bottle.svg')
+                  .animate()
+                  .shake(duration: 400.ms)
+                  .scale(delay: 800.ms, end: Offset(10, 10), duration: 800.ms)),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              height:
-                  MediaQuery.of(context).size.height * (percentCorrect / 100),
-              color: ref.read(lightModeProvider) == ThemeMode.light
-                  ? Theme.of(context).colorScheme.secondary.withOpacity(.25)
-                  : lightenColor(Theme.of(context).colorScheme.background,
-                      percent: 5),
-            ).animate().scaleY(
-                alignment: Alignment.bottomCenter,
-                curve: Curves.decelerate,
-                delay: 200.ms,
-                duration: animationDuration.ms),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height - 91,
+              child: RiveAnimation.asset(
+                'assets/liquid_background_animated.riv',
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
-          Stack(
-            alignment: Alignment.center,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'RESULTS',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 48,
+                          letterSpacing: 4),
+                    ).animate().fadeIn().slideY().scale(),
+                    Divider()
+                  ],
+                ),
+              ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "Results",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 48,
-                        letterSpacing: 2),
-                  ).animate().fadeIn().scale(begin: const Offset(2, 2)).then().scale(
-                      begin: const Offset(
-                        1.2,
-                        1.2,
-                      ),
-                      duration: (animationDuration / 2).ms),
-                  Text(
-                    '$percentCorrect%',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onPrimary
-                            .withOpacity(.65),
-                        fontWeight: FontWeight.w700,
-                        fontSize: 60,
-                        letterSpacing: 2),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      'Correct\n$percentCorrect%',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 36,
+                          letterSpacing: 4),
+                    ).animate(delay: 800.ms).fadeIn(),
                   ),
-                  Text(
-                    'Time: ${calculateTotalTimeInSeconds(ref)}s',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onPrimary
-                          .withOpacity(.65),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 36,
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      'Time\n${calculateTotalTimeInSeconds(ref)}s',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 36,
+                          letterSpacing: 4),
+                    ).animate(delay: 800.ms).fadeIn(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      'XP\n${500}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 36,
+                          letterSpacing: 4),
+                    ).animate(delay: 800.ms).fadeIn(),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: AttentionButton(
-                    text: 'RETURN TO TRAINING',
-                    onPressed: () => context.goNamed('select_play_page',
-                        extra: GameMode.training),
-                    height: 85,
-                    width: 220,
-                  ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: AttentionButton(
+                  text: 'RETURN TO TRAINING',
+                  onPressed: () => context.goNamed('select_play_page',
+                      extra: GameMode.training),
+                  height: 85,
+                  width: 220,
                 ),
               )
             ],

@@ -18,7 +18,7 @@ class TrainingSelectModeBackground extends StatelessWidget {
       children: [
         Positioned(
                 top: 30, right: 15, child: SvgPicture.asset('assets/towel.svg'))
-            .animate()
+            .animate(delay: 400.ms)
             .scale(duration: 600.ms, begin: Offset(1.2, 1.2))
             .slideY(duration: 800.ms, begin: 0.3, curve: Curves.easeOut)
             .fadeIn(duration: 400.ms),
@@ -28,7 +28,7 @@ class TrainingSelectModeBackground extends StatelessWidget {
                 child: Transform.rotate(
                     angle: pi / 14,
                     child: SvgPicture.asset('assets/bottle.svg')))
-            .animate()
+            .animate(delay: 400.ms)
             .scale(duration: 800.ms, begin: Offset(1.2, 1.2))
             .slideY(duration: 1000.ms, begin: 0.3, curve: Curves.easeOut)
             .fadeIn(duration: 200.ms),

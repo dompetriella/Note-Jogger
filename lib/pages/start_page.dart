@@ -51,7 +51,9 @@ class StartPage extends ConsumerWidget {
                 child: Center(
                     child: SizedBox(
                         width: 135,
-                        child: SvgPicture.asset('assets/road_divider.svg'))),
+                        child: MediaQuery.of(context).size.height > 750
+                            ? SvgPicture.asset('assets/road_divider.svg')
+                            : SizedBox.shrink())),
               ),
             ),
             Column(
@@ -88,16 +90,16 @@ class StartPage extends ConsumerWidget {
                               context.goNamed('select_mode_page');
                             },
                           ),
-                          Transform.translate(
-                            offset: Offset(0, 85),
-                            child: AttentionButton(
-                              text: 'Intermission Widget',
-                              width: 240,
-                              height: 70,
-                              onPressed: () {
-                              },
-                            ),
-                          ),
+                          // Transform.translate(
+                          //   offset: Offset(0, 85),
+                          //   child: AttentionButton(
+                          //     text:
+                          //         MediaQuery.of(context).size.height.toString(),
+                          //     width: 240,
+                          //     height: 70,
+                          //     onPressed: () {},
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

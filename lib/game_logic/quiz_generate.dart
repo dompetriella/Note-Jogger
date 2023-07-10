@@ -18,7 +18,7 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes, Enum gameMode,
     }
   } else if (clefNotes.length < GLOBAL_normal_quiz_amount) {
     int fillTimes = GLOBAL_normal_quiz_amount ~/ clefNotes.length;
-    int leftover = GLOBAL_normal_quiz_amount - clefNotes.length;
+    int leftover = GLOBAL_normal_quiz_amount - (clefNotes.length * fillTimes);
 
     for (var i = 0; i < fillTimes; i++) {
       for (var noteEnum in clefNotes) {
@@ -92,8 +92,7 @@ List<Enum> trimClefNotes(List<Enum> clef, Enum lowestNote, Enum highestNote,
     bool spaceNotesOnly = false,
     bool includeFlats = true}) {
   List<Enum> returnList = [];
-  // TODO: this is a hacky way to do this, need to change
-  bool isTrebleClef = clef.first.name[0] == 'C';
+  bool isTrebleClef = lowestNote.runtimeType == TrebleClefNotes;
   if (isTrebleClef) {
     if (lineNotesOnly) {
       return [

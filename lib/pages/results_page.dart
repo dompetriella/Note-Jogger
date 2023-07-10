@@ -121,7 +121,7 @@ class TrainingResult extends ConsumerWidget {
                           fontWeight: FontWeight.w700,
                           fontSize: 48,
                           letterSpacing: 4),
-                    ).animate().fadeIn().slideY().scale(),
+                    ).animate(delay: 800.ms).fadeIn().slideY().scale(),
                     Divider()
                   ],
                 ),
@@ -171,8 +171,13 @@ class TrainingResult extends ConsumerWidget {
                 alignment: Alignment.bottomCenter,
                 child: AttentionButton(
                   text: 'RETURN TO TRAINING',
-                  onPressed: () => context.goNamed('select_play_page',
-                      extra: GameMode.training),
+                  onPressed: () {
+                    context.goNamed('select_play_page',
+                        extra: GameMode.training);
+                    ref
+                        .read(quizStagingProvider.notifier)
+                        .resetQuizGenerate(ref);
+                  },
                   height: 85,
                   width: 220,
                 ),

@@ -25,7 +25,7 @@ class QuizPage extends ConsumerWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    '',
+                    '${ref.watch(quizGenerateIndexStagingProvider)} / ${ref.watch(quizStagingProvider).length}',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w900,
@@ -36,7 +36,7 @@ class QuizPage extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                         onTap: () {
-                          context.go('/');
+                          context.goNamed('select_play_page', extra: gameMode);
                           ref
                               .watch(quizStagingProvider.notifier)
                               .resetQuizGenerate(ref);

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/components/intermission_widget/intermission_message.dart';
+import 'package:note_jogger/game_logic/quiz_generate.dart';
 import 'package:note_jogger/models/modes.dart';
 import '../components/attention_button.dart';
 import '../components/intermission_widget/intermission_widget.dart';
@@ -87,18 +88,16 @@ class StartPage extends ConsumerWidget {
                               context.goNamed('select_mode_page');
                             },
                           ),
-                          // Transform.translate(
-                          //   offset: Offset(0, 85),
-                          //   child: AttentionButton(
-                          //     text: 'Intermission Widget',
-                          //     width: 240,
-                          //     height: 70,
-                          //     onPressed: () {
-                          //       showIntermissionWidget(context, 5000,
-                          //           'start_page', GameMode.intro);
-                          //     },
-                          //   ),
-                          // ),
+                          Transform.translate(
+                            offset: Offset(0, 85),
+                            child: AttentionButton(
+                              text: 'Intermission Widget',
+                              width: 240,
+                              height: 70,
+                              onPressed: () {
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ],

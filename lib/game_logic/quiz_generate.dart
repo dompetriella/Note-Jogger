@@ -11,31 +11,41 @@ createNewQuizGenerateList(WidgetRef ref, List<Enum> clefNotes, Enum gameMode,
     {int numberOfButtons = 5, bool hintsEnabled = false}) {
   ref.watch(quizStagingProvider.notifier).state = [];
   List<Enum> preliminaryNoteList = [];
-  if (GLOBAL_normal_quiz_amount > clefNotes.length) {
-    // less than normal quiz amount
-    int fillAmount = GLOBAL_normal_quiz_amount - clefNotes.length;
-    for (var note in clefNotes) {
-      preliminaryNoteList.add(note);
+
+  if (clefNotes.length == GLOBAL_normal_quiz_amount) {
+    for (var noteEnum in clefNotes) {
+      preliminaryNoteList.add(noteEnum);
     }
-    for (var i = 0; i < fillAmount; i++) {
+  } else if (clefNotes.length < GLOBAL_normal_quiz_amount) {
+    int fillTimes = GLOBAL_normal_quiz_amount ~/ clefNotes.length;
+    int leftover = GLOBAL_normal_quiz_amount - clefNotes.length;
+
+    for (var i = 0; i < fillTimes; i++) {
+      for (var noteEnum in clefNotes) {
+        preliminaryNoteList.add(noteEnum);
+      }
+    }
+
+    for (var i = 0; i < leftover; i++) {
       final random = Random();
       var index = random.nextInt(clefNotes.length);
       var note = clefNotes[index];
       preliminaryNoteList.add(note);
     }
-    preliminaryNoteList.shuffle();
-    // more than normal quiz amount
   } else {
-    for (var i = 0; i < GLOBAL_normal_quiz_amount; i++) {
+    int i = 0;
+    while (i <= GLOBAL_normal_quiz_amount) {
       final random = Random();
       var index = random.nextInt(clefNotes.length);
       var note = clefNotes[index];
       if (!preliminaryNoteList.contains(note)) {
         preliminaryNoteList.add(note);
+        i++;
       }
     }
-    preliminaryNoteList.shuffle();
   }
+
+  preliminaryNoteList.shuffle();
 
   for (var enumNote in preliminaryNoteList) {
     ref.watch(quizStagingProvider.notifier).state.add(QuizGenerate(

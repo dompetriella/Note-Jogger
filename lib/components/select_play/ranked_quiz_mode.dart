@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_jogger/components/select_play/ranked_play_button.dart';
-import 'package:note_jogger/models/ranked_difficulty.dart';
-import 'package:note_jogger/utility.dart';
-import '../../models/modes.dart';
-import '../../models/notes.dart';
+import 'package:note_jogger/content/ranked_content/circuit_one.dart';
 
 class Ranked extends StatelessWidget {
   const Ranked({
@@ -12,7 +8,6 @@ class Ranked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Enum gameMode = GameMode.ranked;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -41,24 +36,9 @@ class Ranked extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          children: [
-            for (var i = 0; i < 12; i++)
-              Padding(
-                padding: i % 2 == 0
-                    ? const EdgeInsets.only(left: 48.0)
-                    : const EdgeInsets.only(right: 48.0),
-                child: Align(
-                  alignment:
-                      i % 2 == 0 ? Alignment.centerLeft : Alignment.centerRight,
-                  child: RankedPlayButton(
-                    modeNotes: TrebleClefNotes.values,
-                    gameMode: gameMode,
-                    rankedDifficulty: RankedDifficulty.values[getRandomInt(2)],
-                  ),
-                ),
-              ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 36.0),
+          child: Column(children: circuitOne),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 60.0),

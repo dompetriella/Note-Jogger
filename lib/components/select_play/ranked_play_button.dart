@@ -5,6 +5,18 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:note_jogger/models/ranked_difficulty.dart';
+
+String getNoteImagePath(Enum difficulty) {
+  switch (difficulty) {
+    case RankedDifficulty.medium:
+      return 'assets/eighth_note.svg';
+    case RankedDifficulty.hard:
+      return 'assets/sixteenth_note.svg';
+    default:
+      return 'assets/quarter_note.svg';
+  }
+}
 
 class RankedPlayButton extends HookConsumerWidget {
   final Enum rankedDifficulty;
@@ -25,7 +37,7 @@ class RankedPlayButton extends HookConsumerWidget {
     var clicked = useState(false);
     bool accesible = true;
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0),
+      padding: const EdgeInsets.only(top: 50.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Stack(
@@ -66,7 +78,7 @@ class RankedPlayButton extends HookConsumerWidget {
                   child: Center(
                       child: accesible
                           ? Text(
-                              'A',
+                              '',
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.tertiary,
                                   fontSize: 100),
@@ -81,13 +93,15 @@ class RankedPlayButton extends HookConsumerWidget {
                             ))),
             ),
             Transform.translate(
-              offset: Offset(49, -70),
+              offset: Offset(
+                  rankedDifficulty != RankedDifficulty.easy ? 20 : 12, -100),
               child: SizedBox(
-                height: 100,
-                width: 50,
+                height: 135,
+                width: 135,
                 child: Transform.rotate(
                     angle: pi / 80,
-                    child: SvgPicture.asset('assets/quarter_note.svg')),
+                    child:
+                        SvgPicture.asset(getNoteImagePath(rankedDifficulty))),
               ),
             )
           ],

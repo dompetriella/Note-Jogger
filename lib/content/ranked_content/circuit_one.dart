@@ -36,12 +36,4 @@ List<Widget> circuitOne = [
       rankedDifficulty: RankedDifficulty.hard,
     ),
   ),
-  Align(
-    alignment: Alignment.centerRight,
-    child: RankedPlayButton(
-      modeNotes: TrebleClefNotes.values,
-      gameMode: gameMode,
-      rankedDifficulty: RankedDifficulty.hard,
-    ),
-  ),
 ];

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_jogger/components/select_play/ranked_play_button.dart';
 import 'package:note_jogger/content/ranked_content/circuit_one.dart';
+import 'package:note_jogger/models/ranked_difficulty.dart';
 
 class Ranked extends StatelessWidget {
   const Ranked({

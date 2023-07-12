@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:note_jogger/models/ranked_difficulty.dart';
+
+import '../../game_logic/quiz_generate.dart';
+import '../../provider.dart';
 
 String getNoteImagePath(Enum difficulty) {
   switch (difficulty) {
@@ -21,15 +25,12 @@ String getNoteImagePath(Enum difficulty) {
 class RankedPlayButton extends HookConsumerWidget {
   final Enum rankedDifficulty;
   final List<Enum> modeNotes;
-  final bool enableHintsOnStartup;
-
   final Enum gameMode;
   const RankedPlayButton({
     super.key,
     required this.rankedDifficulty,
     required this.modeNotes,
     required this.gameMode,
-    this.enableHintsOnStartup = false,
   });
 
   @override
@@ -69,11 +70,27 @@ class RankedPlayButton extends HookConsumerWidget {
                       fixedSize: const Size(140, 129)),
                   onPressed: () {
                     clicked.value = !clicked.value;
-                    // createNewQuizGenerateList(ref, modeNotes, gameMode,
-                    //     hintsEnabled: enableHintsOnStartup);
-                    // context.go('/quiz_page', extra: gameMode);
-                    // ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
-                    // ref.read(stopwatchProvider.notifier).startStopwatch(ref);
+                    showModalBottomSheet(
+                        elevation: 0,
+                        useSafeArea: true,
+                        barrierColor: Colors.transparent,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        constraints: BoxConstraints(maxWidth: 350),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              width: 4,
+                              color: Theme.of(context).colorScheme.onPrimary),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.0),
+                              topRight: Radius.circular(25.0)),
+                        ),
+                        context: context,
+                        builder: (builder) {
+                          return RankedModeInfoBottomSheet(
+                              gameMode: gameMode,
+                              modeNotes: modeNotes,
+                              rankedDifficulty: rankedDifficulty);
+                        });
                   },
                   child: Center(
                       child: accesible
@@ -106,6 +123,145 @@ class RankedPlayButton extends HookConsumerWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class RankedModeInfoBottomSheet extends ConsumerWidget {
+  final Enum rankedDifficulty;
+  final List<Enum> modeNotes;
+  final Enum gameMode;
+  const RankedModeInfoBottomSheet({
+    super.key,
+    required this.rankedDifficulty,
+    required this.modeNotes,
+    required this.gameMode,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      height: 250,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15))),
+              height: 60,
+              child: Center(
+                child: Text(
+                  'Treble Clef',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 24,
+                      letterSpacing: 3),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Difficulty'.toUpperCase(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+                Text(
+                  rankedDifficulty.name.toUpperCase(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Current Rank'.toUpperCase(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+                Text(
+                  'A',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'FEE'.toUpperCase(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+                Text(
+                  '20',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(250, 62),
+                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 4),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  createNewQuizGenerateList(ref, modeNotes, gameMode,
+                      hintsEnabled: false);
+                  context.go('/quiz_page', extra: gameMode);
+                  ref.read(stopwatchProvider.notifier).resetStopwatch(ref);
+                  ref.read(stopwatchProvider.notifier).startStopwatch(ref);
+                },
+                child: Text(
+                  'START'.toUpperCase(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onTertiary,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 2),
+                )),
+          ),
+        ],
       ),
     );
   }

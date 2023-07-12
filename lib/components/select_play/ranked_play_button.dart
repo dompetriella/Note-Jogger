@@ -35,7 +35,6 @@ class RankedPlayButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var clicked = useState(false);
     bool accesible = true;
     return Padding(
       padding: const EdgeInsets.only(top: 50.0),
@@ -48,9 +47,7 @@ class RankedPlayButton extends HookConsumerWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                  color: clicked.value
-                      ? Theme.of(context).colorScheme.tertiary
-                      : Theme.of(context).colorScheme.primary.withOpacity(.75),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.75),
                   borderRadius: BorderRadius.circular(500),
                   border: Border.all(
                       color: Theme.of(context).colorScheme.onPrimary,
@@ -69,7 +66,6 @@ class RankedPlayButton extends HookConsumerWidget {
                       ),
                       fixedSize: const Size(140, 129)),
                   onPressed: () {
-                    clicked.value = !clicked.value;
                     showModalBottomSheet(
                         elevation: 0,
                         useSafeArea: true,
@@ -141,7 +137,7 @@ class RankedModeInfoBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
+    return SizedBox(
       height: 250,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +197,7 @@ class RankedModeInfoBottomSheet extends ConsumerWidget {
                       letterSpacing: 2),
                 ),
                 Text(
-                  'A',
+                  'N/A',
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 22,
@@ -223,7 +219,7 @@ class RankedModeInfoBottomSheet extends ConsumerWidget {
                       letterSpacing: 2),
                 ),
                 Text(
-                  '20',
+                  'N/A',
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 22,

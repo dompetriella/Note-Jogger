@@ -23,10 +23,10 @@ class Note extends StatelessWidget {
       }
     }
 
-    double noteSize = 77 * size;
+    double noteSize = 85 * size;
     bool flagIsUp = noteValue < 24 ? true : false;
     // -25 / 2 is the staff height divided by 2
-    double offset = 5 + (noteValue - previousFlats) * -25 / 2;
+    double offset = 10 + (noteValue - previousFlats) * -25 / 2;
     double flagOffset = flagIsUp ? offset : offset + 50;
 
     return Transform.translate(

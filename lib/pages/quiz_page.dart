@@ -22,16 +22,17 @@ class QuizPage extends ConsumerWidget {
             title: Stack(
               alignment: Alignment.center,
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    '${ref.watch(quizGenerateIndexStagingProvider)} / ${ref.watch(quizStagingProvider).length}',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 2),
+                if (gameMode == GameMode.training)
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${ref.watch(quizGenerateIndexStagingProvider)} / ${ref.watch(quizStagingProvider).length}',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 2),
+                    ),
                   ),
-                ),
                 Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(

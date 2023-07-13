@@ -11,6 +11,7 @@ List<Widget> circuitOne = [
   Align(
     alignment: Alignment.centerLeft,
     child: RankedPlayButton(
+      title: 'Treble Clef Easy',
       modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
           TrebleClefNotes.E4, TrebleClefNotes.F5,
           includeFlats: false),
@@ -21,6 +22,7 @@ List<Widget> circuitOne = [
   Align(
     alignment: Alignment.centerRight,
     child: RankedPlayButton(
+      title: 'Treble Clef Medium',
       modeNotes: trimClefNotes(TrebleClefNotes.values.toList(),
           TrebleClefNotes.E4, TrebleClefNotes.values.last,
           includeFlats: false),
@@ -31,6 +33,7 @@ List<Widget> circuitOne = [
   Align(
     alignment: Alignment.centerLeft,
     child: RankedPlayButton(
+      title: 'Treble Clef Hard',
       modeNotes: TrebleClefNotes.values,
       gameMode: gameMode,
       rankedDifficulty: RankedDifficulty.hard,

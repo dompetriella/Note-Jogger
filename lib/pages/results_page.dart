@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_jogger/components/attention_button.dart';
+import 'package:note_jogger/components/quiz/heart_container.dart';
+import 'package:note_jogger/components/results/rank_card.dart';
 import 'package:note_jogger/game_logic/results.dart';
 import 'package:note_jogger/provider.dart';
 import 'package:note_jogger/utility.dart';
@@ -190,42 +192,167 @@ class TrainingResult extends ConsumerWidget {
   }
 }
 
-class RankedResult extends StatelessWidget {
+class RankedResult extends ConsumerWidget {
   const RankedResult({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Results",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 48,
-                        letterSpacing: 2),
-                  ),
+        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 32.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  border: Border.symmetric(
+                      horizontal: BorderSide(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          width: 4))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Center(
+                    child: Text(
+                  'RESULTS',
+                  style: TextStyle(
+                      fontSize: 60,
+                      color: Theme.of(context).colorScheme.onTertiary,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 6),
+                )),
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: Text(
+                  'Total Time'.toUpperCase(),
+                  style: TextStyle(fontSize: 22, letterSpacing: 1),
                 ),
-                // DetailedResults(),
-                const CorrectCount(),
-                const RankResult(),
-                const NavigationButton(text: 'Return Home'),
-              ].animate(interval: 1.seconds).slideY().fadeIn(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: Divider(
+                  height: 4,
+                  thickness: 4,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              Text(
+                '${calculateTotalTimeInSeconds(ref)}s',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 4,
+                    fontSize: 60),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: Text(
+                  'LIVES LEFT'.toUpperCase(),
+                  style: TextStyle(fontSize: 22, letterSpacing: 1),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: Divider(
+                  height: 4,
+                  thickness: 4,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: ref
+                        .watch(livesProvider)
+                        .map((e) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: HeartContainer(
+                                size: 3,
+                                isFilled: e,
+                              ),
+                            ))
+                        .toList()),
+              )
+            ],
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: Text(
+                  'RANK'.toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 72,
+                      height: 0,
+                      letterSpacing: 7,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+                child: Divider(
+                  height: 0,
+                  thickness: 4,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              FinalRankResult(),
+            ],
+          ),
+          const NavigationButton(text: 'Exit Results'),
+        ]),
+      ],
+    );
+  }
+}
+
+class FinalRankResult extends ConsumerWidget {
+  const FinalRankResult({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var overallRank = calculateOverallRank(ref);
+    return Center(
+      child: Container(
+        height: 250,
+        width: 265,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+                color: Theme.of(context).colorScheme.onPrimary, width: 4)),
+        child: Center(
+          child: Container(
+            height: 200,
+            width: 215,
+            decoration: BoxDecoration(
+              color: getRankTextColor(overallRank.name),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Text(
+                overallRank.name,
+                style:
+                    TextStyle(height: .8, fontSize: 240, color: Colors.white),
+              ),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

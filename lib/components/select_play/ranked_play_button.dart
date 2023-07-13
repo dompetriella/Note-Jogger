@@ -23,11 +23,13 @@ String getNoteImagePath(Enum difficulty) {
 }
 
 class RankedPlayButton extends HookConsumerWidget {
+  final String title;
   final Enum rankedDifficulty;
   final List<Enum> modeNotes;
   final Enum gameMode;
   const RankedPlayButton({
     super.key,
+    required this.title,
     required this.rankedDifficulty,
     required this.modeNotes,
     required this.gameMode,
@@ -83,6 +85,7 @@ class RankedPlayButton extends HookConsumerWidget {
                         context: context,
                         builder: (builder) {
                           return RankedModeInfoBottomSheet(
+                              title: title,
                               gameMode: gameMode,
                               modeNotes: modeNotes,
                               rankedDifficulty: rankedDifficulty);
@@ -125,11 +128,13 @@ class RankedPlayButton extends HookConsumerWidget {
 }
 
 class RankedModeInfoBottomSheet extends ConsumerWidget {
+  final String title;
   final Enum rankedDifficulty;
   final List<Enum> modeNotes;
   final Enum gameMode;
   const RankedModeInfoBottomSheet({
     super.key,
+    required this.title,
     required this.rankedDifficulty,
     required this.modeNotes,
     required this.gameMode,
@@ -153,7 +158,7 @@ class RankedModeInfoBottomSheet extends ConsumerWidget {
               height: 60,
               child: Center(
                 child: Text(
-                  'Treble Clef',
+                  title,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontSize: 24,

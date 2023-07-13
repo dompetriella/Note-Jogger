@@ -39,4 +39,35 @@ List<Widget> circuitOne = [
       rankedDifficulty: RankedDifficulty.hard,
     ),
   ),
+  Align(
+    alignment: Alignment.centerRight,
+    child: RankedPlayButton(
+      title: 'Bass Clef Easy',
+      modeNotes: trimClefNotes(
+          BassClefNotes.values.toList(), BassClefNotes.G2, BassClefNotes.A3,
+          includeFlats: false),
+      gameMode: gameMode,
+      rankedDifficulty: RankedDifficulty.easy,
+    ),
+  ),
+  Align(
+    alignment: Alignment.centerLeft,
+    child: RankedPlayButton(
+      title: 'Bass Clef Medium',
+      modeNotes: trimClefNotes(BassClefNotes.values.toList(),
+          BassClefNotes.values.first, BassClefNotes.A3,
+          includeFlats: false),
+      gameMode: gameMode,
+      rankedDifficulty: RankedDifficulty.medium,
+    ),
+  ),
+  Align(
+    alignment: Alignment.centerRight,
+    child: RankedPlayButton(
+      title: 'Bass Clef Hard',
+      modeNotes: BassClefNotes.values,
+      gameMode: gameMode,
+      rankedDifficulty: RankedDifficulty.hard,
+    ),
+  ),
 ];

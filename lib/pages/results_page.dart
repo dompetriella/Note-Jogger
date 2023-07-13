@@ -158,7 +158,7 @@ class TrainingResult extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Text(
-                      'XP\n${500}',
+                      'XP\nN/A',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
@@ -201,28 +201,42 @@ class RankedResult extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                  onTap: () {
+                    context.goNamed('select_play_page', extra: GameMode.ranked);
+                    ref
+                        .watch(quizStagingProvider.notifier)
+                        .resetQuizGenerate(ref);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    size: 42,
+                    color: Theme.of(context).colorScheme.error.withOpacity(.50),
+                  ))),
+        ),
         Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  border: Border.symmetric(
-                      horizontal: BorderSide(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          width: 4))),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Center(
-                    child: Text(
-                  'RESULTS',
-                  style: TextStyle(
-                      fontSize: 60,
-                      color: Theme.of(context).colorScheme.onTertiary,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 6),
-                )),
-              ),
+          Container(
+            decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                border: Border.symmetric(
+                    horizontal: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 4))),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Center(
+                  child: Text(
+                'RESULTS',
+                style: TextStyle(
+                    fontSize: 60,
+                    color: Theme.of(context).colorScheme.onTertiary,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 6),
+              )),
             ),
           ),
           Column(
@@ -311,7 +325,12 @@ class RankedResult extends ConsumerWidget {
               FinalRankResult(),
             ],
           ),
-          const NavigationButton(text: 'Exit Results'),
+          Padding(
+              padding: const EdgeInsets.only(top: 36.0),
+              child: AttentionButton(
+                  text: 'EXIT RESULTS',
+                  onPressed: () => context.goNamed('select_play_page',
+                      extra: GameMode.ranked)))
         ]),
       ],
     );

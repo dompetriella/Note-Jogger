@@ -9,6 +9,11 @@ int getRandomInt(int max, {int min = 0}) {
   return random.nextInt(max) + min;
 }
 
+dynamic getRandomListItem(List<dynamic> inputList) {
+  final random = new Random();
+  return inputList[random.nextInt(inputList.length)];
+}
+
 Color darkenColor(Color c, {int percent = 10}) {
   assert(1 <= percent && percent <= 100);
   var f = 1 - percent / 100;

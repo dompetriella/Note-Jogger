@@ -23,7 +23,7 @@ class Training extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: ExpandableCatergory(
-              title: 'Treble Clef', modeButtonTree: sessionOne_Intro),
+              title: 'Treble Clef', modeButtonTree: sessionOne_TrebleClef),
         ),
         Align(
           alignment: Alignment.centerLeft,

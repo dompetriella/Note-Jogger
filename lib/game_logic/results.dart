@@ -25,6 +25,10 @@ double calculateCorrectAnswerPercentageAsDouble(WidgetRef ref) {
 
 int calculateCorrectAnswerPercentageAsInt(WidgetRef ref) {
   double percentCorrect = calculateCorrectAnswerPercentageAsDouble(ref) * 100;
+  // TODO: Weird state issue, need to fix
+  if (percentCorrect.isInfinite || percentCorrect.isNaN) {
+    percentCorrect = 0;
+  }
   return percentCorrect.toInt();
 }
 

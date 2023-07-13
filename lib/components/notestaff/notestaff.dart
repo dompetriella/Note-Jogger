@@ -27,7 +27,9 @@ class NoteStaff extends ConsumerWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding * size),
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.circular(20 * size)),
         child: Center(
             child: StaffContainer(
           size: size,

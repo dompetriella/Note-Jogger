@@ -5,6 +5,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:note_jogger/components/intermission_widget/intermission_messages.dart';
+import 'package:note_jogger/utility.dart';
 
 class IntermissionMessage extends HookConsumerWidget {
   final int duration;
@@ -47,7 +49,7 @@ class IntermissionMessage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Great Training!'.toUpperCase(),
+                  getRandomListItem(topMessage).toUpperCase(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 48,
@@ -56,7 +58,7 @@ class IntermissionMessage extends HookConsumerWidget {
                       color: Theme.of(context).colorScheme.tertiary),
                 ).animate(delay: firstMessageDelay.ms).fadeIn().slideY(),
                 Text(
-                  "Don't worry, I'll get the water".toUpperCase(),
+                  getRandomListItem(bottomMessage).toUpperCase(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 36,

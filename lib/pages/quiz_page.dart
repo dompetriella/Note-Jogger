@@ -14,8 +14,13 @@ class QuizPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: gameMode == GameMode.ranked
+            ? Theme.of(context).colorScheme.secondary
+            : Theme.of(context).colorScheme.background,
         appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            backgroundColor: gameMode == GameMode.ranked
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
             foregroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             automaticallyImplyLeading: false,

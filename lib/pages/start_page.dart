@@ -93,11 +93,13 @@ class StartPage extends ConsumerWidget {
                           // Transform.translate(
                           //   offset: Offset(0, 85),
                           //   child: AttentionButton(
-                          //     text:
-                          //         MediaQuery.of(context).size.height.toString(),
+                          //     text: 'Intermission Finish',
                           //     width: 240,
                           //     height: 70,
-                          //     onPressed: () {},
+                          //     onPressed: () {
+                          //       showIntermissionWidget(context, 8000,
+                          //           'start_page', GameMode.ranked);
+                          //     },
                           //   ),
                           // ),
                         ],
@@ -115,7 +117,11 @@ class StartPage extends ConsumerWidget {
 }
 
 class SignPost extends StatelessWidget {
+  final double width;
+  final double height;
   const SignPost({
+    this.height = 300,
+    this.width = 19,
     super.key,
   });
 
@@ -124,8 +130,8 @@ class SignPost extends StatelessWidget {
     return Transform.translate(
       offset: const Offset(20, -5),
       child: Container(
-        height: 300,
-        width: 19,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(10),

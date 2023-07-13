@@ -42,6 +42,8 @@ class HeartContainer extends StatelessWidget {
                 width: 30 * size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  border: Border.all(
+                      color: Theme.of(context).colorScheme.onPrimary, width: 4),
                   color:
                       Theme.of(context).colorScheme.tertiary.withOpacity(.95),
                 ),

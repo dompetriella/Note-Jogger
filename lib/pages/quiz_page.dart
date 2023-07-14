@@ -67,11 +67,19 @@ class QuizPage extends ConsumerWidget {
                   ),
               ],
             )),
-        body: SizedBox(
-          child: ref
-              .watch(quizStagingProvider.notifier)
-              .state[ref.watch(quizGenerateIndexStagingProvider)],
-        ),
+        body: MediaQuery.of(context).size.height > 600
+            ? SizedBox(
+                child: ref
+                    .watch(quizStagingProvider.notifier)
+                    .state[ref.watch(quizGenerateIndexStagingProvider)],
+              )
+            : ListView(
+                children: [
+                  ref
+                      .watch(quizStagingProvider.notifier)
+                      .state[ref.watch(quizGenerateIndexStagingProvider)],
+                ],
+              ),
       ),
     );
   }

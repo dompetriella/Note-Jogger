@@ -101,7 +101,7 @@ class PianoLabPage extends HookConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: NoteStaff(
                           showHints: true,
-                          size: .8,
+                          size: .6,
                           note: TrebleClefNotes
                               .values[ref.watch(noteOnPianoStaffProvider)],
                         ),

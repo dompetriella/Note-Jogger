@@ -44,7 +44,7 @@ List<Widget> circuitOne = [
     child: RankedPlayButton(
       title: 'Bass Clef Easy',
       modeNotes: trimClefNotes(
-          BassClefNotes.values.toList(), BassClefNotes.G2, BassClefNotes.A3,
+          BassClefNotes.values.toList(), BassClefNotes.G3, BassClefNotes.A4,
           includeFlats: false),
       gameMode: gameMode,
       rankedDifficulty: RankedDifficulty.easy,
@@ -55,7 +55,7 @@ List<Widget> circuitOne = [
     child: RankedPlayButton(
       title: 'Bass Clef Medium',
       modeNotes: trimClefNotes(BassClefNotes.values.toList(),
-          BassClefNotes.values.first, BassClefNotes.A3,
+          BassClefNotes.values.first, BassClefNotes.A4,
           includeFlats: false),
       gameMode: gameMode,
       rankedDifficulty: RankedDifficulty.medium,

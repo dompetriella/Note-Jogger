@@ -114,7 +114,7 @@ List<PlayButton> sessionOne_BassClef = [
     gameMode: gameMode,
     imagePath: 'assets/bass_clef.svg',
     modeNotes: trimClefNotes(
-        BassClefNotes.values.toList(), BassClefNotes.A2, BassClefNotes.G3,
+        BassClefNotes.values.toList(), BassClefNotes.G3, BassClefNotes.A4,
         spaceNotesOnly: true, includeFlats: false),
   ),
   PlayButton(
@@ -124,7 +124,7 @@ List<PlayButton> sessionOne_BassClef = [
     gameMode: gameMode,
     imagePath: 'assets/bass_clef.svg',
     modeNotes: trimClefNotes(
-        BassClefNotes.values.toList(), BassClefNotes.G2, BassClefNotes.A3,
+        BassClefNotes.values.toList(), BassClefNotes.G3, BassClefNotes.A4,
         lineNotesOnly: true, includeFlats: false),
   ),
   PlayButton(
@@ -134,7 +134,7 @@ List<PlayButton> sessionOne_BassClef = [
     imagePath: 'assets/bass_clef.svg',
     gameMode: gameMode,
     modeNotes: trimClefNotes(
-        BassClefNotes.values.toList(), BassClefNotes.G2, BassClefNotes.A3,
+        BassClefNotes.values.toList(), BassClefNotes.G3, BassClefNotes.A4,
         includeFlats: false),
   ),
   PlayButton(
@@ -142,7 +142,7 @@ List<PlayButton> sessionOne_BassClef = [
     subText: 'Notes above the staff',
     gameMode: gameMode,
     imagePath: 'assets/bass_clef.svg',
-    modeNotes: trimClefNotes(BassClefNotes.values.toList(), BassClefNotes.B2,
+    modeNotes: trimClefNotes(BassClefNotes.values.toList(), BassClefNotes.B4,
         BassClefNotes.values.last,
         includeFlats: false),
   ),
@@ -151,8 +151,8 @@ List<PlayButton> sessionOne_BassClef = [
     subText: 'Notes below the staff',
     gameMode: gameMode,
     imagePath: 'assets/bass_clef.svg',
-    modeNotes: trimClefNotes(BassClefNotes.values.toList(), BassClefNotes.F2,
-        BassClefNotes.values.first,
+    modeNotes: trimClefNotes(BassClefNotes.values.toList(),
+        BassClefNotes.values.first, BassClefNotes.F3,
         includeFlats: false),
   ),
   PlayButton(
@@ -170,7 +170,7 @@ List<PlayButton> sessionOne_BassClef = [
     gameMode: gameMode,
     imagePath: 'assets/bass_clef.svg',
     modeNotes: trimClefNotes(BassClefNotes.values.toList(),
-        BassClefNotes.values.first, BassClefNotes.A3,
+        BassClefNotes.values.first, BassClefNotes.A4,
         includeFlats: false),
   ),
   PlayButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -78,7 +79,11 @@ class StartPage extends ConsumerWidget {
                     children: [
                       Stack(
                         children: [
-                          const SignPost(),
+                          const SignPost().animate().slideY(
+                              delay: 400.ms,
+                              begin: -2.5,
+                              curve: Curves.easeInQuart,
+                              duration: 800.ms),
                           AttentionButton(
                             text: 'START',
                             width: 240,
@@ -89,7 +94,13 @@ class StartPage extends ConsumerWidget {
                                   .resetQuizGenerate(ref);
                               context.goNamed('select_mode_page');
                             },
-                          ),
+                          )
+                              .animate(delay: 1200.ms)
+                              .scaleX(
+                                  delay: 400.ms,
+                                  duration: 500.ms,
+                                  alignment: Alignment.centerLeft)
+                              .moveX(begin: 25),
                           // Transform.translate(
                           //   offset: Offset(0, 85),
                           //   child: AttentionButton(

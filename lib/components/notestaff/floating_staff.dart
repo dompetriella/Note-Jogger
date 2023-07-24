@@ -117,10 +117,10 @@ class NoteAndFloatingStaff extends StatelessWidget {
           ),
         if (isFlat)
           Transform.translate(
-            offset: Offset(-25, offset),
+            offset: Offset(-35 * size, offset * 1.25 * size),
             child: SizedBox(
-              height: 30,
-              width: 20,
+              height: 45 * size,
+              width: 25 * size,
               child: SvgPicture.asset(
                 'assets/flat.svg',
                 // colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),

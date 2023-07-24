@@ -79,11 +79,7 @@ class StartPage extends ConsumerWidget {
                     children: [
                       Stack(
                         children: [
-                          const SignPost().animate().slideY(
-                              delay: 400.ms,
-                              begin: -2.5,
-                              curve: Curves.easeInQuart,
-                              duration: 800.ms),
+                          const SignPost(),
                           AttentionButton(
                             text: 'START',
                             width: 240,
@@ -95,12 +91,7 @@ class StartPage extends ConsumerWidget {
                               context.goNamed('select_mode_page');
                             },
                           )
-                              .animate(delay: 1200.ms)
-                              .scaleX(
-                                  delay: 400.ms,
-                                  duration: 500.ms,
-                                  alignment: Alignment.centerLeft)
-                              .moveX(begin: 25),
+
                           // Transform.translate(
                           //   offset: Offset(0, 85),
                           //   child: AttentionButton(
